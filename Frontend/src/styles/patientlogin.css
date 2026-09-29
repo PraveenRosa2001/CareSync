@@ -1,0 +1,316 @@
+
+.login-page-container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+}
+
+.left-login-page-container,
+.right-login-page-container {
+  flex: 1;
+}
+
+.left-login-page-container {
+  background-image: url('../assets/doctor_consultation.png');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  overflow: hidden;
+}
+
+.left-login-page-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3); 
+  z-index: 1;
+}
+
+.welcome-patient-message {
+  z-index: 1;
+  position: relative;
+  text-align: center;
+  color: rgb(255, 255, 255);
+}
+
+.welcome-patient-message h1 {
+  font-size: 3.5em;
+  font-weight: bold;
+}
+
+.right-login-page-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px;
+}
+
+.popup-message-login{
+
+  color: #007bff;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.form-content {
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  
+}
+
+.right-login-page-container label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+  color: #555;
+}
+
+.right-login-page-container input {
+  width: 95%;
+  padding: 10px;
+  margin: 5px 0 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  color: #333;
+  font-size: 16px;
+}
+
+
+.right-login-page-container .b1 {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.right-login-page-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Added box shadow */
+}
+
+
+
+
+
+.right-login-page-container button:hover {
+  background-color: #0056b3;
+}
+
+.cancel-btn {
+  background-color: #dc3545;
+  margin-top: 10px;
+}
+
+.cancel-btn:hover {
+  background-color: #c82333;
+}
+
+.right-login-page-container a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.right-login-page-container a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .login-page-container {
+    flex-direction: column;
+  }
+
+  .left-login-page-container, .right-login-page-container {
+    flex: none;
+    height: 52vh;
+    padding: 20px;
+  }
+
+  .welcome-patient-message h1 {
+    font-size: 2.5em;
+  }
+
+  .right-login-page-container {
+    padding: 20px;
+  }
+
+  .right-login-page-container .b1 {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .form-content {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-patient-message h1 {
+    font-size: 2em;
+  }
+
+  .right-login-page-container .b1 {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .form-content {
+    max-width: 100%;
+    padding: 10px;
+    /* max-height: 200px; */
+  }
+}
+
+
+
+.popup-patient {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Ensure it stays on top of other elements */
+}
+
+.popup-content-patient {
+  position: relative; /* To position the close button relative to the popup */
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  width: 450px;
+  max-width: 90%;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-button:hover {
+  color: #ff0000;
+}
+
+.card-login {
+  width: 400px;
+  height:500px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.profile-image2 {
+  width: 200PX;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+
+.popup-content-patient h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.user-list {
+  max-height: 300px;
+  overflow:auto; /* Enable scroll if the list exceeds max height */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  /* background-color: #f9f9f9; */
+  transition: background-color 0.3s ease;
+}
+
+.list:hover {
+  background-color: #f1f1f1;
+}
+
+.list label {
+  font-size: 1rem;
+  color: #555;
+  text-align: left;
+}
+
+.list input[type="checkbox"] {
+  accent-color: #007bff;; /* Modern checkbox color */
+  transform: scale(1.2); /* Make it larger */
+}
+
+/* button {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+} */
+
+.b1:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* button:hover:not(:disabled) {
+  background-color: #45a049;
+} */
+
+
+/* .popup-content-patient button:hover {
+  background-color: #c82333;
+} */

@@ -1,0 +1,525 @@
+/* patientappoinment.css */
+.mobile-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0; /* Light gray background for the mobile display */
+  padding: 30px; /* Space around the mobile device */
+}
+
+
+.screen4 .button-group {
+  display: flex;
+  gap: 10px; /* Adjust the gap as needed */
+}
+.screen4
+.btn-confirm,
+.btn-back {
+  padding: 8px 16px;
+}
+
+.appoinments-lists{
+
+
+  margin-bottom: 10px;
+}
+
+
+
+.appoinment-screen-container {
+  margin: 0 auto;
+  padding: 20px;
+  background: transparent;
+  border-radius: 8px;
+  height: auto;
+  overflow: scroll;
+  overflow-x: hidden;
+  
+  /* max-width: 345px; */
+}
+
+/* Style for the scrollbar */
+.appoinment-screen-container::-webkit-scrollbar {
+  width: 6px;  /* Set the width of the scrollbar */
+}
+
+.appoinment-screen-container::-webkit-scrollbar-track {
+  background: transparent;  /* Set the track background */
+}
+
+.appoinment-screen-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2); /* Set the thumb color */
+  border-radius: 10px; /* Rounded corners for the thumb */
+}
+
+
+
+
+/* Media query for mobile screens */
+@media (max-width: 600px) {
+  .appoinment-screen-container {
+    padding: 15px; /* Reduced padding for smaller screens */
+    max-width: 100%; /* Allow the container to take full width */
+  }
+}
+
+
+
+
+.mobile-frame {
+  width: 340px; 
+  height: 500px; 
+  
+  border-radius: 36px;
+  
+  margin:0 auto;
+  /* padding: 40px; */
+}
+
+
+/* Media query for screens below 400px */
+@media (max-width: 400px) {
+  .mobile-frame {
+    width: 100%; /* Take full width */
+    height: auto; /* Dynamic height */
+    margin: 10px;
+    border-radius: 16px;
+  }
+
+  .appoinment-screen-container {
+    padding: 10px; /* Reduce padding for better spacing */
+    max-width: 100%; /* Ensure it fits parent container */
+    height: auto; /* Allow content height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    scrollbar-width: thin; /* Slim scrollbar */
+  }
+
+  /* Styled scrollbar for smaller screens */
+  .appoinment-screen-container::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .appoinment-screen-container::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+  }
+}
+
+/* Base styles to ensure responsiveness */
+.appoinment-screen-container {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: auto; /* Dynamic content height */
+}
+
+.appoinment-screen-container::-webkit-scrollbar {
+  width: 6px; /* Consistent scrollbar width */
+}
+
+.appoinment-screen-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.appoinment-screen-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+
+@media (max-width: 400px) {
+  .screen3 {
+      margin: 20px auto;
+      max-width: 300px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .screen3 {
+      max-width: 300px;
+  }
+}
+
+
+/* @media (max-width: 480px) {
+  .mobile-frame {
+    width: 95%;
+    padding: 15px;
+  }
+} */
+
+
+.screen4 button{
+
+
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+
+
+}
+
+
+.screen0,
+.screen1,
+.screen2,
+
+.screen4 {
+  max-width: 600px;
+  margin: 20px auto; /* Centers the screen */  
+
+}
+
+
+
+/* Login Screen */
+.login-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-screen h1 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.login-screen label {
+  margin: 10px 0 5px;
+}
+
+.login-screen input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.login-screen button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.login-screen button:hover {
+  background-color: #0056b3;
+}
+
+/* Common screen styles */
+.screen1, .screen2, .screen3, .screen4, .screen5,.login-screen {
+  display: none; /* Hide all screens by default */
+}
+.login-screen.active,
+.screen1.active,
+.screen2.active,
+.screen3.active,
+.screen4.active,
+.screen5.active {
+  display: block; /* Show the active screen */
+}
+
+/* Screen 1 */
+.screen1 h1 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.screen1 input[type="search"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.screen1 select{
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+
+}
+
+
+
+
+.doctor-suggestions {
+  list-style-type: none;
+  padding: 0;
+}
+
+.doctor-suggestions li {
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-top: 5px;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.doctor-suggestions li:hover {
+  background-color: #e9ecef;
+}
+
+
+.screen1 p{
+
+  color: #dc3545;
+}
+
+/* Screen 2 */
+.screen2 {
+  margin-top: 20px;
+}
+
+.screen2 p {
+  margin: 10px 0;
+}
+
+/* Screen 3 */
+.screen3 {
+  margin-top: 20px;
+}
+
+.screen3 ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.screen3 li {
+  padding: 15px;
+    
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  margin: 5px 0;
+}
+
+
+.screen3 button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.screen3 button:hover {
+  background-color: #0056b3;
+}
+
+/* Screen 4 */
+.screen4 {
+  margin-top: 20px;
+}
+
+.screen4 input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Screen 5 */
+.screen5 {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.screen5 button{
+
+  padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+
+
+.screen5 button:hover{
+
+
+  background-color: #0056b3;
+}
+
+/* Button styling */
+.btn-search-appointment {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-search-appointment:hover {
+  background-color: #0056b3;
+}
+/* Screen 2: Display Doctors */
+.screen2 {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.screen2 ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.screen2 li {
+  /* display: flex; */
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  background-color: #fff;
+}
+.doctor-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.doctor-item {
+  display: flex;
+  justify-content: space-between; /* Spreads the content between the left and right */
+  align-items: center; /* Vertically centers the icon and text */
+  padding: 10px;
+  border-bottom: 1px solid #ddd; /* Adds a separator between the items */
+}
+
+.doctor-details {
+  display: flex;
+  flex-direction: column; /* Stacks name and specialization vertically */
+}
+
+.channel-icon {
+  font-size: 1.5rem; /* Adjust icon size */
+  color: #007bff; /* Blue color for the icon */
+  margin-left: auto; /* Align the icon to the right */
+}
+
+.screen2 li p {
+  margin: 0;
+  font-weight: 500;
+}
+
+.screen2 button {
+  padding: 8px 16px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.screen2 button:hover {
+  background-color: #0056b3;
+}
+
+.screen2 p {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.screen2 h1 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.screen2 .back-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.screen2 .back-button:hover {
+  background-color: #0056b3;
+}
+.screen3 .bookings-filled {
+  font-size: 16px;
+  font-weight: bold;
+  color: #dc3545; /* Red color to indicate filled bookings */
+  background-color: #f8d7da; /* Light red background for visibility */
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+
+
+/* Mobile frame and patient appointment screen styles for max-width: 400px */
+/* Mobile frame and appointment screen responsive styles */
+@media (max-width: 400px) {
+  .mobile-frame {
+    width: 100%; /* Ensure it takes full width */
+    height: auto; /* Adjust height dynamically */
+    margin: 10px;
+    border-radius: 16px;
+  }
+
+  .appoinment-screen-container {
+    padding: 10px; /* Reduced padding for smaller screens */
+    max-width: 100%; /* Ensure it fits the parent container */
+    height: 100%; /* Ensure it uses the full height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    scrollbar-width: thin; /* Keep scrollbar visible but slim */
+  }
+
+  .appoinment-screen-container::-webkit-scrollbar {
+    width: 6px; /* Set a fixed width for the scrollbar */
+  }
+
+  .appoinment-screen-container::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2); /* Styled scrollbar thumb */
+    border-radius: 10px; /* Rounded corners for the scrollbar */
+  }
+}
+
+/* Base styles to prevent scrollbar disappearance */
+.appoinment-screen-container {
+  overflow-y: auto; /* Always enable vertical scrolling */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  height: auto; /* Allow content to determine height */
+}
+
+/* Maintain scrollbar visibility and functionality across all screen sizes */
+.appoinment-screen-container::-webkit-scrollbar {
+  width: 6px; /* Set a consistent scrollbar width */
+}
+
+.appoinment-screen-container::-webkit-scrollbar-track {
+  background: transparent; /* Transparent track */
+}
+
+.appoinment-screen-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2); /* Styled thumb */
+  border-radius: 10px; /* Rounded scrollbar corners */
+}
+
+

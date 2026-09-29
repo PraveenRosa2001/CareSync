@@ -1,0 +1,4310 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "WebApplication1",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/AppoinmentLogin/CheckUserExists": {
+      "post": {
+        "tags": [
+          "AppoinmentLogin"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppoinmentLoginModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppoinmentLoginModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppoinmentLoginModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/AppoinmentLogin/RequestOtp": {
+      "post": {
+        "tags": [
+          "AppoinmentLogin"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppoinmentLoginModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppoinmentLoginModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppoinmentLoginModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/AppoinmentLogin/VerifyOtp": {
+      "post": {
+        "tags": [
+          "AppoinmentLogin"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppoinmentLoginModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppoinmentLoginModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppoinmentLoginModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/AppoinmentLogin/userlists": {
+      "post": {
+        "tags": [
+          "AppoinmentLogin"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppoinmentLoginModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppoinmentLoginModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppoinmentLoginModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/AppoinmentLogin/patient-login-api": {
+      "post": {
+        "tags": [
+          "AppoinmentLogin"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppoinmentLoginModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppoinmentLoginModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppoinmentLoginModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/AppoinmentLogin/Login": {
+      "post": {
+        "tags": [
+          "AppoinmentLogin"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppoinmentLoginModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppoinmentLoginModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppoinmentLoginModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Appointment": {
+      "post": {
+        "tags": [
+          "Appointment"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_APPOINMENT_DETAILS"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_APPOINMENT_DETAILS"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_APPOINMENT_DETAILS"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_APPOINMENT_DETAILS"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_APPOINMENT_DETAILS"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_APPOINMENT_DETAILS"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Appointment"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_APPOINMENT_DETAILS"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_APPOINMENT_DETAILS"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_APPOINMENT_DETAILS"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Appointment/{id}": {
+      "get": {
+        "tags": [
+          "Appointment"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_APPOINMENT_DETAILS"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_APPOINMENT_DETAILS"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_APPOINMENT_DETAILS"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Appointment/getappoinments/doctor": {
+      "get": {
+        "tags": [
+          "Appointment"
+        ],
+        "parameters": [
+          {
+            "name": "doctor",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Appointment/appointments/{slotId}": {
+      "get": {
+        "tags": [
+          "Appointment"
+        ],
+        "parameters": [
+          {
+            "name": "slotId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Appointment/tomorrows-appointments": {
+      "get": {
+        "tags": [
+          "Appointment"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Appointment/send-appointment-confirmation/{appointmentId}": {
+      "post": {
+        "tags": [
+          "Appointment"
+        ],
+        "parameters": [
+          {
+            "name": "appointmentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Appointment/cancel-appointment/{id}": {
+      "delete": {
+        "tags": [
+          "Appointment"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Appointment/Test/{id}": {
+      "get": {
+        "tags": [
+          "Appointment"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Appointment/getappointment/patientcode": {
+      "get": {
+        "tags": [
+          "Appointment"
+        ],
+        "parameters": [
+          {
+            "name": "patientcode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Appointment/getappointment/email": {
+      "get": {
+        "tags": [
+          "Appointment"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Drug": {
+      "get": {
+        "tags": [
+          "Drug"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Drug"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Drug/Drugdetails/{patientcode}": {
+      "get": {
+        "tags": [
+          "Drug"
+        ],
+        "parameters": [
+          {
+            "name": "patientcode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Drug/${serialNo}": {
+      "get": {
+        "tags": [
+          "Drug"
+        ],
+        "parameters": [
+          {
+            "name": "serialNo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Drug/{serialNo}": {
+      "put": {
+        "tags": [
+          "Drug"
+        ],
+        "parameters": [
+          {
+            "name": "serialNo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Drug/drugstatusupdate": {
+      "put": {
+        "tags": [
+          "Drug"
+        ],
+        "parameters": [
+          {
+            "name": "patientCode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serialNo",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "materialCode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Drug/{patientID}/{serialNo}": {
+      "put": {
+        "tags": [
+          "Drug"
+        ],
+        "parameters": [
+          {
+            "name": "patientID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serialNo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Drug/{serialNO}": {
+      "get": {
+        "tags": [
+          "Drug"
+        ],
+        "parameters": [
+          {
+            "name": "serialNO",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Drug/{patientCode}/{serialNo}/{materialCode}": {
+      "get": {
+        "tags": [
+          "Drug"
+        ],
+        "parameters": [
+          {
+            "name": "patientCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serialNo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "materialCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Drug"
+        ],
+        "parameters": [
+          {
+            "name": "patientCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serialNo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "materialCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Drug"
+        ],
+        "parameters": [
+          {
+            "name": "patientCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serialNo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "materialCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Drug/patient/{patientId}/{serialNumber}": {
+      "get": {
+        "tags": [
+          "Drug"
+        ],
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serialnumber",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Login/Login": {
+      "post": {
+        "tags": [
+          "Login"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Material/{id}": {
+      "get": {
+        "tags": [
+          "Material"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Material"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_MATERIAL_CATALOGUE"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_MATERIAL_CATALOGUE"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_MATERIAL_CATALOGUE"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Material"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Material": {
+      "get": {
+        "tags": [
+          "Material"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Material"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_MATERIAL_CATALOGUE"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_MATERIAL_CATALOGUE"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_MATERIAL_CATALOGUE"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Material/search": {
+      "get": {
+        "tags": [
+          "Material"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Material/updatematerialstatus": {
+      "put": {
+        "tags": [
+          "Material"
+        ],
+        "parameters": [
+          {
+            "name": "materialcode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Patient": {
+      "get": {
+        "tags": [
+          "Patient"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_PATIENTS_DETAILS"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_PATIENTS_DETAILS"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_PATIENTS_DETAILS"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Patient/{id}": {
+      "get": {
+        "tags": [
+          "Patient"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_PATIENTS_DETAILS"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_PATIENTS_DETAILS"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_PATIENTS_DETAILS"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Patient"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "MPD_MOBILE_NO"
+                ],
+                "type": "object",
+                "properties": {
+                  "MPD_PATIENT_CODE": {
+                    "type": "string"
+                  },
+                  "MPD_PATIENT_NAME": {
+                    "type": "string"
+                  },
+                  "MPD_PATIENT_TYPE": {
+                    "type": "string"
+                  },
+                  "MPD_MOBILE_NO": {
+                    "type": "string"
+                  },
+                  "MPD_NIC_NO": {
+                    "type": "string"
+                  },
+                  "MPD_PATIENT_REMARKS": {
+                    "type": "string"
+                  },
+                  "MPD_ADDRESS": {
+                    "type": "string"
+                  },
+                  "MPD_GENDER": {
+                    "type": "string"
+                  },
+                  "MPD_CITY": {
+                    "type": "string"
+                  },
+                  "MPD_GUARDIAN": {
+                    "type": "string"
+                  },
+                  "MPD_GUARDIAN_CONTACT_NO": {
+                    "type": "string"
+                  },
+                  "MPD_STATUS": {
+                    "maxLength": 1,
+                    "minLength": 0,
+                    "type": "string"
+                  },
+                  "MPD_CREATED_BY": {
+                    "type": "string"
+                  },
+                  "MPD_CREATED_DATE": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "MPD_UPDATED_BY": {
+                    "type": "string"
+                  },
+                  "MPD_UPDATED_DATE": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "MPD_BIRTHDAY": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "MPD_PASSWORD": {
+                    "type": "string"
+                  },
+                  "MPD_EMAIL": {
+                    "type": "string"
+                  },
+                  "MPD_PHOTO": {
+                    "type": "string",
+                    "format": "byte"
+                  },
+                  "test": {
+                    "type": "string"
+                  },
+                  "profileImage": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "MPD_PATIENT_CODE": {
+                  "style": "form"
+                },
+                "MPD_PATIENT_NAME": {
+                  "style": "form"
+                },
+                "MPD_PATIENT_TYPE": {
+                  "style": "form"
+                },
+                "MPD_MOBILE_NO": {
+                  "style": "form"
+                },
+                "MPD_NIC_NO": {
+                  "style": "form"
+                },
+                "MPD_PATIENT_REMARKS": {
+                  "style": "form"
+                },
+                "MPD_ADDRESS": {
+                  "style": "form"
+                },
+                "MPD_GENDER": {
+                  "style": "form"
+                },
+                "MPD_CITY": {
+                  "style": "form"
+                },
+                "MPD_GUARDIAN": {
+                  "style": "form"
+                },
+                "MPD_GUARDIAN_CONTACT_NO": {
+                  "style": "form"
+                },
+                "MPD_STATUS": {
+                  "style": "form"
+                },
+                "MPD_CREATED_BY": {
+                  "style": "form"
+                },
+                "MPD_CREATED_DATE": {
+                  "style": "form"
+                },
+                "MPD_UPDATED_BY": {
+                  "style": "form"
+                },
+                "MPD_UPDATED_DATE": {
+                  "style": "form"
+                },
+                "MPD_BIRTHDAY": {
+                  "style": "form"
+                },
+                "MPD_PASSWORD": {
+                  "style": "form"
+                },
+                "MPD_EMAIL": {
+                  "style": "form"
+                },
+                "MPD_PHOTO": {
+                  "style": "form"
+                },
+                "test": {
+                  "style": "form"
+                },
+                "profileImage": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Patient"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Patient/patient-registration": {
+      "post": {
+        "tags": [
+          "Patient"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_PATIENTS_DETAILS"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_PATIENTS_DETAILS"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_PATIENTS_DETAILS"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Patient/update/{patientCode}": {
+      "patch": {
+        "tags": [
+          "Patient"
+        ],
+        "parameters": [
+          {
+            "name": "patientCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_PATIENTS_DETAILS"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_PATIENTS_DETAILS"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_PATIENTS_DETAILS"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Patient/patient/findbyemail": {
+      "get": {
+        "tags": [
+          "Patient"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Patient/patient/findbyid": {
+      "get": {
+        "tags": [
+          "Patient"
+        ],
+        "parameters": [
+          {
+            "name": "patientcode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Patient/SearchBy/{searchTerm}": {
+      "get": {
+        "tags": [
+          "Patient"
+        ],
+        "parameters": [
+          {
+            "name": "searchTerm",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_PATIENTS_DETAILS"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_PATIENTS_DETAILS"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_PATIENTS_DETAILS"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/RegisterUser": {
+      "post": {
+        "tags": [
+          "RegisterUser"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_APPOINTMENT_USERS"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_APPOINTMENT_USERS"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_APPOINTMENT_USERS"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Timeslot/{id}": {
+      "get": {
+        "tags": [
+          "Timeslot"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_TIMESLOT"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_TIMESLOT"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_TIMESLOT"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Timeslot"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Timeslot": {
+      "get": {
+        "tags": [
+          "Timeslot"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_TIMESLOT"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_TIMESLOT"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_TIMESLOT"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Timeslot"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_TIMESLOT"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_TIMESLOT"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_TIMESLOT"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_TIMESLOT"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_TIMESLOT"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_TIMESLOT"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Timeslot/Doctor/{doctorName}": {
+      "get": {
+        "tags": [
+          "Timeslot"
+        ],
+        "parameters": [
+          {
+            "name": "doctorName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_TIMESLOT"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_TIMESLOT"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_TIMESLOT"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Timeslot/Doctorid/{userid}": {
+      "get": {
+        "tags": [
+          "Timeslot"
+        ],
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_TIMESLOT"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_TIMESLOT"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_TIMESLOT"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Timeslot/active-timeslots": {
+      "get": {
+        "tags": [
+          "Timeslot"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_TIMESLOT"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_TIMESLOT"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_TIMESLOT"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Timeslot/timeslotcard/{date}/{name}/{role}": {
+      "get": {
+        "tags": [
+          "Timeslot"
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "role",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_TIMESLOT"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_TIMESLOT"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_TIMESLOT"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Timeslot/update-status/{id}": {
+      "put": {
+        "tags": [
+          "Timeslot"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Timeslot/{id}/incrementSeat": {
+      "patch": {
+        "tags": [
+          "Timeslot"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Treatment/{patientId}/{serialNo}": {
+      "get": {
+        "tags": [
+          "Treatment"
+        ],
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serialNo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_TREATMENT_DETAILS"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_TREATMENT_DETAILS"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_TREATMENT_DETAILS"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Treatment/{patientID}/{serialNO}": {
+      "put": {
+        "tags": [
+          "Treatment"
+        ],
+        "parameters": [
+          {
+            "name": "patientID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serialNO",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_TREATMENT_DETAILS"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_TREATMENT_DETAILS"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_TREATMENT_DETAILS"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_TREATMENT_DETAILS"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_TREATMENT_DETAILS"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_TREATMENT_DETAILS"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Treatment": {
+      "post": {
+        "tags": [
+          "Treatment"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_TREATMENT_DETAILS"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_TREATMENT_DETAILS"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_TREATMENT_DETAILS"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_TREATMENT_DETAILS"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_TREATMENT_DETAILS"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_TREATMENT_DETAILS"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Treatment/{id}": {
+      "get": {
+        "tags": [
+          "Treatment"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_TREATMENT_DETAILS"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_TREATMENT_DETAILS"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_TREATMENT_DETAILS"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Treatment/patient/{patientId}": {
+      "get": {
+        "tags": [
+          "Treatment"
+        ],
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_TREATMENT_DETAILS"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_TREATMENT_DETAILS"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_TREATMENT_DETAILS"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Treatment/match/{patientId}/{serialNo}": {
+      "get": {
+        "tags": [
+          "Treatment"
+        ],
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serialNo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Treatment/preparationcomplete": {
+      "get": {
+        "tags": [
+          "Treatment"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Treatment/update/status/{patientId}/{serialNo}": {
+      "patch": {
+        "tags": [
+          "Treatment"
+        ],
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serialNo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/MED_DRUGS_DETAILS"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Treatment/{serialNo}": {
+      "get": {
+        "tags": [
+          "Treatment"
+        ],
+        "parameters": [
+          {
+            "name": "serialNo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Treatment/patientdetail/treatmentdetail/{patientId}/{serialNo}": {
+      "get": {
+        "tags": [
+          "Treatment"
+        ],
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serialNo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Treatment/patient/record/{patientId}/{serialNo}": {
+      "get": {
+        "tags": [
+          "Treatment"
+        ],
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serialNo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Treatment/Gettreatments/{patientId}": {
+      "get": {
+        "tags": [
+          "Treatment"
+        ],
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Treatment/updatingtreatment/{patientid}/{serialno}": {
+      "post": {
+        "tags": [
+          "Treatment"
+        ],
+        "parameters": [
+          {
+            "name": "patientid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serialno",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TreatmentAndDrugsUpdateModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TreatmentAndDrugsUpdateModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TreatmentAndDrugsUpdateModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Treatment/send-prescription-message/{patientId}/{serialNo}": {
+      "post": {
+        "tags": [
+          "Treatment"
+        ],
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serialNo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/User": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "MUD_PASSWORD",
+                  "MUD_USER_TYPE"
+                ],
+                "type": "object",
+                "properties": {
+                  "MUD_USER_ID": {
+                    "maxLength": 7,
+                    "minLength": 0,
+                    "type": "string"
+                  },
+                  "MUD_PASSWORD": {
+                    "type": "string"
+                  },
+                  "MUD_USER_TYPE": {
+                    "type": "string"
+                  },
+                  "MUD_USER_NAME": {
+                    "maxLength": 100,
+                    "minLength": 0,
+                    "type": "string"
+                  },
+                  "MUD_STATUS": {
+                    "maxLength": 1,
+                    "minLength": 0,
+                    "type": "string"
+                  },
+                  "MUD_CREATED_DATE": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "MUD_CREATED_BY": {
+                    "maxLength": 7,
+                    "minLength": 0,
+                    "type": "string"
+                  },
+                  "MUD_EMAIL": {
+                    "type": "string"
+                  },
+                  "MUD_CONTACT": {
+                    "type": "string"
+                  },
+                  "MUD_NIC_NO": {
+                    "type": "string"
+                  },
+                  "MUD_FULL_NAME": {
+                    "type": "string"
+                  },
+                  "MUD_UPDATED_DATE": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "MUD_UPDATED_BY": {
+                    "maxLength": 7,
+                    "minLength": 0,
+                    "type": "string"
+                  },
+                  "MUD_PHOTO": {
+                    "type": "string",
+                    "format": "byte"
+                  },
+                  "MUD_SPECIALIZATION": {
+                    "type": "string"
+                  },
+                  "ContentType": {
+                    "type": "string"
+                  },
+                  "ContentDisposition": {
+                    "type": "string"
+                  },
+                  "Headers": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "Length": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "Name": {
+                    "type": "string"
+                  },
+                  "FileName": {
+                    "type": "string"
+                  }
+                }
+              },
+              "encoding": {
+                "MUD_USER_ID": {
+                  "style": "form"
+                },
+                "MUD_PASSWORD": {
+                  "style": "form"
+                },
+                "MUD_USER_TYPE": {
+                  "style": "form"
+                },
+                "MUD_USER_NAME": {
+                  "style": "form"
+                },
+                "MUD_STATUS": {
+                  "style": "form"
+                },
+                "MUD_CREATED_DATE": {
+                  "style": "form"
+                },
+                "MUD_CREATED_BY": {
+                  "style": "form"
+                },
+                "MUD_EMAIL": {
+                  "style": "form"
+                },
+                "MUD_CONTACT": {
+                  "style": "form"
+                },
+                "MUD_NIC_NO": {
+                  "style": "form"
+                },
+                "MUD_FULL_NAME": {
+                  "style": "form"
+                },
+                "MUD_UPDATED_DATE": {
+                  "style": "form"
+                },
+                "MUD_UPDATED_BY": {
+                  "style": "form"
+                },
+                "MUD_PHOTO": {
+                  "style": "form"
+                },
+                "MUD_SPECIALIZATION": {
+                  "style": "form"
+                },
+                "ContentType": {
+                  "style": "form"
+                },
+                "ContentDisposition": {
+                  "style": "form"
+                },
+                "Headers": {
+                  "style": "form"
+                },
+                "Length": {
+                  "style": "form"
+                },
+                "Name": {
+                  "style": "form"
+                },
+                "FileName": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_USER_DETAILS"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_USER_DETAILS"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_USER_DETAILS"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_USER_DETAILS"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_USER_DETAILS"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_USER_DETAILS"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/User/doctorname/specialization": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "specialization",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_USER_DETAILS"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_USER_DETAILS"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_USER_DETAILS"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/User/doctorid/specialization": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "specialization",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_USER_DETAILS"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_USER_DETAILS"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_USER_DETAILS"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/User/{id}": {
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_USER_DETAILS"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_USER_DETAILS"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_USER_DETAILS"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "MUD_PASSWORD",
+                  "MUD_USER_TYPE"
+                ],
+                "type": "object",
+                "properties": {
+                  "MUD_USER_ID": {
+                    "maxLength": 7,
+                    "minLength": 0,
+                    "type": "string"
+                  },
+                  "MUD_PASSWORD": {
+                    "type": "string"
+                  },
+                  "MUD_USER_TYPE": {
+                    "type": "string"
+                  },
+                  "MUD_USER_NAME": {
+                    "maxLength": 100,
+                    "minLength": 0,
+                    "type": "string"
+                  },
+                  "MUD_STATUS": {
+                    "maxLength": 1,
+                    "minLength": 0,
+                    "type": "string"
+                  },
+                  "MUD_CREATED_DATE": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "MUD_CREATED_BY": {
+                    "maxLength": 7,
+                    "minLength": 0,
+                    "type": "string"
+                  },
+                  "MUD_EMAIL": {
+                    "type": "string"
+                  },
+                  "MUD_CONTACT": {
+                    "type": "string"
+                  },
+                  "MUD_NIC_NO": {
+                    "type": "string"
+                  },
+                  "MUD_FULL_NAME": {
+                    "type": "string"
+                  },
+                  "MUD_UPDATED_DATE": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "MUD_UPDATED_BY": {
+                    "maxLength": 7,
+                    "minLength": 0,
+                    "type": "string"
+                  },
+                  "MUD_PHOTO": {
+                    "type": "string",
+                    "format": "byte"
+                  },
+                  "MUD_SPECIALIZATION": {
+                    "type": "string"
+                  }
+                }
+              },
+              "encoding": {
+                "MUD_USER_ID": {
+                  "style": "form"
+                },
+                "MUD_PASSWORD": {
+                  "style": "form"
+                },
+                "MUD_USER_TYPE": {
+                  "style": "form"
+                },
+                "MUD_USER_NAME": {
+                  "style": "form"
+                },
+                "MUD_STATUS": {
+                  "style": "form"
+                },
+                "MUD_CREATED_DATE": {
+                  "style": "form"
+                },
+                "MUD_CREATED_BY": {
+                  "style": "form"
+                },
+                "MUD_EMAIL": {
+                  "style": "form"
+                },
+                "MUD_CONTACT": {
+                  "style": "form"
+                },
+                "MUD_NIC_NO": {
+                  "style": "form"
+                },
+                "MUD_FULL_NAME": {
+                  "style": "form"
+                },
+                "MUD_UPDATED_DATE": {
+                  "style": "form"
+                },
+                "MUD_UPDATED_BY": {
+                  "style": "form"
+                },
+                "MUD_PHOTO": {
+                  "style": "form"
+                },
+                "MUD_SPECIALIZATION": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/User/suggest": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/User/suggest/doctor": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/User/checkuserexists": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/User/update-password": {
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePasswordRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePasswordRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePasswordRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/UserType": {
+      "post": {
+        "tags": [
+          "UserType"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_USER_TYPES"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_USER_TYPES"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MED_USER_TYPES"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_USER_TYPES"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_USER_TYPES"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_USER_TYPES"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UserType/{id}": {
+      "get": {
+        "tags": [
+          "UserType"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_USER_TYPES"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_USER_TYPES"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MED_USER_TYPES"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/WeatherForecast": {
+      "get": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "operationId": "GetWeatherForecast",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AppoinmentLoginModel": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "contact": {
+            "type": "string",
+            "nullable": true
+          },
+          "patientcode": {
+            "type": "string",
+            "nullable": true
+          },
+          "otp": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DateOnly": {
+        "type": "object",
+        "properties": {
+          "Year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Month": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Day": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "DayOfWeek": {
+            "$ref": "#/components/schemas/DayOfWeek"
+          },
+          "DayOfYear": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "DayNumber": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DayOfWeek": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "DrugUpdateModel": {
+        "type": "object",
+        "properties": {
+          "MDD_MATERIAL_CODE": {
+            "type": "string",
+            "nullable": true
+          },
+          "MDD_QUANTITY": {
+            "type": "number",
+            "format": "double"
+          },
+          "MDD_RATE": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "MDD_AMOUNT": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "MDD_DOSAGE": {
+            "type": "string",
+            "nullable": true
+          },
+          "MDD_TAKES": {
+            "type": "string",
+            "nullable": true
+          },
+          "MDD_GIVEN_QUANTITY": {
+            "type": "number",
+            "format": "double"
+          },
+          "MDD_STATUS": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginModel": {
+        "type": "object",
+        "properties": {
+          "Username": {
+            "type": "string",
+            "nullable": true
+          },
+          "Password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MED_APPOINMENT_DETAILS": {
+        "type": "object",
+        "properties": {
+          "MAD_APPOINMENT_ID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "MAD_FULL_NAME": {
+            "type": "string",
+            "nullable": true
+          },
+          "MAD_CONTACT": {
+            "type": "string",
+            "nullable": true
+          },
+          "MAD_PATIENT_NO": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "MAD_START_TIME": {
+            "$ref": "#/components/schemas/TimeSpan"
+          },
+          "MAD_END_TIME": {
+            "$ref": "#/components/schemas/TimeSpan"
+          },
+          "MAD_APPOINMENT_DATE": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "MAD_DOCTOR": {
+            "type": "string",
+            "nullable": true
+          },
+          "MAD_EMAIL": {
+            "type": "string",
+            "nullable": true
+          },
+          "MAD_ALLOCATED_TIME": {
+            "$ref": "#/components/schemas/TimeSpan"
+          },
+          "MAD_STATUS": {
+            "maxLength": 1,
+            "type": "string",
+            "nullable": true
+          },
+          "MAD_PATIENT_CODE": {
+            "type": "string",
+            "nullable": true
+          },
+          "MAD_SLOT_ID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "MAD_USER_ID": {
+            "type": "string",
+            "nullable": true
+          },
+          "MAD_CONFIRMATION_SENT": {
+            "type": "boolean"
+          },
+          "MAD_CONFIRMATION_SENT_DATE": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MED_APPOINTMENT_USERS": {
+        "required": [
+          "MAU_ADDRESS",
+          "MAU_CONTACT",
+          "MAU_EMAIL",
+          "MAU_NIC",
+          "MAU_PASSWORD"
+        ],
+        "type": "object",
+        "properties": {
+          "MAU_USER_ID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "MAU_EMAIL": {
+            "maxLength": 500,
+            "minLength": 0,
+            "type": "string"
+          },
+          "MAU_NIC": {
+            "maxLength": 13,
+            "minLength": 0,
+            "type": "string"
+          },
+          "MAU_CONTACT": {
+            "maxLength": 13,
+            "minLength": 0,
+            "type": "string"
+          },
+          "MAU_ADDRESS": {
+            "maxLength": 500,
+            "minLength": 0,
+            "type": "string"
+          },
+          "MAU_PASSWORD": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MED_DRUGS_DETAILS": {
+        "type": "object",
+        "properties": {
+          "MDD_PATIENT_CODE": {
+            "type": "string",
+            "nullable": true
+          },
+          "MDD_SERIAL_NO": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "MDD_MATERIAL_CODE": {
+            "type": "string",
+            "nullable": true
+          },
+          "MDD_QUANTITY": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "MDD_RATE": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "MDD_AMOUNT": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "MDD_DOSAGE": {
+            "type": "string",
+            "nullable": true
+          },
+          "MDD_TAKES": {
+            "type": "string",
+            "nullable": true
+          },
+          "MDD_GIVEN_QUANTITY": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "MDD_STATUS": {
+            "type": "string",
+            "nullable": true
+          },
+          "MDD_CREATED_BY": {
+            "type": "string",
+            "nullable": true
+          },
+          "MDD_CREATED_DATE": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "MDD_UPDATED_BY": {
+            "type": "string",
+            "nullable": true
+          },
+          "MDD_UPDATED_DATE": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MED_MATERIAL_CATALOGUE": {
+        "type": "object",
+        "properties": {
+          "MMC_MATERIAL_CODE": {
+            "type": "string",
+            "nullable": true
+          },
+          "MMC_DESCRIPTION": {
+            "type": "string",
+            "nullable": true
+          },
+          "MMC_MATERIAL_SPEC": {
+            "type": "string",
+            "nullable": true
+          },
+          "MMC_UNIT": {
+            "type": "string",
+            "nullable": true
+          },
+          "MMC_REORDER_LEVEL": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "MMC_STATUS": {
+            "maxLength": 1,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "MMC_CREATED_BY": {
+            "type": "string",
+            "nullable": true
+          },
+          "MMC_UPDATED_BY": {
+            "type": "string",
+            "nullable": true
+          },
+          "MMC_RATE": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MED_PATIENTS_DETAILS": {
+        "required": [
+          "MPD_MOBILE_NO"
+        ],
+        "type": "object",
+        "properties": {
+          "MPD_PATIENT_CODE": {
+            "type": "string",
+            "nullable": true
+          },
+          "MPD_PATIENT_NAME": {
+            "type": "string",
+            "nullable": true
+          },
+          "MPD_PATIENT_TYPE": {
+            "type": "string",
+            "nullable": true
+          },
+          "MPD_MOBILE_NO": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "MPD_NIC_NO": {
+            "type": "string",
+            "nullable": true
+          },
+          "MPD_PATIENT_REMARKS": {
+            "type": "string",
+            "nullable": true
+          },
+          "MPD_ADDRESS": {
+            "type": "string",
+            "nullable": true
+          },
+          "MPD_GENDER": {
+            "type": "string",
+            "nullable": true
+          },
+          "MPD_CITY": {
+            "type": "string",
+            "nullable": true
+          },
+          "MPD_GUARDIAN": {
+            "type": "string",
+            "nullable": true
+          },
+          "MPD_GUARDIAN_CONTACT_NO": {
+            "type": "string",
+            "nullable": true
+          },
+          "MPD_STATUS": {
+            "maxLength": 1,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "MPD_CREATED_BY": {
+            "type": "string",
+            "nullable": true
+          },
+          "MPD_CREATED_DATE": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "MPD_UPDATED_BY": {
+            "type": "string",
+            "nullable": true
+          },
+          "MPD_UPDATED_DATE": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "MPD_BIRTHDAY": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "MPD_PASSWORD": {
+            "type": "string",
+            "nullable": true
+          },
+          "MPD_EMAIL": {
+            "type": "string",
+            "nullable": true
+          },
+          "MPD_PHOTO": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "test": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MED_TIMESLOT": {
+        "type": "object",
+        "properties": {
+          "MT_SLOT_ID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "MT_SLOT_DATE": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "MT_START_TIME": {
+            "$ref": "#/components/schemas/TimeSpan"
+          },
+          "MT_END_TIME": {
+            "$ref": "#/components/schemas/TimeSpan"
+          },
+          "MT_PATIENT_NO": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "MT_MAXIMUM_PATIENTS": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "MT_DOCTOR": {
+            "type": "string",
+            "nullable": true
+          },
+          "MT_ALLOCATED_TIME": {
+            "$ref": "#/components/schemas/TimeSpan"
+          },
+          "MT_USER_ID": {
+            "type": "string",
+            "nullable": true
+          },
+          "MT_TIMESLOT_STATUS": {
+            "type": "string",
+            "nullable": true
+          },
+          "MT_DELETE_STATUS": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MED_TREATMENT_DETAILS": {
+        "type": "object",
+        "properties": {
+          "MTD_PATIENT_CODE": {
+            "type": "string",
+            "nullable": true
+          },
+          "MTD_SERIAL_NO": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "MTD_DATE": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "MTD_DOCTOR": {
+            "type": "string",
+            "nullable": true
+          },
+          "MTD_TYPE": {
+            "type": "string",
+            "nullable": true
+          },
+          "MTD_COMPLAIN": {
+            "type": "string",
+            "nullable": true
+          },
+          "MTD_DIAGNOSTICS": {
+            "type": "string",
+            "nullable": true
+          },
+          "MTD_REMARKS": {
+            "type": "string",
+            "nullable": true
+          },
+          "MTD_AMOUNT": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "MTD_PAYMENT_STATUS": {
+            "type": "string",
+            "nullable": true
+          },
+          "MTD_TREATMENT_STATUS": {
+            "maxLength": 1,
+            "type": "string",
+            "nullable": true
+          },
+          "MTD_SMS_STATUS": {
+            "type": "string",
+            "nullable": true
+          },
+          "MTD_SMS": {
+            "type": "string",
+            "nullable": true
+          },
+          "MTD_MEDICAL_STATUS": {
+            "maxLength": 1,
+            "type": "string",
+            "nullable": true
+          },
+          "MTD_STATUS": {
+            "maxLength": 1,
+            "type": "string",
+            "nullable": true
+          },
+          "MTD_CREATED_BY": {
+            "type": "string",
+            "nullable": true
+          },
+          "MTD_CREATED_DATE": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "MTD_UPDATED_BY": {
+            "type": "string",
+            "nullable": true
+          },
+          "MTD_UPDATED_DATE": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "MTD_APPOINMENT_ID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "MTD_CHANNEL_NO": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MED_USER_DETAILS": {
+        "required": [
+          "MUD_PASSWORD",
+          "MUD_USER_TYPE"
+        ],
+        "type": "object",
+        "properties": {
+          "MUD_USER_ID": {
+            "maxLength": 7,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "MUD_PASSWORD": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "MUD_USER_TYPE": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "MUD_USER_NAME": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "MUD_STATUS": {
+            "maxLength": 1,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "MUD_CREATED_DATE": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "MUD_CREATED_BY": {
+            "maxLength": 7,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "MUD_EMAIL": {
+            "type": "string",
+            "nullable": true
+          },
+          "MUD_CONTACT": {
+            "type": "string",
+            "nullable": true
+          },
+          "MUD_NIC_NO": {
+            "type": "string",
+            "nullable": true
+          },
+          "MUD_FULL_NAME": {
+            "type": "string",
+            "nullable": true
+          },
+          "MUD_UPDATED_DATE": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "MUD_UPDATED_BY": {
+            "maxLength": 7,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "MUD_PHOTO": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "MUD_SPECIALIZATION": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MED_USER_TYPES": {
+        "type": "object",
+        "properties": {
+          "MUT_USER_TYPE": {
+            "type": "string",
+            "nullable": true
+          },
+          "MUT_DESCRIPTION": {
+            "type": "string",
+            "nullable": true
+          },
+          "MUT_STATUS": {
+            "maxLength": 1,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "MUT_CREATED_DATE": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "MUT_CREATED_BY": {
+            "maxLength": 7,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "MUT_UPDATED_DATE": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "MUT_UPDATED_BY": {
+            "maxLength": 7,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TimeSpan": {
+        "type": "object",
+        "properties": {
+          "Ticks": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "Days": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "Hours": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "Milliseconds": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "Microseconds": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "Nanoseconds": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "Minutes": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "Seconds": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "TotalDays": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "TotalHours": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "TotalMilliseconds": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "TotalMicroseconds": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "TotalNanoseconds": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "TotalMinutes": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "TotalSeconds": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TreatmentAndDrugsUpdateModel": {
+        "type": "object",
+        "properties": {
+          "Treatment": {
+            "$ref": "#/components/schemas/TreatmentUpdateModel"
+          },
+          "Drugs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DrugUpdateModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TreatmentUpdateModel": {
+        "type": "object",
+        "properties": {
+          "MTD_DOCTOR": {
+            "type": "string",
+            "nullable": true
+          },
+          "MTD_TYPE": {
+            "type": "string",
+            "nullable": true
+          },
+          "MTD_COMPLAIN": {
+            "type": "string",
+            "nullable": true
+          },
+          "MTD_DIAGNOSTICS": {
+            "type": "string",
+            "nullable": true
+          },
+          "MTD_REMARKS": {
+            "type": "string",
+            "nullable": true
+          },
+          "MTD_AMOUNT": {
+            "type": "number",
+            "format": "double"
+          },
+          "MTD_TREATMENT_STATUS": {
+            "type": "string",
+            "nullable": true
+          },
+          "MTD_UPDATED_BY": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdatePasswordRequest": {
+        "type": "object",
+        "properties": {
+          "Email": {
+            "type": "string",
+            "nullable": true
+          },
+          "NewPassword": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "WeatherForecast": {
+        "type": "object",
+        "properties": {
+          "Date": {
+            "$ref": "#/components/schemas/DateOnly"
+          },
+          "TemperatureC": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "TemperatureF": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "Summary": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

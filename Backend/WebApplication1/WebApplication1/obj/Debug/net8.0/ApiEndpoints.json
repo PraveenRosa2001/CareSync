@@ -1,0 +1,2093 @@
+[
+  {
+    "ContainingType": "webapplication3.Controllers.AppoinmentLoginController",
+    "Method": "CheckUserExists",
+    "RelativePath": "api/AppoinmentLogin/CheckUserExists",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "login",
+        "Type": "webapplication3.Controllers.AppoinmentLoginModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.AppoinmentLoginController",
+    "Method": "Login",
+    "RelativePath": "api/AppoinmentLogin/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "login",
+        "Type": "webapplication3.Controllers.AppoinmentLoginModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.AppoinmentLoginController",
+    "Method": "loginpatient",
+    "RelativePath": "api/AppoinmentLogin/patient-login-api",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "login",
+        "Type": "webapplication3.Controllers.AppoinmentLoginModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.AppoinmentLoginController",
+    "Method": "RequestOtp",
+    "RelativePath": "api/AppoinmentLogin/RequestOtp",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "login",
+        "Type": "webapplication3.Controllers.AppoinmentLoginModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.AppoinmentLoginController",
+    "Method": "UserLists",
+    "RelativePath": "api/AppoinmentLogin/userlists",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "login",
+        "Type": "webapplication3.Controllers.AppoinmentLoginModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.AppoinmentLoginController",
+    "Method": "VerifyOtp",
+    "RelativePath": "api/AppoinmentLogin/VerifyOtp",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "login",
+        "Type": "webapplication3.Controllers.AppoinmentLoginModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.AppointmentController",
+    "Method": "PostAppointment",
+    "RelativePath": "api/Appointment",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "appointment",
+        "Type": "WebApplication1.Models.MED_APPOINMENT_DETAILS",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "WebApplication1.Models.MED_APPOINMENT_DETAILS",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.AppointmentController",
+    "Method": "GetAllAppointments",
+    "RelativePath": "api/Appointment",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebApplication1.Models.MED_APPOINMENT_DETAILS, WebApplication1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.AppointmentController",
+    "Method": "GetAppointmentById",
+    "RelativePath": "api/Appointment/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "WebApplication1.Models.MED_APPOINMENT_DETAILS",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.AppointmentController",
+    "Method": "GetAppointmentsByTimeslot",
+    "RelativePath": "api/Appointment/appointments/{slotId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "slotId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.AppointmentController",
+    "Method": "CancelAppointment",
+    "RelativePath": "api/Appointment/cancel-appointment/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.AppointmentController",
+    "Method": "GetAppointmentsByDoctorAndDate",
+    "RelativePath": "api/Appointment/getappoinments/doctor",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "doctor",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "date",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.AppointmentController",
+    "Method": "getappointmentemail",
+    "RelativePath": "api/Appointment/getappointment/email",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.AppointmentController",
+    "Method": "DetailsById",
+    "RelativePath": "api/Appointment/getappointment/patientcode",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientcode",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.AppointmentController",
+    "Method": "SendAppointmentConfirmation",
+    "RelativePath": "api/Appointment/send-appointment-confirmation/{appointmentId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "appointmentId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.AppointmentController",
+    "Method": "Fetchbyid",
+    "RelativePath": "api/Appointment/Test/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.AppointmentController",
+    "Method": "GetTomorrowsAppointments",
+    "RelativePath": "api/Appointment/tomorrows-appointments",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.DrugController",
+    "Method": "GetDrugs",
+    "RelativePath": "api/Drug",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebApplication1.Models.MED_DRUGS_DETAILS, WebApplication1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.DrugController",
+    "Method": "PostDrug",
+    "RelativePath": "api/Drug",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "drug",
+        "Type": "WebApplication1.Models.MED_DRUGS_DETAILS",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "WebApplication1.Models.MED_DRUGS_DETAILS",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.DrugController",
+    "Method": "GetDrug",
+    "RelativePath": "api/Drug/{patientCode}/{serialNo}/{materialCode}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientCode",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "serialNo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "materialCode",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "WebApplication1.Models.MED_DRUGS_DETAILS",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.DrugController",
+    "Method": "PutDrug",
+    "RelativePath": "api/Drug/{patientCode}/{serialNo}/{materialCode}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientCode",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "serialNo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "materialCode",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "drug",
+        "Type": "WebApplication1.Models.MED_DRUGS_DETAILS",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.DrugController",
+    "Method": "DeleteDrug",
+    "RelativePath": "api/Drug/{patientCode}/{serialNo}/{materialCode}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientCode",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "serialNo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "materialCode",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.DrugController",
+    "Method": "UpdateDrugDetails",
+    "RelativePath": "api/Drug/{patientID}/{serialNo}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientID",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "serialNo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "updatedDrug",
+        "Type": "WebApplication1.Models.MED_DRUGS_DETAILS",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.DrugController",
+    "Method": "UpdateDrug",
+    "RelativePath": "api/Drug/{serialNo}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "serialNo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "updatedDrug",
+        "Type": "WebApplication1.Models.MED_DRUGS_DETAILS",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.DrugController",
+    "Method": "gettreatments",
+    "RelativePath": "api/Drug/{serialNO}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "serialNO",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.DrugController",
+    "Method": "getdrugsbyserialno",
+    "RelativePath": "api/Drug/${serialNo}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "serialNo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.DrugController",
+    "Method": "GetDrugDetailsByPatientCode",
+    "RelativePath": "api/Drug/Drugdetails/{patientcode}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientcode",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebApplication1.Models.MED_DRUGS_DETAILS, WebApplication1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.DrugController",
+    "Method": "UpdateDrugStatus",
+    "RelativePath": "api/Drug/drugstatusupdate",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientCode",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "serialNo",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "materialCode",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.DrugController",
+    "Method": "fetchingdrugs",
+    "RelativePath": "api/Drug/patient/{patientId}/{serialNumber}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "serialnumber",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.LoginController",
+    "Method": "Login",
+    "RelativePath": "api/Login/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "login",
+        "Type": "webapplication3.Controllers.LoginController\u002BLoginModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.MaterialController",
+    "Method": "GetAllMaterials",
+    "RelativePath": "api/Material",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.MaterialController",
+    "Method": "PostMaterial",
+    "RelativePath": "api/Material",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "material",
+        "Type": "WebApplication1.Models.MED_MATERIAL_CATALOGUE",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.MaterialController",
+    "Method": "GetMaterialById",
+    "RelativePath": "api/Material/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.MaterialController",
+    "Method": "PatchMaterial",
+    "RelativePath": "api/Material/{id}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "updatedMaterial",
+        "Type": "WebApplication1.Models.MED_MATERIAL_CATALOGUE",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.MaterialController",
+    "Method": "DeleteMaterial",
+    "RelativePath": "api/Material/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.MaterialController",
+    "Method": "SearchMaterials",
+    "RelativePath": "api/Material/search",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "query",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.MaterialController",
+    "Method": "updatematerialstatus",
+    "RelativePath": "api/Material/updatematerialstatus",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "materialcode",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.PatientController",
+    "Method": "GetPatients",
+    "RelativePath": "api/Patient",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebApplication1.Models.MED_PATIENTS_DETAILS, WebApplication1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.PatientController",
+    "Method": "GetPatientById",
+    "RelativePath": "api/Patient/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "WebApplication1.Models.MED_PATIENTS_DETAILS",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.PatientController",
+    "Method": "PutPatient",
+    "RelativePath": "api/Patient/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "MPD_PATIENT_CODE",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MPD_PATIENT_NAME",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MPD_PATIENT_TYPE",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MPD_MOBILE_NO",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MPD_NIC_NO",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MPD_PATIENT_REMARKS",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MPD_ADDRESS",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MPD_GENDER",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MPD_CITY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MPD_GUARDIAN",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MPD_GUARDIAN_CONTACT_NO",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MPD_STATUS",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MPD_CREATED_BY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MPD_CREATED_DATE",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "MPD_UPDATED_BY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MPD_UPDATED_DATE",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "MPD_BIRTHDAY",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "MPD_PASSWORD",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MPD_EMAIL",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MPD_PHOTO",
+        "Type": "System.Byte[]",
+        "IsRequired": false
+      },
+      {
+        "Name": "test",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "profileImage",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.PatientController",
+    "Method": "DeletePatient",
+    "RelativePath": "api/Patient/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.PatientController",
+    "Method": "AddingPatients",
+    "RelativePath": "api/Patient/patient-registration",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patient",
+        "Type": "WebApplication1.Models.MED_PATIENTS_DETAILS",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.PatientController",
+    "Method": "FindPatientByEmail",
+    "RelativePath": "api/Patient/patient/findbyemail",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.PatientController",
+    "Method": "FindPatientByid",
+    "RelativePath": "api/Patient/patient/findbyid",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientcode",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.PatientController",
+    "Method": "SearchBy",
+    "RelativePath": "api/Patient/SearchBy/{searchTerm}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "searchTerm",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebApplication1.Models.MED_PATIENTS_DETAILS, WebApplication1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.PatientController",
+    "Method": "UpdatePatient",
+    "RelativePath": "api/Patient/update/{patientCode}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientCode",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "updatedPatient",
+        "Type": "WebApplication1.Models.MED_PATIENTS_DETAILS",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.RegisterUserController",
+    "Method": "RegisterUser",
+    "RelativePath": "api/RegisterUser",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "newUser",
+        "Type": "WebApplication1.Models.MED_APPOINTMENT_USERS",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TimeslotController",
+    "Method": "GetAllTimeslots",
+    "RelativePath": "api/Timeslot",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebApplication1.Models.MED_TIMESLOT, WebApplication1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TimeslotController",
+    "Method": "PostTimeslot",
+    "RelativePath": "api/Timeslot",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "timeslot",
+        "Type": "WebApplication1.Models.MED_TIMESLOT",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "WebApplication1.Models.MED_TIMESLOT",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TimeslotController",
+    "Method": "GetTimeslot",
+    "RelativePath": "api/Timeslot/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "WebApplication1.Models.MED_TIMESLOT",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TimeslotController",
+    "Method": "DeleteTimeslot",
+    "RelativePath": "api/Timeslot/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TimeslotController",
+    "Method": "Patchseatnum",
+    "RelativePath": "api/Timeslot/{id}/incrementSeat",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TimeslotController",
+    "Method": "GetActiveTimeslots",
+    "RelativePath": "api/Timeslot/active-timeslots",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebApplication1.Models.MED_TIMESLOT, WebApplication1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TimeslotController",
+    "Method": "GetTimeslotsByDoctor",
+    "RelativePath": "api/Timeslot/Doctor/{doctorName}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "doctorName",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebApplication1.Models.MED_TIMESLOT, WebApplication1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TimeslotController",
+    "Method": "GetTimeslotsByDoctorid",
+    "RelativePath": "api/Timeslot/Doctorid/{userid}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userid",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebApplication1.Models.MED_TIMESLOT, WebApplication1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TimeslotController",
+    "Method": "GetTimeslotsByDate",
+    "RelativePath": "api/Timeslot/timeslotcard/{date}/{name}/{role}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "date",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "name",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "role",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebApplication1.Models.MED_TIMESLOT, WebApplication1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TimeslotController",
+    "Method": "UpdateTime",
+    "RelativePath": "api/Timeslot/update-status/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TreatmentController",
+    "Method": "PostTreatment",
+    "RelativePath": "api/Treatment",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "treatment",
+        "Type": "WebApplication1.Models.MED_TREATMENT_DETAILS",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "WebApplication1.Models.MED_TREATMENT_DETAILS",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TreatmentController",
+    "Method": "GetById",
+    "RelativePath": "api/Treatment/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "WebApplication1.Models.MED_TREATMENT_DETAILS",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TreatmentController",
+    "Method": "GetById",
+    "RelativePath": "api/Treatment/{patientId}/{serialNo}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "serialNo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "WebApplication1.Models.MED_TREATMENT_DETAILS",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TreatmentController",
+    "Method": "UpdateTreatmentDetails",
+    "RelativePath": "api/Treatment/{patientID}/{serialNO}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientID",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "serialNO",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "updatedDetails",
+        "Type": "WebApplication1.Models.MED_TREATMENT_DETAILS",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "WebApplication1.Models.MED_TREATMENT_DETAILS",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TreatmentController",
+    "Method": "GetTreatmentBySerialNumber",
+    "RelativePath": "api/Treatment/{serialNo}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "serialNo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TreatmentController",
+    "Method": "GetTreatmentAmount",
+    "RelativePath": "api/Treatment/Gettreatments/{patientId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TreatmentController",
+    "Method": "GetMatchedRecords",
+    "RelativePath": "api/Treatment/match/{patientId}/{serialNo}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "serialNo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TreatmentController",
+    "Method": "GetTreatmentsByPatientId",
+    "RelativePath": "api/Treatment/patient/{patientId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebApplication1.Models.MED_TREATMENT_DETAILS, WebApplication1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TreatmentController",
+    "Method": "GetTreatmentRecord",
+    "RelativePath": "api/Treatment/patient/record/{patientId}/{serialNo}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "serialNo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TreatmentController",
+    "Method": "gettreatmentrecord",
+    "RelativePath": "api/Treatment/patientdetail/treatmentdetail/{patientId}/{serialNo}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "serialNo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TreatmentController",
+    "Method": "GetPreparationCompleteDetails",
+    "RelativePath": "api/Treatment/preparationcomplete",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TreatmentController",
+    "Method": "SendPrescriptionMessage",
+    "RelativePath": "api/Treatment/send-prescription-message/{patientId}/{serialNo}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "serialNo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TreatmentController",
+    "Method": "UpdateTreatmentStatus",
+    "RelativePath": "api/Treatment/update/status/{patientId}/{serialNo}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "serialNo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "updatedDrugs",
+        "Type": "System.Collections.Generic.List\u00601[[WebApplication1.Models.MED_DRUGS_DETAILS, WebApplication1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TreatmentController",
+    "Method": "UpdateTreatmentAndPrescriptions",
+    "RelativePath": "api/Treatment/updatingtreatment/{patientid}/{serialno}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientid",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "serialno",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "updateModel",
+        "Type": "WebApplication1.Controllers.TreatmentAndDrugsUpdateModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.UserController",
+    "Method": "PostUser",
+    "RelativePath": "api/User",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "MUD_USER_ID",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_PASSWORD",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_USER_TYPE",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_USER_NAME",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_STATUS",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_CREATED_DATE",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_CREATED_BY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_EMAIL",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_CONTACT",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_NIC_NO",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_FULL_NAME",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_UPDATED_DATE",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_UPDATED_BY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_PHOTO",
+        "Type": "System.Byte[]",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_SPECIALIZATION",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ContentType",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ContentDisposition",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Headers",
+        "Type": "Microsoft.AspNetCore.Http.IHeaderDictionary",
+        "IsRequired": false
+      },
+      {
+        "Name": "Length",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "Name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "FileName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "WebApplication1.Models.MED_USER_DETAILS",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.UserController",
+    "Method": "GetAllUsers",
+    "RelativePath": "api/User",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebApplication1.Models.MED_USER_DETAILS, WebApplication1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.UserController",
+    "Method": "Deleteuser",
+    "RelativePath": "api/User/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.UserController",
+    "Method": "GetUserById",
+    "RelativePath": "api/User/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "WebApplication1.Models.MED_USER_DETAILS",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.UserController",
+    "Method": "UpdateUserDetails",
+    "RelativePath": "api/User/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "MUD_USER_ID",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_PASSWORD",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_USER_TYPE",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_USER_NAME",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_STATUS",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_CREATED_DATE",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_CREATED_BY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_EMAIL",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_CONTACT",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_NIC_NO",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_FULL_NAME",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_UPDATED_DATE",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_UPDATED_BY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_PHOTO",
+        "Type": "System.Byte[]",
+        "IsRequired": false
+      },
+      {
+        "Name": "MUD_SPECIALIZATION",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.UserController",
+    "Method": "CheckUserExists",
+    "RelativePath": "api/User/checkuserexists",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.UserController",
+    "Method": "GetDoctors1",
+    "RelativePath": "api/User/doctorid/specialization",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "specialization",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebApplication1.Models.MED_USER_DETAILS, WebApplication1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.UserController",
+    "Method": "GetDoctors",
+    "RelativePath": "api/User/doctorname/specialization",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "specialization",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "WebApplication1.Models.MED_USER_DETAILS",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.UserController",
+    "Method": "GetUsernameSuggestions",
+    "RelativePath": "api/User/suggest",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "query",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.UserController",
+    "Method": "GetUnameSuggestions",
+    "RelativePath": "api/User/suggest/doctor",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "query",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.UserController",
+    "Method": "UpdatePasswordByEmail",
+    "RelativePath": "api/User/update-password",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "webapplication3.Controllers.UserController\u002BUpdatePasswordRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.UserTypeController",
+    "Method": "PostUserType",
+    "RelativePath": "api/UserType",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userType",
+        "Type": "WebApplication1.Models.MED_USER_TYPES",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "WebApplication1.Models.MED_USER_TYPES",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.UserTypeController",
+    "Method": "GetUserTypeById",
+    "RelativePath": "api/UserType/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "WebApplication1.Models.MED_USER_TYPES",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.WeatherForecastController",
+    "Method": "Get",
+    "RelativePath": "WeatherForecast",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebApplication1.WeatherForecast, WebApplication1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "GetWeatherForecast"
+  }
+]

@@ -1,0 +1,438 @@
+/* General Styles */
+.register-medicines-section {
+  width: 90%;
+  max-width: 1200px; /* Limit max width for larger screens */
+  margin-top: -80px;
+  margin-left: 50px;
+  /* margin: auto; */
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
+}
+
+.new-medicine-highlight {
+  background-color: #d4edda; /* Light green background */
+  animation: fadeOut 2s ease-in-out forwards; /* Smooth fade-out */
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.highlight {
+  background-color: #d3ffd3; /* Light green highlight */
+  animation: highlightAnimation 2s ease-out;
+}
+
+@keyframes highlightAnimation {
+  0% {
+    background-color: #d3ffd3;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.drug-table-register {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.register-medicines-section h1 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.register-medicines-section .submit-btn {
+  padding: 10px 40px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1rem;
+
+  transition: all 0.3s ease;
+}
+
+.search-add-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: -10px;
+  margin-top: -10px;
+}
+
+@media (min-width: 600px) {
+  .search-add-container {
+    flex-direction: row; /* Row layout for larger screens */
+    justify-content: space-between;
+  }
+
+  .search-add-container input[type="search"] {
+    width: 60%; /* Maintain width for larger screens */
+  }
+
+  .add-medicine-btn {
+    margin-top: 0; /* Remove margin for larger screens */
+  }
+}
+
+/* Search Bar */
+.register-medicines-section input[type="search"] {
+  padding: 10px;
+  width: 78%; /* Full width on small screens */
+  border-radius: 10px;
+  border: 1px solid #a5a4a4;
+  outline: none;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.register-medicines-section select {
+  width: 102%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.register-medicines-section input[type="search"]:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Table Styles */
+.register-medicines-section .medicine-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+.table-scroll-wrapper {
+    max-height: 480px; /* Adjust based on row height (around 5 rows) */
+    overflow-y: auto;
+    overflow-x: auto;
+    border: 1px solid #ccc;
+  }
+
+.register-medicines-section .medicine-table th,
+.register-medicines-section .medicine-table td {
+  padding: 15px;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.register-medicines-section .medicine-table th {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+.register-medicines-section .medicine-table tr:hover td {
+  background-color: #f1f1f1;
+}
+/* 
+.register-medicines-section .medicine-table td {
+    background-color: white;
+} */
+.row-highlight {
+  background-color: #ffeb3b;
+  transition: background-color 0.5s ease;
+}
+
+/* Add this to your CSS */
+.row-highlight {
+  background-color: #f0f8ff;
+  font-weight: bold;
+}
+
+.medicine-table button {
+  padding: 7px 15px;
+
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.register-medicines-section .highlight {
+  background-color: #d3ffd3;
+  animation: highlightAnimation 2s ease-out;
+}
+
+.medicine-table button:hover {
+  background-color: #218838;
+}
+
+.medicine-table tr[style*="background-color: #e0ffe0"] {
+  animation: highlight-fade 1s ease-out forwards;
+}
+
+@keyframes highlight-fade {
+  from {
+    background-color: #e0ffe0;
+  }
+  to {
+    background-color: transparent;
+  }
+}
+
+/* Add this to your CSS file */
+.row-highlight {
+  background-color: #e0ffe0; /* Light green for highlight */
+  transition: background-color 2s ease-out; /* Smooth fade-out effect */
+}
+
+/* Add Medicine Button */
+.add-medicine-btn {
+  padding: 10px 40px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  /* margin-top: 5px; */
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.add-medicine-btn:hover {
+  background-color: #0056b3;
+}
+
+.rate {
+  text-align: right;
+}
+
+/* Popup Styles */
+.register-medicines-section .popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content1 {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 90%; /* Full width on small screens */
+  max-width: 600px; /* Limit max width for larger screens */
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  cursor: pointer;
+  font-size: 25px;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #007bff;
+}
+
+h2 {
+  text-align: center;
+  color: #2c3e50;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+/* Form Styling */
+.register-medicines-section .form-group {
+  margin-bottom: 20px;
+}
+
+.register-medicines-section label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #2c3e50;
+}
+
+.register-medicines-section input[type="text"],
+.register-medicines-section input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .register-medicines-section h1 {
+    font-size: 2rem;
+  }
+
+  .register-medicines-section .medicine-table th,
+  .register-medicines-section .medicine-table td {
+    font-size: 0.9rem;
+  }
+
+  .popup-content1 {
+    padding: 20px; /* Adjust padding for popup */
+  }
+}
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em; /* Adjust the size of the icon */
+  color: #333;
+}
+
+.icon-btn:hover {
+  color: #007bff; /* Change the icon color on hover */
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 600px) {
+  /* General Layout */
+  .register-medicines-section {
+    width: 100%;
+    padding: 15px;
+    margin: auto;
+  }
+
+  .register-medicines-section h1 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+
+  /* Submit Button */
+  .register-medicines-section .submit-btn,
+  .add-medicine-btn {
+    width: 100%; /* Full-width button on mobile */
+    padding: 12px 0;
+    font-size: 1rem;
+  }
+
+  /* Search and Add Container */
+  .search-add-container {
+    flex-direction: column; /* Stacks search and add button vertically */
+    align-items: stretch;
+  }
+
+  .search-add-container input[type="search"] {
+    width: 100%; /* Full width for search bar on small screens */
+    margin-bottom: 15px;
+  }
+
+  /* Table */
+  .register-medicines-section .medicine-table {
+    font-size: 0.8rem; /* Smaller font for table on mobile */
+  }
+
+  .register-medicines-section .medicine-table th,
+  .register-medicines-section .medicine-table td {
+    padding: 10px;
+  }
+
+  /* Popup */
+  .popup-content1 {
+    width: 95%;
+    max-width: none;
+  }
+
+  /* Form Input */
+  .register-medicines-section input[type="text"],
+  .register-medicines-section input[type="number"] {
+    font-size: 1rem;
+  }
+
+  /* Close Button */
+  .close-btn {
+    font-size: 1.8rem;
+  }
+}
+/* Mobile Styles for Screens 400px and Below */
+@media (max-width: 400px) {
+  /* General Layout */
+  .register-medicines-section {
+    width: 100%;
+    padding: 10px;
+    margin: auto;
+  }
+
+  .register-medicines-section h1 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  /* Submit Button and Add Medicine Button */
+  .register-medicines-section .submit-btn,
+  .add-medicine-btn {
+    width: 100%; /* Full-width buttons for easier interaction */
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+
+  /* Search and Add Container */
+  .search-add-container {
+    flex-direction: column; /* Stack items vertically */
+    align-items: stretch;
+  }
+
+  .search-add-container input[type="search"] {
+    width: 100%; /* Full width on small screens */
+    margin-bottom: 10px;
+  }
+
+  /* Table */
+  .register-medicines-section .medicine-table {
+    font-size: 0.75rem; /* Smaller font size */
+    overflow-x: auto; /* Allow horizontal scrolling */
+    display: block;
+  }
+
+  .register-medicines-section .medicine-table th,
+  .register-medicines-section .medicine-table td {
+    padding: 8px;
+    text-align: left;
+  }
+
+  /* Popup */
+  .popup-content1 {
+    width: 90%;
+    padding: 15px;
+  }
+
+  /* Form Input */
+  .register-medicines-section input[type="text"],
+  .register-medicines-section input[type="number"] {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  /* Close Button */
+  .close-btn {
+    font-size: 1.6rem;
+  }
+}

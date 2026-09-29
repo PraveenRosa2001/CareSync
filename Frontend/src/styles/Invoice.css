@@ -1,0 +1,299 @@
+.invoice-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+}
+
+.header2{
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+
+
+}
+
+.invoice-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.logo-section img {
+    height: 80px;
+}
+
+.invoice-title {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #007bff;
+    text-align: right;
+}
+.invoice-container h1{
+
+    text-align: center;
+}
+
+.invoice-container h3{
+
+    text-align:center ;
+}
+
+
+
+.payment-info {
+    background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    text-align: left;
+}
+.payment-info p {
+    display: flex;
+    align-items: center; 
+    line-height: 1.6em;
+    font-size: 1.2em;
+    margin: 10px 0;
+    /* justify-content: space-between; */
+}
+.payment-info strong {
+    font-weight: bold;
+}
+
+.payment-info input {
+    margin-left: 10px;
+    width: 80px;
+    padding: 5px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+/* Mobile responsiveness */
+       @media (max-width: 768px) {
+    .payment-info p {
+        flex-direction: column;  /* Stacks label and price on smaller screens */
+        align-items: flex-start;
+    }
+}
+
+.payment-info strong {
+    font-weight: normal;
+}
+
+
+.invoice-container input[type="number"] {
+    width: 80px;
+    padding: 8px;
+    margin-left: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+.btn-container1 {
+    display: flex;
+
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 12px 30px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    margin: auto 10px;
+}
+
+.print {
+    background-color: purple;
+}
+
+.download {
+    background-color: #28a745;
+}
+
+.send {
+    background-color: #6f42c1;
+}
+
+.btn:hover {
+    opacity: 0.9;
+} 
+
+
+
+
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    .invoice-container, .invoice-container * {
+        visibility: visible;
+    }
+
+    .back-button {
+        display: none; /* Specifically hide the back button during print */
+    }
+
+  
+    .invoice-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+
+    
+    .hide-elements, .btn-container1 {
+        display: none !important;
+    }
+
+
+    header, footer {
+        display: none !important;
+    }
+
+
+    
+
+    
+}
+
+
+
+/* CSS to hide buttons and payment type during download */
+.hide-elements .btn-container1 {
+    display: none;
+}
+
+
+
+.medicine-invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    
+    border-radius: 5px;
+    overflow: scroll;
+}
+
+.medicine-invoice-table th, 
+.medicine-invoice-table td {
+    /* border: 1px solid #ddd; */
+    padding: 12px;
+    text-align: center; /* Centers numeric data */
+}
+
+.medicine-invoice-table th {
+    /* background-color: #007bff; */
+    color: black;
+    font-weight: bold;
+}
+
+/* .medicine-invoice-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+} */
+
+.medicine-invoice-table td:nth-child(1) {
+    text-align: left;
+    
+    
+    
+                                                    /* Aligns description to the left */
+}
+
+/* .medicine-invoice-table td:nth-child(2),
+.medicine-invoice-table td:nth-child(3),
+.medicine-invoice-table td:nth-child(4) {
+    text-align: center; 
+} */
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .medicine-invoice-table th, 
+    .medicine-invoice-table td {
+        padding: 8px;
+        font-size: 14px;
+    }
+}
+
+
+.medicine-table-container {
+    margin-bottom: 20px;
+}
+
+/* .totals-container {
+    margin-top: 15px;
+    padding: 10px;
+    border-top: 2px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: calc(100% - 40px); 
+    justify-content: space-between;
+} */
+
+
+/* .totals-container p {
+    font-size: 1.2em;
+    margin: 5px 0;
+    text-align: right;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+} */
+
+
+.totals-container p {
+    font-size: 1.2em;
+    margin: 5px 0;
+   
+    text-align: right;
+}
+
+
+.totals-container {
+    margin-top: 20px;
+    padding: 15px;
+    border-top: 2px solid #ccc;
+    text-align: right; /* Aligns all text to the right */
+    width: 100%; /* Ensures full width */
+    display: flex;
+    flex-direction: column;
+}
+
+.totals-container p {
+    font-size: 1.2em;
+    margin: 5px 0;
+}
+
+.totals-container input {
+    margin-left: 10px;
+    padding: 5px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+@media (max-width: 768px) {
+    .totals-container {
+        text-align: left; /* Align text left on small screens */
+    }
+}
+.total-separator {
+    border-top: 2px solid #000; /* Creates an underline before totals */
+}
+/* .total-separator, .total-separator + tr {
+    border-top: 2px solid #000;
+} */

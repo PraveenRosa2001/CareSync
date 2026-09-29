@@ -1,0 +1,301 @@
+/* General styling for the view record page */
+.view-record-container {
+    background-color: white; /* Light, almost white background */
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+
+.prescription-table-container label {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+
+.btn-contaier{
+
+
+    display: flex;
+    gap: 15px;
+}
+
+
+.continue-button{
+
+
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    color: #0056b3; /* Dark blue */
+    font-size: 28px;
+}
+
+.back-button {
+    padding: 8px 16px;
+    font-size: 14px;
+    background-color: #007bff;; /* Blue button */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.back-button:hover {
+    background-color: #003d80; /* Darker blue on hover */
+}
+
+.main {
+    padding: 20px;
+    background-color: #fff; /* White background for main content */
+    border-radius: 8px;
+    /* box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05); */
+}
+
+.healthrecord h2 {
+    /* color: #003d80;  */
+    font-size: 24px;
+    margin-bottom: 16px;
+}
+
+.details-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.details-header p {
+    font-size: 16px;
+    color: #333; /* Dark gray text */
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 16px;
+    color: #333; /* Dark gray text */
+    margin-bottom: 8px;
+}
+.view-record-container
+textarea {
+    width: 100%;
+    height: 80px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+    background-color: #f1f4f9; /* Light blueish-gray background */
+   
+}
+
+textarea:read-only {
+    background-color: #e9eef6; /* Slightly lighter background for read-only textareas */
+}
+
+
+
+.prescription-table-container{
+
+
+
+    overflow: auto;
+}
+
+.edit-btn{
+
+    margin-left: 10px;
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #007bff;; /* Blue button */
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.prescription-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.prescription-table th, 
+.prescription-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.prescription-table th {
+    background-color: #007bff; /* Blue header for the table */
+    color: #fff;
+}
+
+.prescription-table td {
+    background-color: #fff; /* White background for table cells */
+    color: #333; /* Dark gray text */
+}
+
+.continue-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #007bff;; /* Blue button */
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.continue-button:hover {
+    background-color: #003d80; /* Darker blue on hover */
+}
+
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.error-notification {
+    color: #d9534f; /* Red error message */
+    font-size: 18px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+
+.updated-treatment-form {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+.updated-treatment-form h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    color: #343a40;
+}
+
+.treatment-form .form-group {
+    margin-bottom: 15px;
+}
+
+.treatment-form .form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    resize: none;
+}
+
+.treatment-form .form-control:focus {
+    outline: none;
+    border-color: #80bdff;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.25);
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.save-button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.save-button:hover {
+    background-color: #218838;
+}
+
+.cancel-button {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.cancel-button:hover {
+    background-color: #c82333;
+}
+.medicines-section {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+}
+
+.medicines-section h4 {
+    margin-bottom: 15px;
+    color: #343a40;
+    text-align: center;
+}
+
+.medicine-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+.medicine-fields .form-group {
+    margin-bottom: 10px;
+}
+
+.add-medicine-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.add-medicine-button:hover {
+    background-color: #0056b3;
+}

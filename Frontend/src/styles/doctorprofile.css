@@ -1,0 +1,135 @@
+/* doctorprofile.css */
+
+.doctor-profile-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
+    text-align: center;
+  }
+  
+  .doctor-profile-container h1 {
+    
+    margin-bottom: 20px;
+  }
+  
+  .profile-image-label {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+  
+  .profile-icon {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .edit-icon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 50%;
+    padding: 5px;
+    font-size: 14px;
+  }
+  
+  .user-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .doctor-profile-container
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+  }
+  .doctor-profile-container
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .form-group label {
+    font-size: 14px;
+    /* color: #555; */
+    margin-bottom: 5px;
+  }
+  
+  .form-group input {
+    width: 90%;
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+    
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  
+  .form-group input::placeholder {
+    color: #aaa;
+  }
+  
+  .form-group input:focus {
+    border-color: #007bff;
+  }
+  
+  .update-profile-button {
+    width: auto; /* Set width to auto for a smaller size */
+    padding: 16px 16px; /* Smaller padding for a compact button */
+    background-color: #007bff; /* Blue background color */
+    color: #fff; /* White text */
+    font-size: 14px; /* Smaller font size */
+    font-weight: bold; /* Bold text */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition */
+    margin-top: 20px;
+    margin-left: auto; /* Align button to the right */
+    display: block; /* Ensures it stays on its own line */
+  }
+  
+  
+  .update-profile-button:hover {
+    cursor: pointer;
+  }
+  
+  .update-profile-button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
+
+  .error-text{
+
+    color: red; /* Red text to indicate an error */
+    font-size: 0.9em; /* Slightly smaller text for subtlety */
+    margin-top: 5px; /* Space above the message */
+    margin-left: 5px; 
+
+
+  }
+  
+
+
+
+  .doctor-profile-container .form-group input[readonly] {
+    cursor: not-allowed; /* Shows a block sign */
+    
+}
+
+.doctor-profile-container .form-group input[readonly]:hover {
+    border-color: #ff0000; /* Optional: Highlight border on hover */
+  
+}

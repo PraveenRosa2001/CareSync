@@ -1,0 +1,55 @@
+.patienttable {
+    width: 60%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    margin-top: 50px;
+}
+
+
+.patientrecord input[type="search"] {
+    width: 40%;
+    padding:10px;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center; 
+    margin: 20px 0; 
+}
+
+.patientrecord button {
+
+    margin-left:5px;
+    border-radius: 12px;
+    padding: 0.75rem;
+    cursor: pointer;
+    background-color:#007bff ;
+    border: none;
+}
+
+.newbutton{
+
+    background-color: #ff5c33;
+}
+
+.newbutton :hover{
+
+color: #ff471a;
+
+}
+
+.healthrecords{
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    background-color: #f9f9f9;
+
+}
+
+.healthrecords p {
+    margin: 10px 0; 
+    font-size: 16px; 
+    line-height: 1.5; 
+}

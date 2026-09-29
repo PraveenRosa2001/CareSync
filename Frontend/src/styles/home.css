@@ -1,0 +1,605 @@
+.home-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* background-color:#EBEBEB; */
+  background-color: rgb(255, 255, 255);
+  margin-right: 10%;
+  background-repeat: "no-repeat";
+}
+
+.appoinment-section2 {
+  margin-top: 2px;
+  background-image: url("../assets/home-image.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 5px;
+  height: 800px;
+}
+
+/* Section1 Styles */
+.section1 {
+  /* Section1 Styles */
+
+  display: flex; /* Arrange left and right containers horizontally */
+  flex-direction: row; /* Ensure horizontal layout */
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center the containers horizontally */
+  height: 75vh; /* Adjust height to fit content */
+  position: relative;
+  width: 100%;
+  height: 85vh;
+  display: flex;
+  flex-direction: column; /* Align items vertically */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-left: 5px;
+  border-radius: 40px;
+  overflow: hidden; /* Prevents overflow of the pseudo-element */
+  padding-top: 60px;
+}
+
+/* Media Query Example */
+@media (max-width: 768px) {
+  .section1 {
+    flex-direction: column; /* Adjust layout for smaller screens */
+    height: auto; /* Allow height to adjust based on content */
+    margin-left: 0; /* Remove unnecessary margin on small screens */
+  }
+}
+
+.section1 p {
+  color: rgb(148, 139, 139);
+}
+
+.section1::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("../assets/bglogin.jpg");
+  background-size: cover;
+  background-position: center;
+
+  z-index: 0;
+}
+
+.section1 h1,
+.section1 p,
+.section1 button {
+  z-index: 1;
+}
+
+.section1 button {
+  width: 170px;
+}
+
+.section1 h1 {
+  margin-top: 10%;
+  font-size: 3.5rem;
+
+  z-index: 1;
+  margin-left: 5%;
+}
+
+.section1 p {
+  margin-left: 5%;
+}
+.home-container .popup {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -20%);
+  padding: 20px;
+  z-index: 1000;
+  width: 375px;
+  height: 600px; /* Fixed height of the popup */
+  border-radius: 35px;
+  background-color: #fff;
+  margin: 0 auto;
+  overflow-y: auto;
+  scrollbar-width: none;
+  overflow-x: hidden;
+  max-height: 600px; /* Ensure content doesn't overflow the set height */
+}
+
+/* .left-container1,
+.right-container1 {
+  flex: 1; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+} */
+
+.left-container1 img {
+  max-width: 90%; /* Adjust image size */
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 600px) {
+  .home-container .popup {
+    width: 90%;
+    height: auto;
+    padding: 20px;
+    border-radius: 10px;
+    top: 15%;
+    transform: translate(-50%, -15%);
+  }
+}
+
+.home-container .close-btn {
+  position: absolute;
+  top: 10px; /* Adjust this value to position vertically */
+  right: 10px; /* Adjust this value to position horizontally */
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center; /* Center the icon */
+  align-items: center; /* Center the icon */
+}
+
+/* .section1 button{
+
+  margin-left:5%;
+} */
+
+/* .section1 button{
+
+
+  border-radius: 90px;
+  background-color: blue;
+  color:white;
+  padding: 10px;
+  border:none;
+  cursor:pointer;
+  
+} */
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+  z-index: 10;
+  user-select: none;
+}
+
+.left-arrow {
+  left: 10px;
+}
+
+.right-arrow {
+  right: 10px;
+}
+.image-slider-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 500px; /* Adjust height to fit your design */
+  overflow: hidden;
+  align-items: center; /* Center the slider and dots horizontally */
+}
+
+.right-container1 {
+  flex-direction: column;
+}
+
+/* General container styling */
+.containers {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping on smaller screens */
+  align-items: center;
+  justify-content: space-between; /* Adds spacing between left and right sections */
+  margin: 20px auto;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Left Container */
+.left-container1 {
+  flex: 1; /* Ensures it takes up equal space with left-container1 */
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  justify-content: center; /* Center content vertically */
+  align-items: flex-start; /* Align content to the left */
+  padding: 150px; /* Add spacing around the container */
+  background-color: #f9f9f9; /* Light background for contrast */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.left-container1 img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Right Container */
+.right-container1 {
+  flex: 1; /* Ensures it takes up equal space with left-container1 */
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  justify-content: center; /* Center content vertically */
+  align-items: flex-start; /* Align content to the left */
+   /* Add spacing around the container */
+  background-color: #f9f9f9; /* Light background for contrast */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.right-container1 p {
+  font-size: 1.2rem; /* Adjust font size for better fit */
+  line-height: 1.5; /* Set appropriate line spacing */
+  color: #333; /* Keep dark text color for readability */
+  margin: 10px 0; /* Reduce vertical margins for tighter spacing */
+  text-align: justify; /* Justify the text */
+  max-width: 60%; /* Limit the width of the text block */
+  padding-right: 10px; /* Add some padding for spacing */
+  padding-bottom: 20px;
+}
+
+.right-container1 button {
+  border-radius: 50px; /* Slightly larger corners for a balanced look */
+  background-color: blue; /* Button background */
+  color: white; /* Text color */
+  padding: 15px 40px; /* Larger padding for bigger size */
+  border: none; /* Remove default border */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 18px; /* Increase font size */
+  font-weight: bold; /* Make text bold */
+  transition: background-color 0.3s, transform 0.2s; /* Smooth hover effects */
+  width: 350px;
+  left: 0;
+}
+
+.right-container1 button:hover {
+  background-color: darkblue;
+  transform: scale(1.05);
+}
+
+/* Image Slider Styling */
+
+.image-slider-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px; /* Set the max width for the slider */
+  margin: 0 auto;
+  text-align: center;
+}
+
+.image-slider-container img {
+  width: 500px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.left-arrow {
+  left: 10px;
+}
+
+.right-arrow {
+  right: 10px;
+}
+.dots-container {
+  position: absolute;
+  bottom: 10px; /* Adjust to control distance from the image */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  background-color: gray;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dot.active {
+  background-color: black;
+}
+.arrow:hover {
+  transform: translateY(-50%) scale(1.2); /* Add hover effect for better feedback */
+}
+
+/* Popup Overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Popup Styling */
+.home-container .popup {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -20%);
+  padding: 20px;
+  z-index: 1000;
+  width: 375px;
+  height: 600px;
+  border-radius: 35px;
+  background-color: #fff;
+  overflow-y: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 399px) {
+  .home-container .popup {
+    background-color: #fff;
+    border-radius: 35px;
+    box-shadow: 0 4px 10px #0003;
+    height: 500px;
+    left: 50%;
+    overflow-y: auto;
+    padding: 20px;
+    position: fixed;
+    top: 20%;
+    transform: translate(-50%, -20%);
+    width: 325px;
+    z-index: 1000;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .containers {
+    flex-direction: column;
+  }
+
+  .left-container1,
+  .right-container1 {
+    width: 97%;
+  }
+
+  .right-container1 p {
+    max-width: 90%;
+  }
+
+  .left-container1 {
+    margin-top: 70px;
+  }
+
+  .image-slider-container {
+    height: 300px; /* Adjust slider height for smaller screens */
+  }
+
+  .right-container1 button {
+    width: 100%;
+    padding: 10px 20px;
+  }
+}
+
+.image-slider {
+  width: 50%;
+  height: 500px; /* Adjust the height as needed */
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-slider img {
+  width: 65%;
+  height: 65%;
+  object-fit: cover; /* Ensures the image covers the container */
+  border-radius: 10px; /* Adds rounded corners to the image */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a shadow for depth */
+}
+
+
+@media (max-width: 768px) {
+  .section1 h1 {
+    text-align: left;
+  }
+}
+
+@media (max-width: 768px) {
+  .service-item {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+.aboutus-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.aboutus-section p {
+  font-size: 1.1rem;
+  color: #333;
+  line-height: 1.8;
+  text-align: justify;
+  max-width: 85%;
+  margin-top: 1rem;
+  margin-right: 40px;
+}
+
+.aboutus-section img {
+  max-width: 40%;
+  height: auto;
+  border-radius: 15px;
+  object-fit: cover;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.aboutus-section img:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .aboutus-section {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .aboutus-content {
+    max-width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .aboutus-section img {
+    max-width: 80%;
+    margin-bottom: 20px;
+  }
+}
+
+/* About Us Button Styles */
+.about-us-btn {
+  background-color: blue;
+  color: #f0f0f0;
+  width: 100px;
+  padding: 10px;
+  border-radius: 30px;
+}
+
+@media (max-width: 768px) {
+  .about-us-btn {
+    width: 80px;
+    font-size: 0.8rem;
+  }
+}
+
+.export-component {
+  margin-top: 55px;
+}
+/* _______________________________________________________________service cards css */
+/* Adjust the spacing between the h2 and services section */
+.services-container h2 {
+  color: black;
+  margin-bottom: 5px;
+  margin-top: 70px;
+}
+
+.services-section {
+  width: 100%;
+  padding: 1rem; /* Adjust padding to reduce the overall gap */
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 0;
+
+  /* Remove or reduce top margin */
+}
+
+.service-card {
+  width: 350px;
+  padding: 15px;
+  background-color: wh;
+  border-radius: 14px;
+  margin: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.service-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  text-align: left; /* Aligns the h3 to the left */
+  margin-left: 10px; /* Optionally, add some left margin for spacing */
+}
+
+.card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+}
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.services-container h2 {
+  color: black;
+}
+.card-content p {
+  flex: 1;
+  margin-right: 30px;
+  text-align: left;
+}
+
+.card-content img {
+  width: 65px;
+  height: 65px;
+}
+.dots-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px; /* Space between dots and slider */
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  margin: 0 5px;
+  border-radius: 50%;
+  background-color: black;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dot.active {
+  background-color: blue; /* Highlight active dot */
+}
+
+@media (max-width: 768px) {
+  .arrow {
+    background-color: white;
+    border-radius: 50%;
+    padding: 10px; /* Adjust padding for size */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Optional shadow for better visibility */
+  }
+}

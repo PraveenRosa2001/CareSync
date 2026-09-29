@@ -1,0 +1,435 @@
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\appsettings.Development.json
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\appsettings.json
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\WebApplication1.staticwebassets.endpoints.json
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\WebApplication1.exe
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\WebApplication1.deps.json
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\WebApplication1.runtimeconfig.json
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\WebApplication1.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\WebApplication1.pdb
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Azure.Core.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Azure.Identity.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\BCrypt.Net-Next.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Cronos.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Humanizer.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.Bcl.Memory.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.CodeAnalysis.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.Data.SqlClient.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.EntityFrameworkCore.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.Extensions.DependencyModel.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.Identity.Client.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.IdentityModel.Abstractions.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.IdentityModel.Logging.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.IdentityModel.Protocols.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.IdentityModel.Tokens.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.OpenApi.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.SqlServer.Server.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.Win32.SystemEvents.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Mono.TextTemplating.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\System.CodeDom.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\System.Composition.AttributedModel.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\System.Composition.Convention.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\System.Composition.Hosting.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\System.Composition.Runtime.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\System.Composition.TypedParts.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\System.Configuration.ConfigurationManager.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\System.Drawing.Common.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\System.Memory.Data.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\System.Runtime.Caching.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\System.Security.Cryptography.ProtectedData.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\System.Security.Permissions.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\System.Windows.Extensions.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.csproj.AssemblyReference.cache
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.GeneratedMSBuildEditorConfig.editorconfig
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.AssemblyInfoInputs.cache
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.AssemblyInfo.cs
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.csproj.CoreCompileInputs.cache
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.MvcApplicationPartsAssemblyInfo.cs
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.MvcApplicationPartsAssemblyInfo.cache
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.sourcelink.json
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\obj\Release\net8.0\scopedcss\bundle\WebApplication1.styles.css
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets.build.json
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets.development.json
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets.build.endpoints.json
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets\msbuild.WebApplication1.Microsoft.AspNetCore.StaticWebAssets.props
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets\msbuild.WebApplication1.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets\msbuild.build.WebApplication1.props
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets\msbuild.buildMultiTargeting.WebApplication1.props
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets\msbuild.buildTransitive.WebApplication1.props
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets.pack.json
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets.upToDateCheck.txt
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\obj\Release\net8.0\WebAppli.7D14BD69.Up2Date
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\obj\Release\net8.0\refint\WebApplication1.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.pdb
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.genruntimeconfig.cache
+D:\Prav_Doc_Projects\Medicare\New updated project\new_backend_project\WebApplication1\WebApplication1\obj\Release\net8.0\ref\WebApplication1.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\appsettings.Development.json
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\WebApplication1.staticwebassets.endpoints.json
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\appsettings.json
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\WebApplication1.exe
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\WebApplication1.deps.json
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\WebApplication1.runtimeconfig.json
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\WebApplication1.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\WebApplication1.pdb
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Azure.Core.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Azure.Identity.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\BCrypt.Net-Next.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Cronos.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Humanizer.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.Bcl.Memory.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.CodeAnalysis.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.Data.SqlClient.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.EntityFrameworkCore.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.Extensions.DependencyModel.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.Identity.Client.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.IdentityModel.Abstractions.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.IdentityModel.Logging.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.IdentityModel.Protocols.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.IdentityModel.Tokens.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.OpenApi.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.SqlServer.Server.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.Win32.SystemEvents.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Mono.TextTemplating.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.CodeDom.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.Composition.AttributedModel.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.Composition.Convention.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.Composition.Hosting.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.Composition.Runtime.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.Composition.TypedParts.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.Configuration.ConfigurationManager.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.Drawing.Common.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.Memory.Data.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.Runtime.Caching.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.Security.Cryptography.ProtectedData.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.Security.Permissions.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.Windows.Extensions.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.csproj.AssemblyReference.cache
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.GeneratedMSBuildEditorConfig.editorconfig
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.AssemblyInfoInputs.cache
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.AssemblyInfo.cs
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.csproj.CoreCompileInputs.cache
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.MvcApplicationPartsAssemblyInfo.cs
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.MvcApplicationPartsAssemblyInfo.cache
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.sourcelink.json
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\scopedcss\bundle\WebApplication1.styles.css
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets.build.json
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets.development.json
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets.build.endpoints.json
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets\msbuild.WebApplication1.Microsoft.AspNetCore.StaticWebAssets.props
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets\msbuild.WebApplication1.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets\msbuild.build.WebApplication1.props
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets\msbuild.buildMultiTargeting.WebApplication1.props
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets\msbuild.buildTransitive.WebApplication1.props
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets.pack.json
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets.upToDateCheck.txt
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\WebAppli.7D14BD69.Up2Date
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\refint\WebApplication1.dll
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.pdb
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.genruntimeconfig.cache
+D:\Prav_Doc_Projects\Medicare\New updated project\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\ref\WebApplication1.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\appsettings.Development.json
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\appsettings.json
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\WebApplication1.staticwebassets.endpoints.json
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\WebApplication1.exe
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\WebApplication1.deps.json
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\WebApplication1.runtimeconfig.json
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\WebApplication1.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\WebApplication1.pdb
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Azure.Core.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Azure.Identity.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\BCrypt.Net-Next.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Cronos.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Humanizer.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.Bcl.Memory.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.CodeAnalysis.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.Data.SqlClient.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.EntityFrameworkCore.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.Extensions.DependencyModel.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.Identity.Client.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.IdentityModel.Abstractions.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.IdentityModel.Logging.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.IdentityModel.Protocols.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.IdentityModel.Tokens.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.OpenApi.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.SqlServer.Server.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Microsoft.Win32.SystemEvents.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Mono.TextTemplating.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.CodeDom.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.Composition.AttributedModel.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.Composition.Convention.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.Composition.Hosting.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.Composition.Runtime.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.Composition.TypedParts.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.Configuration.ConfigurationManager.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.Drawing.Common.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.Memory.Data.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.Runtime.Caching.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.Security.Cryptography.ProtectedData.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.Security.Permissions.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\System.Windows.Extensions.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\bin\Release\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.csproj.AssemblyReference.cache
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.GeneratedMSBuildEditorConfig.editorconfig
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.AssemblyInfoInputs.cache
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.AssemblyInfo.cs
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.csproj.CoreCompileInputs.cache
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.MvcApplicationPartsAssemblyInfo.cs
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.MvcApplicationPartsAssemblyInfo.cache
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.sourcelink.json
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\scopedcss\bundle\WebApplication1.styles.css
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets.build.json
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets.development.json
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets.build.endpoints.json
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets\msbuild.WebApplication1.Microsoft.AspNetCore.StaticWebAssets.props
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets\msbuild.WebApplication1.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets\msbuild.build.WebApplication1.props
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets\msbuild.buildMultiTargeting.WebApplication1.props
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets\msbuild.buildTransitive.WebApplication1.props
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets.pack.json
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\staticwebassets.upToDateCheck.txt
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\WebAppli.7D14BD69.Up2Date
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\refint\WebApplication1.dll
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.pdb
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\WebApplication1.genruntimeconfig.cache
+D:\Prav_Doc_Projects\Medicare\Backend 2025.8.11\Medicare_backend_application\WebApplication1\WebApplication1\obj\Release\net8.0\ref\WebApplication1.dll

@@ -1,0 +1,80 @@
+.treatment-records-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+.record-list {
+    flex: 1;
+    max-width: 400px;
+    border-right: 2px solid #ddd;
+    padding-right: 20px;
+}
+
+.record-list h2 {
+    margin-bottom: 15px;
+}
+
+.record-item {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.record-item:hover {
+    background: #e0e0e0;
+}
+
+.record-date {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.record-number {
+    font-weight: bold;
+}
+
+.record-details {
+    flex: 2;
+    padding-left: 20px;
+}
+
+.details-header {
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.details-header h3 {
+    margin: 0;
+}
+
+.details-content p {
+    margin: 5px 0;
+}
+
+.general-info p,
+.details-section p {
+    margin: 5px 0;
+}
+
+.prescribed-drugs h4 {
+    margin-top: 20px;
+}
+
+.prescribed-drugs ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.drug-item {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}

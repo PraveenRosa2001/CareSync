@@ -1,0 +1,255 @@
+/* Main navbar container */
+.navbar {
+    padding: 20px 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 30px;
+    width: 60%; 
+    z-index: 1000;
+    transition: all 0.3s ease-in-out;
+    border-radius: 40px;
+    display: flex;
+    justify-content: space-between; /* Ensures space between left, center, and right sections */
+    align-items: center; /* Vertically centers items */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+}
+
+/* Container for logo, menu, and profile */
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* Left-aligned logo */
+.navbar-logo {
+    margin-left: 0;
+}
+
+.navbar-logo img {
+    width: 120px; /* Adjust logo size if needed */
+   height: 43px;
+    transition: width 0.3s ease;
+}
+
+/* Centered menu items */
+.navbar-menu {
+    display: flex;
+    gap: 5px;
+    list-style: none;
+    align-items: center;
+    justify-content: center; /* Ensures text is centered */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); /* Absolutely centers text within navbar */
+}
+
+.navbar-menu li {
+    display: inline;
+}
+
+.navbar-menu a {
+    text-decoration: none;
+    font-size: 16px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: black;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.navbar-menu a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 4px;
+    background-color: blue; /* Change the color here */
+    transform: scaleX(0);
+    transition: transform 0.6s ease; /* Slower transition speed */
+    /* transform-origin: bottom right; */
+}
+
+.navbar-menu a:hover {
+    color: black;
+    cursor: pointer;
+}
+
+.navbar-menu a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+
+/* Right-aligned profile section */
+.navbar-profile {
+    position: relative;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.profile-icon {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+    z-index: 10;
+}
+
+.navbar-profile .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu a {
+    color: #333;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    position: relative;
+    transition: color 0.3s;
+}
+
+.dropdown-menu a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 4px; /* Adjust thickness if needed */
+    background-color: blue; /* Same color as the navbar menu underline */
+    transform: scaleX(0);
+    transition: transform 0.6s ease;
+}
+.dropdown-menu a:hover {
+    color: black;
+}
+
+.dropdown-menu a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+/* Mobile menu icon */
+.mobile-menu-icon {
+    display: none;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.dropdown-icon {
+    transform: rotate(180deg); /* Upward by default */
+    transition: transform 0.3s ease;
+}
+
+.dropdown-icon.open {
+    transform: rotate(0deg); /* Rotate to downward position when open */
+}
+
+
+/* Mobile view adjustments */
+@media (max-width: 768px) {
+    .navbar-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        /* left: 0; */
+        width: 100%;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-menu li {
+        display: block;
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    .navbar-menu a {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .mobile-menu-icon {
+        display: block;
+    }
+
+    .navbar-menu.active {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        place-items: center;
+    }
+}
+
+/* Styles for the logout button */
+.logout-button {
+    background-color: transparent;
+    border: none;
+    color: #333;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    position: relative;
+}
+.logout-button::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 4px; /* Adjust thickness if needed */
+    background-color: blue; /* Same color as the navbar menu underline */
+    transform: scaleX(0);
+    transition: transform 0.6s ease;
+}
+
+.logout-button:hover {
+    color: black;
+   
+    cursor: pointer;
+}
+
+.logout-button:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+
+
+.profile-initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 40px;
+    border-radius: 70%;
+    background-color: black; /* Customize this color as needed */
+    color:white;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  

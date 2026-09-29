@@ -1,0 +1,5 @@
+# Ignore compiled binaries
+bin/
+obj/
+*.dll
+*.pdb

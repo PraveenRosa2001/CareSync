@@ -1,0 +1,160 @@
+.user-registration-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-size: cover;
+  background-image: url('../assets/bg2.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  /* Light background */
+}
+
+.user-registration .error-message{
+  background-color: #d9534f;
+  color:white;
+  padding: 10px;
+  
+}
+
+.user-registration {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+.user-registration .registration-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-registration h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.user-registration .form-group {
+  margin-bottom: 20px;
+}
+
+.user-registration .form-group label {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.otp-verification input{
+
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #f7f7f7;
+
+
+
+}
+
+.user-registration .form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  /* background-color: #f7f7f7; */
+}
+
+.user-registration .form-group input:focus {
+  border-color: #007bff;
+  background-color: #fff;
+  outline: none;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.1);
+}
+
+.btn-primary, .btn-secondary {
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  margin-top: 10px;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-secondary {
+  background-color:#007bff;
+  color: #fff;
+  margin-top: 10px;
+}
+
+.btn-secondary:hover {
+  background-color: #0056b3;
+}
+
+.otp-verification {
+  margin-bottom: 20px;
+}
+
+.error-message {
+  color: #d9534f;
+  font-size: 14px;
+  text-align: center;
+}
+
+.success-message {
+  color: #28a745;
+  font-size: 14px;
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .user-registration {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  .form-group input {
+    font-size: 14px;
+  }
+
+  .btn-primary, .btn-secondary {
+    font-size: 14px;
+  }
+}
+@media (max-width: 768px) {
+  .user-registration .form-group input[type="date"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      appearance: none; /* Removes default styles on some browsers */
+  }
+
+  /* Ensuring better spacing inside the input */
+  .user-registration .form-group input[type="date"]::-webkit-calendar-picker-indicator {
+      cursor: pointer;
+      font-size: 18px;
+      padding: 10px;
+  }
+}

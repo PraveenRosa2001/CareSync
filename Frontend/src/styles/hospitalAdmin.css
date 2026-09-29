@@ -1,0 +1,1108 @@
+/* CareSync+ Hospital Admin Design System Styles */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --admin-bg: #F8FAFC;
+  --admin-card-bg: #FFFFFF;
+  --admin-sidebar-bg: #FFFFFF;
+  --admin-border: #E2E8F0;
+  --admin-border-subtle: #F1F5F9;
+  
+  /* Primary Clinical Cyan/Teal Palette */
+  --primary-cyan: #0A6E7C;
+  --primary-cyan-hover: #085B67;
+  --primary-cyan-light: #E6F4F6;
+  --primary-cyan-dark: #05464F;
+  --primary-blue: #0284C7;
+  --primary-blue-hover: #0369A1;
+  --primary-blue-light: #E0F2FE;
+  
+  /* Table Header & Accents */
+  --table-header-bg: #0A5364;
+  --table-header-text: #FFFFFF;
+  
+  /* Text colors */
+  --text-dark: #0F172A;
+  --text-medium: #334155;
+  --text-muted: #64748B;
+  --text-light: #94A3B8;
+  
+  /* Status Colors */
+  --status-success-bg: #ECFDF5;
+  --status-success-text: #059669;
+  --status-warning-bg: #FFFBEB;
+  --status-warning-text: #D97706;
+  --status-danger-bg: #FEF2F2;
+  --status-danger-text: #DC2626;
+  --status-info-bg: #EFF6FF;
+  --status-info-text: #2563EB;
+}
+
+/* Master Admin Layout */
+.hospital-admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--admin-bg);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text-dark);
+}
+
+/* Sidebar */
+.hospital-sidebar {
+  width: 250px;
+  background-color: #FFFFFF;
+  border-right: 1px solid var(--admin-border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1200;
+  transition: all 0.25s ease-in-out;
+}
+
+.hospital-sidebar.closed {
+  width: 78px;
+}
+
+.hospital-sidebar-brand {
+  padding: 20px 18px 16px;
+  border-bottom: 1px solid var(--admin-border-subtle);
+}
+
+.brand-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #0284C7 0%, #0A6E7C 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  box-shadow: 0 4px 10px rgba(10, 110, 124, 0.25);
+  flex-shrink: 0;
+}
+
+.brand-text-block {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.brand-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+}
+
+.brand-title sup {
+  color: #0A6E7C;
+  font-size: 11px;
+  margin-left: 1px;
+}
+
+.brand-subtitle {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #0A6E7C;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hipaa-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #E0F2FE;
+  color: #0369A1;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-top: 10px;
+  width: fit-content;
+  border: 1px solid rgba(2, 132, 199, 0.15);
+}
+
+/* Nav Menu */
+.hospital-nav-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 12px;
+}
+
+.nav-section-label {
+  font-size: 10.5px;
+  font-weight: 800;
+  color: #94A3B8;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 10px 6px;
+}
+
+.hospital-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px 0;
+}
+
+.hospital-nav-item {
+  margin-bottom: 4px;
+}
+
+.hospital-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 12px;
+  color: #475569;
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.hospital-nav-link:hover {
+  background-color: #F1F5F9;
+  color: var(--text-dark);
+}
+
+.hospital-nav-link.active {
+  background: #0284C7;
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.28);
+}
+
+.hospital-nav-link.active .nav-icon {
+  color: #FFFFFF !important;
+}
+
+.hospital-nav-link .nav-icon {
+  font-size: 18px;
+  color: #64748B;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* User Card in Sidebar Bottom */
+.hospital-sidebar-footer {
+  padding: 12px 14px;
+  border-top: 1px solid var(--admin-border);
+  background-color: #FAFAFC;
+}
+
+.sidebar-user-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.sidebar-user-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #0284C7;
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sidebar-user-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.sidebar-user-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.sidebar-user-role {
+  font-size: 11px;
+  color: #64748B;
+}
+
+.sidebar-logout-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #64748B;
+  padding: 6px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.sidebar-logout-btn:hover {
+  background-color: #FEE2E2;
+  color: #EF4444;
+}
+
+/* Main Content Area */
+.hospital-main-wrapper {
+  margin-left: 250px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: margin-left 0.25s ease-in-out;
+}
+
+.hospital-sidebar.closed + .hospital-main-wrapper {
+  margin-left: 78px;
+}
+
+/* Topbar Header */
+.hospital-topbar {
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--admin-border);
+  position: sticky;
+  top: 0;
+  z-index: 1100;
+}
+
+.topbar-primary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 24px;
+  gap: 16px;
+  border-bottom: 1px solid var(--admin-border-subtle);
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.topbar-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748B;
+}
+
+.topbar-breadcrumbs .crumb-link {
+  color: #0284C7;
+  cursor: pointer;
+}
+
+.topbar-breadcrumbs .crumb-sep {
+  color: #CBD5E1;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.status-pill.sync-active {
+  background-color: #E0F2FE;
+  color: #0369A1;
+}
+
+.status-pill.telemetry-live {
+  background-color: #EFF6FF;
+  color: #1D4ED8;
+}
+
+.pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+  box-shadow: 0 0 0 0 rgba(2, 132, 199, 0.7);
+  animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(2, 132, 199, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(2, 132, 199, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(2, 132, 199, 0); }
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar-search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #F1F5F9;
+  border-radius: 20px;
+  padding: 6px 14px;
+  width: 240px;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+}
+
+.topbar-search-box:focus-within {
+  background: #FFFFFF;
+  border-color: #0284C7;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
+  width: 280px;
+}
+
+.topbar-search-box input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 12.5px;
+  color: #0F172A;
+  width: 100%;
+}
+
+.topbar-icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #F8FAFC;
+  border: 1px solid var(--admin-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #475569;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.15s;
+}
+
+.topbar-icon-btn:hover {
+  background: #F1F5F9;
+  color: #0F172A;
+}
+
+.notif-badge-dot {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #EF4444;
+  border: 1.5px solid #FFFFFF;
+}
+
+/* Secondary Context Bar */
+.topbar-secondary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 24px;
+  font-size: 12px;
+  color: #64748B;
+  background: #FFFFFF;
+}
+
+/* Content Container */
+.hospital-content-body {
+  flex: 1;
+  padding: 24px;
+}
+
+/* Page Header Styles */
+.page-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.page-title-heading {
+  font-size: 24px;
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -0.02em;
+  margin: 0 0 6px 0;
+}
+
+.page-subtitle-text {
+  font-size: 13.5px;
+  color: #64748B;
+  margin: 0;
+  max-width: 780px;
+  line-height: 1.5;
+}
+
+.page-action-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn-primary-cyan {
+  background: #006699;
+  color: #FFFFFF;
+  border: none;
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.18s;
+  box-shadow: 0 2px 6px rgba(0, 102, 153, 0.25);
+}
+
+.btn-primary-cyan:hover {
+  background: #004d73;
+}
+
+.btn-secondary-white {
+  background: #FFFFFF;
+  color: #0284C7;
+  border: 1px solid var(--admin-border);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.18s;
+}
+
+.btn-secondary-white:hover {
+  background: #F8FAFC;
+  border-color: #CBD5E1;
+}
+
+/* KPI / Stat Cards Grid */
+.kpi-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 1100px) {
+  .kpi-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .kpi-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.kpi-card {
+  background: #FFFFFF;
+  border: 1px solid var(--admin-border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.kpi-card:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+}
+
+.kpi-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: #64748B;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.kpi-val-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.kpi-number {
+  font-size: 28px;
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.kpi-delta-pill {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 12px;
+}
+
+.kpi-delta-pill.blue {
+  background: #E0F2FE;
+  color: #0284C7;
+}
+
+.kpi-delta-pill.red {
+  background: #FEE2E2;
+  color: #EF4444;
+}
+
+.kpi-delta-pill.amber {
+  background: #FEF3C7;
+  color: #D97706;
+}
+
+.kpi-subtext {
+  font-size: 12px;
+  color: #94A3B8;
+  font-weight: 500;
+}
+
+.kpi-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.kpi-icon-box.blue {
+  background: #EFF6FF;
+  color: #2563EB;
+}
+
+.kpi-icon-box.teal {
+  background: #E6F4F6;
+  color: #0A6E7C;
+}
+
+.kpi-icon-box.purple {
+  background: #EEF2FF;
+  color: #6366F1;
+}
+
+.kpi-icon-box.red {
+  background: #FEF2F2;
+  color: #EF4444;
+}
+
+.kpi-icon-box.green {
+  background: #ECFDF5;
+  color: #10B981;
+}
+
+/* Clinical Table Styles */
+.clinical-table-card {
+  background: #FFFFFF;
+  border: 1px solid var(--admin-border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.clinical-table-filter-bar {
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--admin-border-subtle);
+}
+
+.filter-pills-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-pill-btn {
+  background: #F1F5F9;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.filter-pill-btn:hover {
+  background: #E2E8F0;
+  color: #0F172A;
+}
+
+.filter-pill-btn.active {
+  background: #0284C7;
+  color: #FFFFFF;
+}
+
+/* Master Dark Clinical Table Header */
+.clinical-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.clinical-table thead tr {
+  background-color: var(--table-header-bg);
+  color: #FFFFFF;
+}
+
+.clinical-table th {
+  padding: 12px 16px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.clinical-table td {
+  padding: 13px 16px;
+  font-size: 13px;
+  color: #1E293B;
+  border-bottom: 1px solid #F1F5F9;
+  vertical-align: middle;
+}
+
+.clinical-table tbody tr:hover {
+  background-color: #F8FAFC;
+}
+
+.clinical-table tbody tr.selected-row {
+  background-color: #F0F9FF;
+  border-left: 3px solid #0284C7;
+}
+
+/* Badges in tables */
+.category-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.category-badge.admin {
+  background: #FEE2E2;
+  color: #DC2626;
+}
+
+.category-badge.doctor {
+  background: #E0F2FE;
+  color: #0284C7;
+}
+
+.category-badge.pharmacist {
+  background: #EEF2FF;
+  color: #4F46E5;
+}
+
+.category-badge.antibiotic {
+  background: #E0F2FE;
+  color: #0284C7;
+}
+
+.category-badge.analgesic {
+  background: #EFF6FF;
+  color: #2563EB;
+}
+
+.category-badge.antihistamine {
+  background: #FEE2E2;
+  color: #DC2626;
+}
+
+.category-badge.cardiovascular {
+  background: #EDE9FE;
+  color: #7C3AED;
+}
+
+/* Status Pill in tables */
+.status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.status-tag.active {
+  background: #ECFDF5;
+  color: #059669;
+}
+
+.status-tag.low {
+  background: #EFF6FF;
+  color: #0284C7;
+  border: 1px solid rgba(2, 132, 199, 0.2);
+}
+
+.status-tag.out {
+  background: #FEE2E2;
+  color: #DC2626;
+}
+
+/* User Identity Cell */
+.user-identity-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.table-user-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #0284C7;
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 13.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.table-user-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.table-user-handle {
+  font-size: 11.5px;
+  color: #64748B;
+}
+
+/* Progress bar in stock */
+.stock-progress-wrap {
+  width: 100px;
+  height: 6px;
+  background: #E2E8F0;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.stock-progress-bar {
+  height: 100%;
+  border-radius: 3px;
+}
+
+.stock-progress-bar.good { background: #0284C7; }
+.stock-progress-bar.low { background: #F59E0B; }
+.stock-progress-bar.empty { background: #EF4444; }
+
+/* Clinical Footer */
+.hospital-footer {
+  margin-top: auto;
+  padding: 16px 24px;
+  background: #FFFFFF;
+  border-top: 1px solid var(--admin-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 11.5px;
+  color: #64748B;
+}
+
+.footer-left {
+  font-weight: 600;
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.footer-badge-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Bottom Feature Triplet Cards (Images 3 & 4) */
+.clinical-triplet-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 24px;
+}
+
+@media (max-width: 900px) {
+  .clinical-triplet-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.clinical-feature-card {
+  background: #FFFFFF;
+  border: 1px solid var(--admin-border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.18s;
+}
+
+.clinical-feature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+.feature-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.feature-icon-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #E0F2FE;
+  color: #0284C7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feature-status-tag {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 12px;
+  background: #E0F2FE;
+  color: #0284C7;
+}
+
+.feature-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0 0 6px 0;
+}
+
+.feature-desc {
+  font-size: 12.5px;
+  color: #64748B;
+  line-height: 1.5;
+  margin: 0 0 14px 0;
+}
+
+.feature-footer-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 700;
+  color: #0284C7;
+  cursor: pointer;
+  padding-top: 10px;
+  border-top: 1px solid var(--admin-border-subtle);
+}
+
+/* ── Print Media Optimization ─────────────────────────── */
+@media print {
+  .no-print,
+  .hospital-admin-sidebar,
+  .hospital-admin-topbar,
+  .hospital-admin-footer,
+  .btn-secondary-white,
+  .btn-primary-cyan,
+  .topbar-icon-btn {
+    display: none !important;
+  }
+
+  body, html {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+  }
+
+  .hospital-admin-layout {
+    display: block !important;
+  }
+
+  .hospital-admin-main {
+    margin-left: 0 !important;
+    padding: 0 !important;
+  }
+
+  .hospital-admin-page-container {
+    padding: 0 !important;
+  }
+
+  .clinical-table-card {
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+}
+
+/* ── Mobile Responsive Layout ──────────────────────────── */
+@media (max-width: 900px) {
+  .hospital-sidebar {
+    position: fixed;
+    left: -260px;
+    top: 0;
+    bottom: 0;
+    width: 250px;
+    z-index: 1300;
+    box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+    transition: left 0.3s ease;
+  }
+
+  .hospital-sidebar.mobile-show {
+    left: 0;
+  }
+
+  .hospital-main-wrapper {
+    margin-left: 0 !important;
+  }
+
+  .topbar-primary-row {
+    padding: 10px 16px;
+    gap: 8px;
+  }
+
+  .topbar-search-box {
+    width: 160px;
+  }
+
+  .topbar-search-box:focus-within {
+    width: 200px;
+  }
+
+  .topbar-secondary-row {
+    padding: 6px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .hospital-content-body {
+    padding: 16px;
+  }
+
+  .hospital-footer {
+    padding: 12px 16px;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-right {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .status-pill {
+    display: none;
+  }
+
+  .d-md-none {
+    display: flex !important;
+  }
+
+  .page-title-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .page-title-heading {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .topbar-breadcrumbs {
+    font-size: 11px;
+  }
+
+  .topbar-search-box {
+    display: none;
+  }
+
+  .hospital-content-body {
+    padding: 12px;
+  }
+
+  .clinical-table-filter-bar {
+    padding: 10px 12px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .clinical-table th,
+  .clinical-table td {
+    padding: 10px 12px;
+    font-size: 11.5px;
+  }
+}
+
+/* Mobile overlay backdrop for sidebar */
+.hospital-sidebar.mobile-show::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 250px;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: -1;
+}

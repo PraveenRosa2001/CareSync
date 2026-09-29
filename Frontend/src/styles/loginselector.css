@@ -1,0 +1,303 @@
+.login-selector-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  background-image: url('../assets/bglogin.jpg'); 
+  background-size: cover;
+  background-position: center;
+  padding: 20px; /* Adds spacing around the container */
+}
+.selector-title {
+  align-self: flex-start; /* Keeps the title on the top-left */
+  font-size: 45px;
+  color: #333;
+  margin-top: 100px; /* Increase top margin further to move the title down */
+  margin-left: 200px; /* Increase left margin for more space */
+  margin-bottom: 30px;
+  text-align: left;
+  width: 100%;
+}
+
+.login-selector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  border-radius: 10px;
+  text-align: center;
+  max-height: 100vh;
+}
+
+.login-selector .button-container {
+  display: flex;
+  justify-content: center; /* Centers the cards horizontally */
+  align-items: center; /* Centers items vertically, just in case */
+  gap: 20px; /* Adds spacing between the cards */
+  flex-wrap: wrap; /* Allows wrapping for smaller screens */
+  width: 100%; /* Ensures full container width */
+  max-width: 1000px; /* Restricts the maximum width */
+}
+
+.login-selector .card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Center content horizontally and vertically */
+  width: 500px; /* Increased fixed width */
+  height: 250px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  max-width: 200px;
+}
+
+
+/* .login-selector .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  background-color: #007BFF;
+  color: white;
+}
+
+.login-selector .card:hover img {
+  filter: brightness(0) invert(1); 
+} */
+
+.login-selector img {
+  height: 90px; /* Adjust height of the image */
+  width: 90px;  /* Adjust width of the image */
+  margin-bottom: 10px; /* Space between the image and text */
+  object-fit: contain; /* Ensure image fits well inside its container */
+}
+
+.login-selector .actions {
+  margin-top: 80px;
+}
+
+.login-selector button {
+  margin: 0 10px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  
+}
+.login-selector-container
+.back-button {
+  padding: 10px 10px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  background-color: #007BFF;
+}
+.login-selector-container
+.continue-button {
+  background-color: white; /* Default disabled background */
+  color: #B2BEB5; /* Light gray text color when disabled */
+  padding: 15px 40px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: not-allowed; /* Pointer shows disabled state */
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 300px; /* Adjust width as needed */
+  text-align: center; /* Ensure text stays centered */
+}
+
+.continue-button:disabled {
+  background-color: white; /* Ensures it stays white when disabled */
+  color: #B2BEB5; /* Maintains gray text color */
+  cursor: not-allowed;
+}.login-selector-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  background-image: url('../assets/homebg1.png');
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+}
+
+.login-selector {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* This centers the content horizontally */
+  justify-content: center;
+  padding: 40px;
+  border-radius: 10px;
+  text-align: center;
+  max-height: 100vh;
+  width: 100%; /* Ensure it takes up the full width */
+  max-width: 800px; /* Restrict maximum width */
+}
+.login-selector .button-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+
+
+.login-selector img {
+  height: 90px;
+  width: 90px;
+  margin-top: 82px;
+  margin-bottom: 10px;
+  
+}
+
+.login-selector .actions {
+  margin-top: 60px;
+  width: 100%;
+ 
+  align-items: center; /* Centers the content vertically */
+}
+
+.login-selector button {
+  border: none;
+  border-radius: 30px;
+  /* font-size: 16px; */
+  cursor: pointer;
+}
+.login-selector-container
+.back-button {
+  padding: 10px 10px;
+  background-color: #007BFF;
+  color: white;
+}
+.login-selector-container
+.continue-button {
+  padding: 20px 20px;
+  background-color: white;
+  color: #B2BEB5;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-align: center;
+}
+.login-selector-container
+.continue-button:not(:disabled) {
+  background-color: #007BFF;
+  color: white;
+}
+
+.continue-button:not(:disabled):hover {
+  background-color: #0056b3;
+}
+
+.login-selector .card.selected {
+  background-color: #007BFF;
+  color: white;
+}
+
+.login-selector .card.selected img {
+  filter: brightness(0) invert(1);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .selector-title {
+    font-size: 6vw; /* Scale title font */
+  }
+
+  .login-selector .button-container {
+    flex-direction: column; /* Stack cards vertically */
+    gap: 15px;
+  }
+
+  .login-selector .card {
+    width: 80%; /* Make cards full width for small screens */
+  }
+
+
+  .selector-title .underline {
+    text-decoration: underline;
+    text-decoration-color: blue; /* Blue underline */
+  }
+  .login-selector .actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Add spacing between buttons */
+  }
+
+
+
+.login-selector
+  .back-button,
+  .continue-button {
+    width: 80%; /* Make buttons full width */
+    font-size: 14px; /* Adjust font size */
+    padding: 10px; /* Adjust padding */
+  }
+}
+
+@media (max-width: 480px) {
+  .selector-title {
+    font-size: 7vw; /* Further reduce font size */
+    margin-left: 0px;
+    align-items: center;
+  }
+
+  .login-selector {
+    padding: 10px; /* Reduce padding */
+  }
+
+  .login-selector .card {
+    padding: 10px; /* Reduce padding */
+  }
+}
+
+.login-selector-container
+.continue-button:not(:disabled) {
+  background-color: #007BFF; /* Blue color when enabled */
+  color: white; /* White text for contrast */
+  cursor: pointer; /* Changes to pointer when clickable */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+}
+
+.continue-button:not(:disabled):hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow */
+}
+
+
+/* Selected Card Styles */
+.login-selector .card.selected {
+  background-color: #007BFF; /* Blue background for selected card */
+  color: white; /* White text for contrast */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow */
+}
+
+.login-selector .card.selected img {
+  filter: brightness(0) invert(1); /* Makes the image white */
+}
+
+.card-text{
+
+  color: #B2BEB5;
+}
+
+.login-selector .card.selected .card-text {
+  color: white; /* Changes the font color to white when the card is selected */
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .login-selector .button-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .login-selector .card {
+    margin-bottom: 20px;
+  }
+}

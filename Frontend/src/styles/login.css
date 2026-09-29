@@ -1,0 +1,451 @@
+/* Main container styling */
+.main-page-container {
+  display: flex;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+/* Left side image container */
+.left-side-container {
+  flex: 1;
+  background-image: url('../assets/doctor3.png');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  overflow: hidden;
+}
+
+/* Dark overlay to reduce brightness */
+.left-side-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.welcome-message {
+  text-align: center;
+  color: rgb(255, 255, 255);
+  z-index: 1001;
+  position: relative;
+}
+
+.welcome-message h1 {
+  font-size: 3.5em;
+  font-weight: bold;
+}
+
+.welcome-message p {
+  font-size: 3em;
+  margin-top: 10px;
+}
+
+/* Right side container styling */
+.right-side-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px;
+ 
+}
+
+.right-side-container h2 {
+  font-size: 2.5em; /* Larger font size */
+  margin-bottom: 10px;
+}
+
+.intro-text {
+  margin-bottom: 20px;
+  color: #b0b0b0;
+  font-size: 1.1em; /* Larger font for better readability */
+  text-align: center;
+}
+
+/* Form styling */
+.main-form {
+  width: 100%;
+  max-width: 500px; /* Adjusted for larger screens */
+  margin: auto;
+}
+
+.OTP-btn, .resets-btn {
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 10px 15px;
+}
+
+.group {
+  margin-bottom: 20px;
+}
+
+.group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.group input[type="text"],
+.group input[type="password"] {
+  width: 95%;
+  padding: 14px; /* Slightly increased padding */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1.1em;
+  transition: border-color 0.3s;
+}
+
+.group input[type="text"]:focus,
+.group input[type="password"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Remember me and forgot password styling */
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #b0b0b0;
+  margin-bottom: 20px;
+}
+
+.options input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+/* styles for butto */
+.b1{
+
+  width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.popu5 .close-btn{
+
+
+  position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 25px;
+    color: #333;
+    cursor: pointer;
+}
+.options .forgot-password {
+  color: #007bff;
+  font-size: 1em;
+  text-decoration: none;
+}
+
+.options .forgot-password:hover {
+  text-decoration: underline;
+}
+
+/* Form buttons styling */
+.form-buttons {
+  margin-top: 20px;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  background-color: #007bff;
+  color: white;
+  font-size: 1.1em; /* Larger font size */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+  background-color: #0056b3;
+}
+
+.btn-submit:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Error message styling */
+.error-message {
+  color: #ff6b6b;
+  font-size: 1em;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Responsive styling */
+/* Tablet view */
+@media (max-width: 768px) {
+  .main-page-container {
+    flex-direction: column;
+  }
+
+  .left-side-container {
+    height: 40vh;
+  }
+
+  .welcome-message h1 {
+    font-size: 2.5em;
+  }
+
+  .right-side-container h2 {
+    font-size: 2em;
+  }
+
+  .main-form {
+    max-width: 350px;
+  }
+}
+
+/* Small mobile view */
+@media (max-width: 480px) {
+  .left-side-container {
+    height: 35vh;
+  }
+
+  .welcome-message h1 {
+    font-size: 1.5em;
+  }
+
+  .welcome-message p {
+    font-size: 0.75em;
+  }
+
+  .right-side-container h2 {
+    font-size: 1.4em;
+  }
+
+  .main-form {
+    max-width: 250px;
+  }
+
+  .btn-submit {
+    padding: 8px;
+    font-size: 0.85em;
+  }
+}
+/* .popup-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+.popup-container input {
+  display: block;
+  margin: 10px 0;
+  width: 100%;
+  padding: 10px;
+}
+.popup-container button {
+  margin-top: 10px;
+} */
+/* Styling for the popup overlay */
+.popup-overlay5 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Styling for the popup container */
+.popu5 {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 40px 40px;
+  width: 400px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+}
+
+/* Close button styling */
+.close-btn5 {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 40px;
+  color: #333;
+  cursor: pointer;
+}
+
+/* .close-btn5:hover {
+  color: #ff0000;
+} */
+
+/* Popup heading styling */
+.popu5 h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Input field styling */
+.popu5 input {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* Button styling */
+.OTP-btn{
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+
+
+
+.resets-btn{
+
+
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+
+
+
+
+
+}
+
+/* .popu5 button:hover {
+  background-color: #0056b3;
+} */
+
+/* Message styling */
+.popu5 p {
+  font-size: 14px;
+  color: #666;
+  margin-top: 10px;
+}
+.password-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+
+.toggle-password-visibility {
+  position: absolute;
+  right: 10px; /* Adjust spacing from the input's edge */
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.2em; /* Adjust icon size */
+  color: #6c757d; /* Icon color */
+  transition: color 0.3s;
+}
+
+.toggle-password-visibility:hover {
+  color: #007bff; /* Change color on hover for better UX */
+}
+
+
+
+.password-input-container4 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  
+}
+
+.password-input {
+  width: 100%;
+  padding: 10px 40px 10px 10px; /* Extra padding on the right for the icon */
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.toggle-password-visibility2 {
+  position: absolute;
+  right: 20px; /* Align the icon to the right inside the input */
+  cursor: pointer;
+  color: #ccc;
+  font-size: 18px; /* Adjust as needed */
+}
+/* Style the user type selection container */
+.user-type-selection {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Space between buttons */
+  margin-bottom: 20px; /* Space below the user type section */
+}
+
+/* Style the individual buttons */
+.user-type-selection button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: 2px solid #007bff; /* Border color */
+  background-color: transparent;
+  color: #007bff; /* Text color */
+  cursor: pointer;
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Change appearance when a button is selected */
+.user-type-selection button.selected {
+  background-color: #007bff;
+  color: white;
+  border-color: #0056b3;
+}
+
+/* Add hover effect */
+.user-type-selection button:hover {
+  background-color: #0056b3;
+  color: white;
+  border-color: #0056b3;
+}
