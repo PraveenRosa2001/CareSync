@@ -107,16 +107,13 @@ export default function Doctordashboard() {
       <aside className={`hospital-sidebar ${sidebarOpen ? 'open' : 'closed'} ${mobileMenuOpen ? 'mobile-show' : ''}`}>
         {/* Brand header */}
         <div className="hospital-sidebar-brand">
-          <div className="brand-row" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <img src={LogoOriginal} alt="CareSync Logo" style={{ height: '36px', objectFit: 'contain' }} />
-            <div className="brand-text-block" style={{ marginTop: '4px' }}>
-              <span className="brand-subtitle" style={{ fontSize: '10.5px', letterSpacing: '0.8px', color: 'rgba(255,255,255,0.7)' }}>HOSPITAL ADMIN</span>
-            </div>
+          <div className="brand-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '36px', position: 'relative' }}>
+            <img src={LogoOriginal} alt="CareSync Logo" style={{ width: '100%', position: 'absolute', top: '50%', transform: 'translateY(-50%)', objectFit: 'contain' }} />
           </div>
-          <div className="hipaa-pill-badge">
+          {/* <div className="hipaa-pill-badge">
             <ShieldIcon sx={{ fontSize: 13 }} />
             <span>HIPAA Encrypted v4.2</span>
-          </div>
+          </div> */}
         </div>
 
         {/* Navigation list */}
@@ -192,8 +189,8 @@ export default function Doctordashboard() {
             </li>
           </ul>
 
-          <div className="nav-section-label">SYSTEM / CLINICAL</div>
-          <ul className="hospital-nav-list">
+          {/* <div className="nav-section-label">SYSTEM / CLINICAL</div> */}
+          {/* <ul className="hospital-nav-list">
             <li className="hospital-nav-item">
               <NavLink
                 to="/dashboard/emergency"
@@ -215,7 +212,7 @@ export default function Doctordashboard() {
                 <span>Settings & Audit</span>
               </NavLink>
             </li>
-          </ul>
+          </ul> */}
         </div>
 
         {/* Sidebar Footer User Widget */}
@@ -259,15 +256,15 @@ export default function Doctordashboard() {
                 <span>Clinical Operations</span>
               </div>
 
-              <div className="status-pill sync-active">
+              {/* <div className="status-pill sync-active">
                 <span className="pulse-dot"></span>
                 <span>Directory Sync: Active</span>
-              </div>
+              </div> */}
 
-              <div className="status-pill telemetry-live">
+              {/* <div className="status-pill telemetry-live">
                 <span className="pulse-dot"></span>
                 <span>ICU Telemetry: Live</span>
-              </div>
+              </div> */}
             </div>
 
             <div className="topbar-right">
@@ -293,7 +290,7 @@ export default function Doctordashboard() {
           </div>
 
           {/* Secondary Context Row */}
-          <div className="topbar-secondary-row">
+          {/* <div className="topbar-secondary-row">
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span>{contextInfo.section}</span>
               <span style={{ color: '#CBD5E1' }}>&rsaquo;</span>
@@ -305,7 +302,7 @@ export default function Doctordashboard() {
                 <SecurityIcon sx={{ fontSize: 13, color: '#0A6E7C' }} /> {contextInfo.secCode}
               </span>
             </div>
-          </div>
+          </div> */}
         </header>
 
         {/* Page Content Body */}

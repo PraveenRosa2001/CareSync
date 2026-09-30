@@ -37,6 +37,7 @@ import { useInView } from "react-intersection-observer";
 
 import medicalVideo from "../assets/medical-bg.mp4";
 import hospitalBg from "../assets/hospital_background.jpg";
+import logoSymbol from "../assets/Logo_Original_Symbol.png";
 
 // ── Services & Clinical Features Data ────────────────────────
 const features = [
@@ -256,20 +257,20 @@ const Welcome = () => {
           <Grow in={checked} timeout={500}>
             <Box
               sx={{
-                width: { xs: 70, md: 84 },
-                height: { xs: 70, md: 84 },
+                width: { xs: 90, md: 110 },
+                height: { xs: 90, md: 110 },
                 borderRadius: "24px",
-                background: "rgba(255,255,255,0.08)",
-                backdropFilter: "blur(14px)",
-                border: "1px solid rgba(255,255,255,0.2)",
+                // background: "rgba(255,255,255,0.08)",
+                // backdropFilter: "blur(14px)",
+                // border: "1px solid rgba(255,255,255,0.2)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                mb: 3.5,
-                boxShadow: "0 10px 35px rgba(0,0,0,0.35)",
+                mb: 0.5,
+                // boxShadow: "0 10px 35px rgba(0,0,0,0.35)",
               }}
             >
-              <LocalHospital sx={{ fontSize: { xs: 38, md: 46 }, color: "#5EEAD4" }} />
+              <img src={logoSymbol} alt="CareSync Logo" style={{ width: '68%', height: '60%', objectFit: 'contain' }} />
             </Box>
           </Grow>
 

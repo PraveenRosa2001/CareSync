@@ -33,8 +33,8 @@ import {
   LocalHospital,
   Shield,
   CheckCircle,
-  Security,
 } from '@mui/icons-material';
+import logoSymbol from '../assets/Logo_Original_Symbol.png';
 
 export default function Login() {
   const theme = useTheme();
@@ -273,20 +273,20 @@ export default function Login() {
           {/* Logo Badge */}
           <Box
             sx={{
-              width: 72,
-              height: 72,
+              width: 110,
+              height: 110,
               borderRadius: "20px",
-              background: "rgba(255,255,255,0.08)",
-              backdropFilter: "blur(12px)",
-              border: "1px solid rgba(255,255,255,0.15)",
+              // background: "rgba(255,255,255,0.08)",
+              // backdropFilter: "blur(12px)",
+              // border: "1px solid rgba(255,255,255,0.15)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              mb: 3,
-              boxShadow: "0 8px 30px rgba(0,0,0,0.25)",
+              // mb: 3,
+              // boxShadow: "0 8px 30px rgba(0,0,0,0.25)",
             }}
           >
-            <LocalHospital sx={{ fontSize: 38, color: "#5EEAD4" }} />
+            <img src={logoSymbol} alt="CareSync Logo" style={{ width: '60%', height: '60%', objectFit: 'contain' }} />
           </Box>
 
           <Typography

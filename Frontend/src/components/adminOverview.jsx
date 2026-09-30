@@ -37,7 +37,7 @@ export default function AdminOverview() {
           </p>
         </div>
 
-        <div className="page-action-group">
+        {/* <div className="page-action-group">
           <div
             style={{
               display: "flex",
@@ -58,7 +58,7 @@ export default function AdminOverview() {
             <EmergencyIcon sx={{ fontSize: 18 }} />
             <span>Trauma Desk</span>
           </button>
-        </div>
+        </div> */}
       </div>
 
       {/* ── 4 Executive KPI Cards ────────────────────────────── */}
@@ -287,7 +287,7 @@ export default function AdminOverview() {
         </div>
 
         {/* Live Clinical Security & Audit Log */}
-        <div className="clinical-table-card" style={{ padding: "20px" }}>
+        {/* <div className="clinical-table-card" style={{ padding: "20px" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
               <ShieldIcon sx={{ fontSize: 20, color: "#0A6E7C" }} />
@@ -326,7 +326,7 @@ export default function AdminOverview() {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
