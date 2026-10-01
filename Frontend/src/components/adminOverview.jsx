@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
   Box,
@@ -22,9 +23,64 @@ import {
   MonitorHeart as HeartIcon,
   Hotel as BedIcon,
 } from "@mui/icons-material";
+import { ACCESS, hasAccess, normalizeRole } from "../utils/roleAccess";
 
 export default function AdminOverview() {
   const navigate = useNavigate();
+  const role = normalizeRole(localStorage.getItem("Role"));
+  const canViewStaff = hasAccess(role, ACCESS.USER_STAFF);
+
+  const [stats, setStats] = useState({
+    patients: 0,
+    pharmacyTotal: 0,
+    pharmacyPending: 0,
+    medicinesTotal: 0,
+    medicinesLowStock: 0,
+    usersTotal: 0,
+  });
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const [patientsRes, pharmacyRes, medicinesRes, usersRes] = await Promise.all([
+          axios.get(`${process.env.REACT_APP_API_BASE_URL}/Patient`).catch(() => ({ data: [] })),
+          axios.get(`${process.env.REACT_APP_API_BASE_URL}/Treatment/preparationcomplete`).catch(() => ({ data: [] })),
+          axios.get(`${process.env.REACT_APP_API_BASE_URL}/Material`).catch(() => ({ data: [] })),
+          canViewStaff
+            ? axios.get(`${process.env.REACT_APP_API_BASE_URL}/User`).catch(() => ({ data: [] }))
+            : Promise.resolve({ data: [] })
+        ]);
+
+        const patientsCount = Array.isArray(patientsRes.data) ? patientsRes.data.length : 0;
+        
+        const pharmacyData = Array.isArray(pharmacyRes.data) ? pharmacyRes.data : [];
+        const pharmacyTotal = pharmacyData.length;
+        const pharmacyPending = pharmacyData.filter(p => p.Status !== "C").length;
+
+        const medicinesData = Array.isArray(medicinesRes.data) ? medicinesRes.data : [];
+        const medicinesTotal = medicinesData.length;
+        // Mocking minStock as 20 as in registerMedicine.jsx
+        const medicinesLowStock = medicinesData.filter(m => {
+          const stock = Number(m.MMC_REORDER_LEVEL || 0);
+          return stock > 0 && stock < 20;
+        }).length;
+
+        const usersCount = Array.isArray(usersRes.data) ? usersRes.data.length : 0;
+
+        setStats({
+          patients: patientsCount,
+          pharmacyTotal: pharmacyTotal,
+          pharmacyPending: pharmacyPending,
+          medicinesTotal: medicinesTotal,
+          medicinesLowStock: medicinesLowStock,
+          usersTotal: usersCount,
+        });
+      } catch (err) {
+        console.error("Error fetching overview stats", err);
+      }
+    };
+    fetchStats();
+  }, [canViewStaff]);
 
   return (
     <div className="hospital-admin-page-container">
@@ -67,10 +123,10 @@ export default function AdminOverview() {
           <div>
             <div className="kpi-label">TOTAL REGISTERED PATIENTS</div>
             <div className="kpi-val-row">
-              <span className="kpi-number">1,248</span>
-              <span className="kpi-delta-pill blue">+24 today</span>
+              <span className="kpi-number">{stats.patients}</span>
+              <span className="kpi-delta-pill blue">Active Data</span>
             </div>
-            <div className="kpi-subtext">342 active inpatients admitted</div>
+            <div className="kpi-subtext">Registered electronic dossiers</div>
           </div>
           <div className="kpi-icon-box blue">
             <PatientIcon sx={{ fontSize: 22 }} />
@@ -81,10 +137,10 @@ export default function AdminOverview() {
           <div>
             <div className="kpi-label">DISPENSARY QUEUE</div>
             <div className="kpi-val-row">
-              <span className="kpi-number">45</span>
-              <span className="kpi-delta-pill red">8 Pending</span>
+              <span className="kpi-number">{stats.pharmacyTotal}</span>
+              <span className="kpi-delta-pill red">{stats.pharmacyPending} Pending</span>
             </div>
-            <div className="kpi-subtext">Rs. 142.5k revenue logged</div>
+            <div className="kpi-subtext">Real-time pharmacy allocations</div>
           </div>
           <div className="kpi-icon-box teal">
             <PharmacyIcon sx={{ fontSize: 22 }} />
@@ -98,7 +154,7 @@ export default function AdminOverview() {
               <span className="kpi-number">18 / 22</span>
               <span className="kpi-delta-pill blue">82% on shift</span>
             </div>
-            <div className="kpi-subtext">64 consultations queued</div>
+            <div className="kpi-subtext">Consultations queued</div>
           </div>
           <div className="kpi-icon-box purple">
             <CalendarIcon sx={{ fontSize: 22 }} />
@@ -109,10 +165,10 @@ export default function AdminOverview() {
           <div>
             <div className="kpi-label">FORMULARY STOCK HEALTH</div>
             <div className="kpi-val-row">
-              <span className="kpi-number">97.8%</span>
-              <span className="kpi-delta-pill amber">14 low stock</span>
+              <span className="kpi-number">{stats.medicinesTotal}</span>
+              <span className="kpi-delta-pill amber">{stats.medicinesLowStock} low stock</span>
             </div>
-            <div className="kpi-subtext">842 compounds monitored</div>
+            <div className="kpi-subtext">Active compounds monitored</div>
           </div>
           <div className="kpi-icon-box green">
             <DrugIcon sx={{ fontSize: 22 }} />
@@ -139,7 +195,8 @@ export default function AdminOverview() {
             icon: <StaffIcon sx={{ fontSize: 22, color: "#0284C7" }} />,
             bg: "#E0F2FE",
             path: "/dashboard/Add-users",
-            badge: "86 Users",
+            badge: `${stats.usersTotal} Users`,
+            roles: ACCESS.USER_STAFF,
           },
           {
             title: "Patient Records & Dossiers",
@@ -147,7 +204,8 @@ export default function AdminOverview() {
             icon: <PatientIcon sx={{ fontSize: 22, color: "#0A6E7C" }} />,
             bg: "#E6F4F6",
             path: "/dashboard/medical-history",
-            badge: "1,248 Files",
+            badge: `${stats.patients} Files`,
+            roles: ACCESS.PATIENT_RECORDS,
           },
           {
             title: "Pharmacy Dispensing",
@@ -155,7 +213,8 @@ export default function AdminOverview() {
             icon: <PharmacyIcon sx={{ fontSize: 22, color: "#2563EB" }} />,
             bg: "#EFF6FF",
             path: "/dashboard/pharmacy",
-            badge: "45 in Queue",
+            badge: `${stats.pharmacyTotal} in Queue`,
+            roles: ACCESS.PHARMACY,
           },
           {
             title: "Formulary & Inventory",
@@ -163,7 +222,8 @@ export default function AdminOverview() {
             icon: <DrugIcon sx={{ fontSize: 22, color: "#7C3AED" }} />,
             bg: "#EDE9FE",
             path: "/dashboard/register-medicines",
-            badge: "842 SKUs",
+            badge: `${stats.medicinesTotal} SKUs`,
+            roles: ACCESS.DRUG_INVENTORY,
           },
           {
             title: "Appointments & Timeslots",
@@ -172,8 +232,9 @@ export default function AdminOverview() {
             bg: "#FEF3C7",
             path: "/dashboard/daily-appointments",
             badge: "12 Active Slots",
+            roles: ACCESS.APPOINTMENTS,
           },
-        ].map((item, idx) => (
+        ].filter((item) => hasAccess(role, item.roles)).map((item, idx) => (
           <div
             key={idx}
             onClick={() => navigate(item.path)}

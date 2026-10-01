@@ -35,6 +35,13 @@ import {
   CheckCircle,
 } from '@mui/icons-material';
 import logoSymbol from '../assets/Logo_Original_Symbol.png';
+import { ROLES, getDefaultDashboardPath, normalizeRole } from '../utils/roleAccess';
+
+
+
+const clearStaffSession = () => {
+  ['Token', 'Role', 'Name', 'id'].forEach((key) => localStorage.removeItem(key));
+};
 
 export default function Login() {
   const theme = useTheme();
@@ -89,28 +96,36 @@ export default function Login() {
       }
 
       const data = await response.json();
-      localStorage.setItem('Token', data.Token || 'jwt-active-session');
-      localStorage.setItem('Role', data.Role || 'Admin');
-      localStorage.setItem('Name', data.Name || form.username);
-      localStorage.setItem('id', data.id || 'usr-1');
+      const userRole = normalizeRole(data.Role || data.role || data.userType);
+      const token = data.Token || data.token;
+
+      if (![ROLES.ADMIN, ROLES.DOCTOR, ROLES.PHARMACIST].includes(userRole)) {
+        setErrorMessage("Your account does not have a supported CareSync staff role.");
+        return;
+      }
+
+
+      // Replace any legacy/stale session atomically with the newly-issued JWT.
+      clearStaffSession();
+      localStorage.setItem('Token', token);
+      localStorage.setItem('Role', userRole);
+      localStorage.setItem('Name', data.Name || data.name || form.username);
+      localStorage.setItem('id', data.id || data.userId || '');
 
       if (rememberMe) {
         localStorage.setItem("rememberedUsername", form.username);
-        localStorage.setItem("rememberedPassword", form.password);
       } else {
         localStorage.removeItem("rememberedUsername");
-        localStorage.removeItem("rememberedPassword");
       }
+      // Never persist a staff password in localStorage.
+      localStorage.removeItem("rememberedPassword");
 
-      navigate("/dashboard/overview");
+      navigate(getDefaultDashboardPath(userRole), { replace: true });
     } catch (error) {
-      console.log('Backend offline or slow, falling back to local demo authorization for quick testing');
-      // If user typed admin credentials or test credentials, allow seamless entry
-      localStorage.setItem('Token', 'demo-token-active');
-      localStorage.setItem('Role', form.username.toLowerCase().includes('doc') ? 'Doc' : form.username.toLowerCase().includes('pharm') ? 'Phuser' : 'Admin');
-      localStorage.setItem('Name', form.username || 'AdminTest');
-      localStorage.setItem('id', 'usr-1');
-      navigate("/dashboard/overview");
+      console.error('Staff login failed:', error);
+      setErrorMessage(
+        "Unable to connect to the CareSync authentication service. Please make sure the backend is running and try again."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -137,9 +152,9 @@ export default function Login() {
       setDialogMessage(response.data?.message || 'OTP sent to your clinical email. Please check your inbox.');
       setDialogStage(2);
     } catch (error) {
-      // Demo fallback OTP
-      setDialogMessage("OTP dispatched to your registered email (Demo code: 123456).");
-      setDialogStage(2);
+      const message = error?.response?.data?.message || error?.response?.data ||
+        "Unable to send the password reset OTP. Please contact the system administrator if the problem continues.";
+      setDialogMessage(typeof message === 'string' ? message : "Unable to send the password reset OTP.");
     } finally {
       setDialogLoading(false);
     }
@@ -168,11 +183,9 @@ export default function Login() {
         setDialogMessage('');
       }, 2000);
     } catch (error) {
-      setDialogMessage('Password updated successfully. Please log in.');
-      setTimeout(() => {
-        setOpenDialog(false);
-        setDialogStage(1);
-      }, 1500);
+      const message = error?.response?.data?.message || error?.response?.data ||
+        'Password reset failed. Please verify the OTP and try again.';
+      setDialogMessage(typeof message === 'string' ? message : 'Password reset failed. Please try again.');
     } finally {
       setDialogLoading(false);
     }
@@ -180,10 +193,17 @@ export default function Login() {
 
   useEffect(() => {
     const savedUsername = localStorage.getItem("rememberedUsername");
-    const savedPassword = localStorage.getItem("rememberedPassword");
-    if (savedUsername && savedPassword) {
-      setForm({ username: savedUsername, password: savedPassword });
+    if (savedUsername) {
+      setForm((current) => ({ ...current, username: savedUsername }));
       setRememberMe(true);
+    }
+
+    // Clean up passwords and fake tokens saved by older builds.
+    localStorage.removeItem("rememberedPassword");
+
+    const existingToken = localStorage.getItem("Token");
+    if (existingToken === "demo-token-active") {
+      clearStaffSession();
     }
   }, []);
 

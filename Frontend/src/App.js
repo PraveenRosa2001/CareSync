@@ -1,129 +1,20 @@
-// import React from "react";
-// import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-// import Login from './pages/login';
-// import Addtimeslot from './components/addTimeslot';
-// import Home from './pages/Home';
-// import Doctordashboard from './components/doctorDashboard';
-// import Dailyappoinment from './components/dailyappoinment';
-// import Medicalhistory from './pages/medicalhistory';
-// import Viewtimeslot from './components/viewTimeslot';
-// import Registermedicine from './components/registerMedicine';
-// import Addrecord from './pages/addrecord';
-// import Addpatient from './components/addPatients';
-// import AllocateDrugs from './components/allocateDrugs';
-// import Adduser from './components/adduser';
-// import ViewRecord from './components/viewRecord';
-// import Invoice from './components/invoice';
-// import AvailableTimeslots from './components/availableTimeslot';
-// import Aboutus from "./pages/aboutus";
-// import Remarks from "./components/remarks";
-// import Pharmacy from "./components/pharmacy";
-// import Pharmacyinvoice from "./components/pharmacyinvoice";
-// import Userregistration from "./components/userRegistration";
-// import Pmedicalhistory from "./pages/patientmedicalhistory";
-// import Patientlogin from "./pages/patientlogin";
-// import LoginSelector from "./components/loginselector";
-// import AppoinmentHistory from "./pages/appoinmentHistory";
-// import PatientAppointment from "./components/patientappoinment";
-// import Profile from "./pages/profile";
-// import Doctorprofile from "./components/doctorprofile";
-// import Patientdetails from "./components/patientDetails";
-// import Prescription from "./components/prescription";
-// import Welcome from "./pages/Welcome"
-// // import Editrecord from "./components/editrecord";
-
-// // Modify the ProtectedRoute to protect public routes as well
-// const ProtectedRoute = ({ element: Element, roles, ...rest }) => {
-//   const token = localStorage.getItem("Token");
-//   const userRole = localStorage.getItem("Role");
-//   const currentPath = window.location.pathname;
-
-//   // If no token is found, redirect to login
-//   if (!token) {
-//     return <Navigate to="/" replace />;
-//   }
-
-//   // If the user's role is not allowed, redirect to login
-//   if (!roles.includes(userRole)) {
-//     return <Navigate to="/" replace />;
-//   }
-
-//   // Redirect 'phuser' to register-medicines instead of medical-history
-//   // if (userRole === "Phuser" && currentPath === "/dashboard/medical-history") {
-//   //   return <Navigate to="/dashboard/register-medicines" replace />;
-//   // }
-
-//   // Render the component if both token and role are valid
-//   return <Element {...rest} />;
-// };
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <BrowserRouter>
-//         <Routes>
-//           {/* Public Routes but protected with 'patient' role */}
-//           <Route path="/admin" element={<Login />} />
-//           <Route path="/no" element={<LoginSelector />} />
-//           <Route path="/home" element={<ProtectedRoute element={Home} roles={['patient']} />} />
-//           <Route path="/" element={<Patientlogin />} />
-//           <Route path="/available-time" element={<AvailableTimeslots />} />
-//           <Route path="/about-us" element={<Aboutus />} />
-//           <Route path="/medical-history" element={<ProtectedRoute element={Pmedicalhistory} roles={['patient']} />} />{/* patient medical history page */}
-//           <Route path="/appoinment-history" element={<ProtectedRoute element={AppoinmentHistory} roles={['patient']} />} />
-//           <Route path="/appoinment" element={<ProtectedRoute element={PatientAppointment} roles={['patient']} />} />
-//           <Route path="/profile" element={<ProtectedRoute element={Profile} roles={['patient']} />} />
-//           <Route path="/addusers" element={<Userregistration />} />
-
-//           {/* Protected Doctor and Admin Dashboard Routes */}
-//           <Route path="/dashboard/*" element={<ProtectedRoute element={Doctordashboard} roles={['Doc', 'Admin','Phuser']} />}>
-//             <Route path="" element={<Navigate to="medical-history" />} /> {/* Redirect to medical-history by default */}
-//             <Route path="medical-history" element={<ProtectedRoute element={Medicalhistory} roles={['Doc', 'Admin','Phuser']} />} />  {/* main medihistory page */}
-//             <Route path="daily-appointments" element={<ProtectedRoute element={Dailyappoinment} roles={['Doc', 'Admin','Phuser']} />} />
-//             <Route path="view-timeslots" element={<ProtectedRoute element={Viewtimeslot} roles={['Doc', 'Admin','Phuser']} />} />
-//             <Route path="register-medicines" element={<ProtectedRoute element={Registermedicine} roles={['Doc', 'Admin','Phuser']} />} />
-//             <Route path="addrecord/:patientId" element={<ProtectedRoute element={Addrecord} roles={['Doc', 'Admin','Phuser']} />} />{/* Add treatments page */}
-//             <Route path="add-patient" element={<ProtectedRoute element={Addpatient} roles={['Doc', 'Admin','Phuser']} />} />
-//             <Route path="allocate-drugs/:patientId/:serialNumber" element={<ProtectedRoute element={AllocateDrugs} roles={['Doc', 'Admin']} />} />
-//             <Route path="view-record/:patientId/:serial_no" element={<ProtectedRoute element={ViewRecord} roles={['Doc', 'Admin','Phuser']} />} />
-//             <Route path="add-timeslot" element={<ProtectedRoute element={Addtimeslot} roles={['Doc', 'Admin','Phuser']} />} />
-//             <Route path="invoice/:patientId/:serial_no" element={<ProtectedRoute element={Invoice} roles={['Doc', 'Admin','Phuser']} />} />
-//             <Route path="remark/:patientId/:serial_no" element={<ProtectedRoute element={Remarks} roles={['Doc', 'Admin','Phuser']} />} />{/* main medihistory page */}
-//             <Route path="pharmacy" element={<ProtectedRoute element={Pharmacy} roles={['Doc', 'Admin', 'Phuser']} />} />
-//             <Route path="Add-users" element={<ProtectedRoute element={Adduser} roles={['Doc', 'Phuser', 'Admin','Phuser']} />} />
-//             <Route path="pharmacy-invoice/:patientId/:serial_no" element={<Pharmacyinvoice />} />
-//             <Route path="daily-appoinments" element={<ProtectedRoute element={Dailyappoinment} roles={['Doc','Admin','Phuser']} />} />
-//             <Route path="doctor-profile" element={<ProtectedRoute element={Doctorprofile} roles={['Doc', 'Admin','Phuser']} />} />
-//             <Route path="patientdetails/:patientId" element={<ProtectedRoute element={Patientdetails} roles={['Doc', 'Admin','Phuser']} />} />
-//             <Route path="prescription/:patientId/:serial_no" element={<ProtectedRoute element={Prescription} roles={['Doc', 'Admin','Phuser']} />} />{"}"}  /{">"}
-            
-//           </Route>
-//         </Routes>
-//       </BrowserRouter>
-//     </div>
-//   );
-// }
-
-// export default App;
-
-
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Login from './pages/login';
-import Addtimeslot from './components/addTimeslot';
-import Home from './pages/Home';
-import Doctordashboard from './components/doctorDashboard';
-import Dailyappoinment from './components/dailyappoinment';
-import Medicalhistory from './pages/medicalhistory';
-import Viewtimeslot from './components/viewTimeslot';
-import Registermedicine from './components/registerMedicine';
-import Addrecord from './pages/addrecord';
-import Addpatient from './components/addPatients';
-import AllocateDrugs from './components/allocateDrugs';
-import Adduser from './components/adduser';
-import ViewRecord from './components/viewRecord';
-import Invoice from './components/invoice';
-import AvailableTimeslots from './components/availableTimeslot';
+import Login from "./pages/login";
+import Addtimeslot from "./components/addTimeslot";
+import Home from "./pages/Home";
+import Doctordashboard from "./components/doctorDashboard";
+import Dailyappoinment from "./components/dailyappoinment";
+import Medicalhistory from "./pages/medicalhistory";
+import Viewtimeslot from "./components/viewTimeslot";
+import Registermedicine from "./components/registerMedicine";
+import Addrecord from "./pages/addrecord";
+import Addpatient from "./components/addPatients";
+import AllocateDrugs from "./components/allocateDrugs";
+import Adduser from "./components/adduser";
+import ViewRecord from "./components/viewRecord";
+import Invoice from "./components/invoice";
+import AvailableTimeslots from "./components/availableTimeslot";
 import Aboutus from "./pages/aboutus";
 import Remarks from "./components/remarks";
 import Pharmacy from "./components/pharmacy";
@@ -139,80 +30,345 @@ import Doctorprofile from "./components/doctorprofile";
 import Patientdetails from "./components/patientDetails";
 import Prescription from "./components/prescription";
 import Welcome from "./pages/Welcome";
-// import LanguageSwitcher from "./components/LanguageSwitcher";
 import AdminOverview from "./components/adminOverview";
 import TraumaEmergency from "./components/traumaEmergency";
 import SettingsAudit from "./components/settingsAudit";
+import {
+  ACCESS,
+  ROLES,
+  getDefaultDashboardPath,
+  hasAccess,
+  normalizeRole,
+} from "./utils/roleAccess";
+
+const clearStaffSession = () => {
+  ["Token", "Role", "Name", "id"].forEach((key) =>
+    localStorage.removeItem(key),
+  );
+};
+
+const isUsableJwt = (token) => {
+  if (!token || typeof token !== "string") return false;
+  if (token === "demo-token-active") return false;
+  return true;
+};
 
 const ProtectedRoute = ({ element: Element, roles, ...rest }) => {
   const token = localStorage.getItem("Token");
-  const userRole = localStorage.getItem("Role");
-  const currentPath = window.location.pathname;
+  const userRole = normalizeRole(localStorage.getItem("Role"));
+
+  const isStaff = [ROLES.ADMIN, ROLES.DOCTOR, ROLES.PHARMACIST].includes(
+    userRole,
+  );
 
   if (!token) {
-    return <Navigate to="/welcome" replace />;
+    return <Navigate to={isStaff ? "/admin" : "/welcome"} replace />;
   }
 
-  if (!roles.includes(userRole)) {
-    return <Navigate to="/welcome" replace />;
+  // Legacy builds stored values such as "demo-token-active". They can make the
+  // dashboard look logged-in but ASP.NET correctly rejects them with HTTP 401.
+  if (isStaff && !isUsableJwt(token)) {
+    clearStaffSession();
+    return <Navigate to="/admin" replace />;
+  }
+
+  if (!hasAccess(userRole, roles)) {
+    return (
+      <Navigate
+        to={isStaff ? getDefaultDashboardPath(userRole) : "/welcome"}
+        replace
+      />
+    );
   }
 
   return <Element {...rest} />;
 };
 
+const DashboardIndexRedirect = () => {
+  const role = normalizeRole(localStorage.getItem("Role"));
+  return <Navigate to={getDefaultDashboardPath(role)} replace />;
+};
+
 function App() {
   return (
     <div className="App">
-            {/* <LanguageSwitcher username="Praveen" /> */}
       <BrowserRouter>
         <Routes>
-          {/* Welcome Page - Entry Point */}
           <Route path="/" element={<Navigate to="/welcome" replace />} />
           <Route path="/welcome" element={<Welcome />} />
-          
-          {/* Public Routes but protected with 'patient' role */}
+
           <Route path="/admin" element={<Login />} />
           <Route path="/no" element={<LoginSelector />} />
-          <Route path="/home" element={<ProtectedRoute element={Home} roles={['patient']} />} />
+          <Route
+            path="/home"
+            element={<ProtectedRoute element={Home} roles={[ROLES.PATIENT]} />}
+          />
           <Route path="/patient-login" element={<Patientlogin />} />
           <Route path="/available-time" element={<AvailableTimeslots />} />
           <Route path="/about-us" element={<Aboutus />} />
-          <Route path="/medical-history" element={<ProtectedRoute element={Pmedicalhistory} roles={['patient']} />} />
-          <Route path="/appoinment-history" element={<ProtectedRoute element={AppoinmentHistory} roles={['patient']} />} />
-          <Route path="/appoinment" element={<ProtectedRoute element={PatientAppointment} roles={['patient']} />} />
-          <Route path="/profile" element={<ProtectedRoute element={Profile} roles={['patient']} />} />
+          <Route
+            path="/medical-history"
+            element={
+              <ProtectedRoute
+                element={Pmedicalhistory}
+                roles={[ROLES.PATIENT]}
+              />
+            }
+          />
+          <Route
+            path="/appoinment-history"
+            element={
+              <ProtectedRoute
+                element={AppoinmentHistory}
+                roles={[ROLES.PATIENT]}
+              />
+            }
+          />
+          <Route
+            path="/appoinment"
+            element={
+              <ProtectedRoute
+                element={PatientAppointment}
+                roles={[ROLES.PATIENT]}
+              />
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute element={Profile} roles={[ROLES.PATIENT]} />
+            }
+          />
           <Route path="/addusers" element={<Userregistration />} />
           <Route path="/patient-register" element={<Userregistration />} />
           <Route path="/register" element={<Userregistration />} />
 
-          {/* Protected Doctor and Admin Dashboard Routes */}
-          <Route path="/dashboard/*" element={<ProtectedRoute element={Doctordashboard} roles={['Doc', 'Admin','Phuser']} />}>
-            <Route path="" element={<Navigate to="overview" />} />
-            <Route path="overview" element={<AdminOverview />} />
-            <Route path="medical-history" element={<ProtectedRoute element={Medicalhistory} roles={['Doc', 'Admin','Phuser']} />} />
-            <Route path="patient-records" element={<ProtectedRoute element={Medicalhistory} roles={['Doc', 'Admin','Phuser']} />} />
-            <Route path="daily-appointments" element={<ProtectedRoute element={Dailyappoinment} roles={['Doc', 'Admin','Phuser']} />} />
-            <Route path="view-timeslots" element={<ProtectedRoute element={Viewtimeslot} roles={['Doc', 'Admin','Phuser']} />} />
-            <Route path="register-medicines" element={<ProtectedRoute element={Registermedicine} roles={['Doc', 'Admin','Phuser']} />} />
-            <Route path="inventory" element={<ProtectedRoute element={Registermedicine} roles={['Doc', 'Admin','Phuser']} />} />
-            <Route path="addrecord/:patientId" element={<ProtectedRoute element={Addrecord} roles={['Doc', 'Admin','Phuser']} />} />
-            <Route path="add-patient" element={<ProtectedRoute element={Addpatient} roles={['Doc', 'Admin','Phuser']} />} />
-            <Route path="allocate-drugs/:patientId/:serialNumber" element={<ProtectedRoute element={AllocateDrugs} roles={['Doc', 'Admin']} />} />
-            <Route path="view-record/:patientId/:serial_no" element={<ProtectedRoute element={ViewRecord} roles={['Doc', 'Admin','Phuser']} />} />
-            <Route path="add-timeslot" element={<ProtectedRoute element={Addtimeslot} roles={['Doc', 'Admin','Phuser']} />} />
-            <Route path="invoice/:patientId/:serial_no" element={<ProtectedRoute element={Invoice} roles={['Doc', 'Admin','Phuser']} />} />
-            <Route path="remark/:patientId/:serial_no" element={<ProtectedRoute element={Remarks} roles={['Doc', 'Admin','Phuser']} />} />
-            <Route path="pharmacy" element={<ProtectedRoute element={Pharmacy} roles={['Doc', 'Admin', 'Phuser']} />} />
-            <Route path="Add-users" element={<ProtectedRoute element={Adduser} roles={['Doc', 'Phuser', 'Admin','Phuser']} />} />
-            <Route path="users" element={<ProtectedRoute element={Adduser} roles={['Doc', 'Phuser', 'Admin','Phuser']} />} />
-            <Route path="pharmacy-invoice/:patientId/:serial_no" element={<Pharmacyinvoice />} />
-            <Route path="daily-appoinments" element={<ProtectedRoute element={Dailyappoinment} roles={['Doc','Admin','Phuser']} />} />
-            <Route path="doctor-profile" element={<ProtectedRoute element={Doctorprofile} roles={['Doc', 'Admin','Phuser']} />} />
-            <Route path="patientdetails/:patientId" element={<ProtectedRoute element={Patientdetails} roles={['Doc', 'Admin','Phuser']} />} />
-            <Route path="prescription/:patientId/:serial_no" element={<ProtectedRoute element={Prescription} roles={['Doc', 'Admin','Phuser']} />} />
-            <Route path="emergency" element={<TraumaEmergency />} />
-            <Route path="settings-audit" element={<SettingsAudit />} />
+          <Route
+            path="/dashboard/*"
+            element={
+              <ProtectedRoute
+                element={Doctordashboard}
+                roles={[ROLES.ADMIN, ROLES.DOCTOR, ROLES.PHARMACIST]}
+              />
+            }
+          >
+            <Route index element={<DashboardIndexRedirect />} />
+
+            {/* Admin + Doctor */}
+            <Route
+              path="overview"
+              element={
+                <ProtectedRoute
+                  element={AdminOverview}
+                  roles={ACCESS.DASHBOARD}
+                />
+              }
+            />
+            <Route
+              path="medical-history"
+              element={
+                <ProtectedRoute
+                  element={Medicalhistory}
+                  roles={ACCESS.PATIENT_RECORDS}
+                />
+              }
+            />
+            <Route
+              path="patient-records"
+              element={
+                <ProtectedRoute
+                  element={Medicalhistory}
+                  roles={ACCESS.PATIENT_RECORDS}
+                />
+              }
+            />
+            <Route
+              path="daily-appointments"
+              element={
+                <ProtectedRoute
+                  element={Dailyappoinment}
+                  roles={ACCESS.APPOINTMENTS}
+                />
+              }
+            />
+            <Route
+              path="daily-appoinments"
+              element={
+                <ProtectedRoute
+                  element={Dailyappoinment}
+                  roles={ACCESS.APPOINTMENTS}
+                />
+              }
+            />
+            <Route
+              path="view-timeslots"
+              element={
+                <ProtectedRoute
+                  element={Viewtimeslot}
+                  roles={ACCESS.APPOINTMENTS}
+                />
+              }
+            />
+            <Route
+              path="add-timeslot"
+              element={
+                <ProtectedRoute
+                  element={Addtimeslot}
+                  roles={ACCESS.APPOINTMENTS}
+                />
+              }
+            />
+            <Route
+              path="addrecord/:patientId"
+              element={
+                <ProtectedRoute
+                  element={Addrecord}
+                  roles={ACCESS.CLINICAL_DETAILS}
+                />
+              }
+            />
+            <Route
+              path="add-patient"
+              element={
+                <ProtectedRoute
+                  element={Addpatient}
+                  roles={ACCESS.CLINICAL_DETAILS}
+                />
+              }
+            />
+            <Route
+              path="allocate-drugs/:patientId/:serialNumber"
+              element={
+                <ProtectedRoute
+                  element={AllocateDrugs}
+                  roles={ACCESS.CLINICAL_DETAILS}
+                />
+              }
+            />
+            <Route
+              path="view-record/:patientId/:serial_no"
+              element={
+                <ProtectedRoute
+                  element={ViewRecord}
+                  roles={ACCESS.CLINICAL_DETAILS}
+                />
+              }
+            />
+            <Route
+              path="invoice/:patientId/:serial_no"
+              element={
+                <ProtectedRoute
+                  element={Invoice}
+                  roles={ACCESS.CLINICAL_DETAILS}
+                />
+              }
+            />
+            <Route
+              path="remark/:patientId/:serial_no"
+              element={
+                <ProtectedRoute
+                  element={Remarks}
+                  roles={ACCESS.CLINICAL_DETAILS}
+                />
+              }
+            />
+            <Route
+              path="doctor-profile"
+              element={
+                <ProtectedRoute
+                  element={Doctorprofile}
+                  roles={ACCESS.CLINICAL_DETAILS}
+                />
+              }
+            />
+            <Route
+              path="patientdetails/:patientId"
+              element={
+                <ProtectedRoute
+                  element={Patientdetails}
+                  roles={ACCESS.CLINICAL_DETAILS}
+                />
+              }
+            />
+            <Route
+              path="prescription/:patientId/:serial_no"
+              element={
+                <ProtectedRoute
+                  element={Prescription}
+                  roles={ACCESS.CLINICAL_DETAILS}
+                />
+              }
+            />
+            <Route
+              path="emergency"
+              element={
+                <ProtectedRoute
+                  element={TraumaEmergency}
+                  roles={ACCESS.CLINICAL_DETAILS}
+                />
+              }
+            />
+            <Route
+              path="settings-audit"
+              element={
+                <ProtectedRoute
+                  element={SettingsAudit}
+                  roles={ACCESS.CLINICAL_DETAILS}
+                />
+              }
+            />
+
+            {/* Admin + Doctor + Pharmacist */}
+            <Route
+              path="register-medicines"
+              element={
+                <ProtectedRoute
+                  element={Registermedicine}
+                  roles={ACCESS.DRUG_INVENTORY}
+                />
+              }
+            />
+            <Route
+              path="inventory"
+              element={
+                <ProtectedRoute
+                  element={Registermedicine}
+                  roles={ACCESS.DRUG_INVENTORY}
+                />
+              }
+            />
+            <Route
+              path="pharmacy"
+              element={
+                <ProtectedRoute element={Pharmacy} roles={ACCESS.PHARMACY} />
+              }
+            />
+            <Route
+              path="pharmacy-invoice/:patientId/:serial_no"
+              element={
+                <ProtectedRoute
+                  element={Pharmacyinvoice}
+                  roles={ACCESS.PHARMACY_DETAILS}
+                />
+              }
+            />
+
+            {/* Admin only */}
+            <Route
+              path="Add-users"
+              element={
+                <ProtectedRoute element={Adduser} roles={ACCESS.USER_STAFF} />
+              }
+            />
+            <Route
+              path="users"
+              element={
+                <ProtectedRoute element={Adduser} roles={ACCESS.USER_STAFF} />
+              }
+            />
           </Route>
+
+          <Route path="*" element={<Navigate to="/welcome" replace />} />
         </Routes>
       </BrowserRouter>
     </div>

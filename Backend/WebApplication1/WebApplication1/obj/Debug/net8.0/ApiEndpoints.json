@@ -632,6 +632,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "webapplication3.Controllers.LoginController",
+    "Method": "ValidateToken",
+    "RelativePath": "api/Login/validate-token",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "webapplication3.Controllers.MaterialController",
     "Method": "GetAllMaterials",
     "RelativePath": "api/Material",
@@ -728,7 +738,7 @@
   },
   {
     "ContainingType": "webapplication3.Controllers.MaterialController",
-    "Method": "updatematerialstatus",
+    "Method": "UpdateMaterialStatus",
     "RelativePath": "api/Material/updatematerialstatus",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -752,7 +762,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebApplication1.Models.MED_PATIENTS_DETAILS, WebApplication1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -776,17 +786,7 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "WebApplication1.Models.MED_PATIENTS_DETAILS",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "WebApplication1.Controllers.PatientController",
@@ -838,6 +838,11 @@
       },
       {
         "Name": "MPD_GENDER",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MPD_BLOOD_GROUP",
         "Type": "System.String",
         "IsRequired": false
       },
@@ -964,7 +969,7 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.PatientController",
-    "Method": "FindPatientByid",
+    "Method": "FindPatientById",
     "RelativePath": "api/Patient/patient/findbyid",
     "HttpMethod": "GET",
     "IsController": true,
@@ -977,6 +982,26 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.PatientController",
+    "Method": "GetPatientRecords",
+    "RelativePath": "api/Patient/records",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebApplication1.DTOs.PatientRecordDto, WebApplication1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "WebApplication1.Controllers.PatientController",
@@ -994,7 +1019,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebApplication1.Models.MED_PATIENTS_DETAILS, WebApplication1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -1070,8 +1095,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "timeslot",
-        "Type": "WebApplication1.Models.MED_TIMESLOT",
+        "Name": "request",
+        "Type": "WebApplication1.Controllers.TimeslotController\u002BCreateTimeslotRequest",
         "IsRequired": true
       }
     ],
@@ -1948,6 +1973,16 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.UserController",
+    "Method": "GetActiveDoctorsForScheduling",
+    "RelativePath": "api/User/doctors",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "webapplication3.Controllers.UserController",

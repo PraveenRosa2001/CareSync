@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
 using WebApplication1.Data;
 using WebApplication1.Models;
 
@@ -20,16 +17,27 @@ namespace WebApplication1.Controllers
             _context = context;
         }
 
+        public class CreateTimeslotRequest
+        {
+            public DateTime SlotDate { get; set; }
+            public TimeSpan StartTime { get; set; }
+            public TimeSpan EndTime { get; set; }
+            public int MaximumPatients { get; set; }
+            public string? DoctorUserId { get; set; }
+            public string? ClinicRoom { get; set; }
+            public string? DeliveryChannel { get; set; }
+        }
+
         // GET: api/Timeslot/5
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<MED_TIMESLOT>> GetTimeslot(int id)
         {
-            var timeslot = await _context.MED_TIMESLOT.FindAsync(id);
+            var timeslot = await _context.MED_TIMESLOT
+                .AsNoTracking()
+                .FirstOrDefaultAsync(t => t.MT_SLOT_ID == id);
 
             if (timeslot == null)
-            {
-                return NotFound();
-            }
+                return NotFound(new { error = "Timeslot not found." });
 
             return Ok(timeslot);
         }
@@ -38,162 +46,171 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MED_TIMESLOT>>> GetAllTimeslots()
         {
-            var timeslots = await _context.MED_TIMESLOT.ToListAsync();
-            return Ok(timeslots);
-        }
-
-
-
-
-
-
-        
-
-
-
-        [HttpGet("Doctor/{doctorName}")]
-        public async Task<ActionResult<IEnumerable<MED_TIMESLOT>>> GetTimeslotsByDoctor(string doctorName)
-        {
             var timeslots = await _context.MED_TIMESLOT
-                                          .Where(t => t.MT_DOCTOR == doctorName)
-                                          .OrderByDescending(t => t.MT_SLOT_DATE) // Assuming MT_DATE or similar column exists
-                                          .ToListAsync();
-
-            if (timeslots == null || !timeslots.Any())
-            {
-                return NotFound($"No timeslots found for doctor: {doctorName}");
-            }
-
-            return Ok(timeslots);
-        }
-        [HttpGet("Doctorid/{userid}")]
-        public async Task<ActionResult<IEnumerable<MED_TIMESLOT>>> GetTimeslotsByDoctorid(string userid)
-        {
-            var timeslots = await _context.MED_TIMESLOT
-                                          .Where(t => t.MT_USER_ID == userid   && t.MT_TIMESLOT_STATUS != "I")
-                                          /*.OrderByDescending(t => t.MT_SLOT_DATE)*/ // Assuming MT_DATE or similar column exists
-                                          .ToListAsync();
-
-            if (timeslots == null || !timeslots.Any())
-            {
-                return NotFound($"No timeslots found for doctor: ");
-            }
-
-            return Ok(timeslots);
-        }
-
-
-        [HttpGet("active-timeslots")]
-        public async Task<ActionResult<IEnumerable<MED_TIMESLOT>>> GetActiveTimeslots()
-        {
-            var timeslots = await _context.MED_TIMESLOT
-                .Where(t => t.MT_TIMESLOT_STATUS != "I")
+                .AsNoTracking()
+                .OrderByDescending(t => t.MT_SLOT_DATE)
+                .ThenBy(t => t.MT_START_TIME)
                 .ToListAsync();
 
             return Ok(timeslots);
         }
 
-
-
-
-
-
-        //    [HttpGet("timeslotcard/{date}/{name}")]
-        //    public async Task<ActionResult<IEnumerable<MED_TIMESLOT>>> GetTimeslotsByDate(string date, string name)
-        //    {
-        //        if (!DateTime.TryParse(date, out DateTime parsedDate))
-        //        {
-        //            return BadRequest("Invalid date format.");
-        //        }
-        //        //var timeslots = await _context.MED_TIMESLOT
-        //        //                               .Where(t => t.MT_SLOT_DATE.Date == parsedDate.Date && t.MT_DOCTOR == "AdminTest")//name
-        //        //                               .ToListAsync();
-
-        //        var timeslots = await _context.MED_TIMESLOT
-        //.Where(t => t.MT_SLOT_DATE.Date == parsedDate.Date
-        //            && t.MT_DOCTOR == name)
-        //.ToListAsync();
-
-
-        //        if (timeslots == null || !timeslots.Any())
-        //        {
-        //            return NotFound("No timeslots available for the selected date.");
-        //        }
-
-        //        return Ok(timeslots);
-        //    }
-
-
-        //ADmin and Other docotor also can see the appointment details based on role
-        [HttpGet("timeslotcard/{date}/{name}/{role}")]
-        public async Task<ActionResult<IEnumerable<MED_TIMESLOT>>> GetTimeslotsByDate(string date, string name, string role)
+        [HttpGet("Doctor/{doctorName}")]
+        public async Task<ActionResult<IEnumerable<MED_TIMESLOT>>> GetTimeslotsByDoctor(string doctorName)
         {
-            if (!DateTime.TryParse(date, out DateTime parsedDate))
-            {
-                return BadRequest("Invalid date format.");
-            }
+            var timeslots = await _context.MED_TIMESLOT
+                .AsNoTracking()
+                .Where(t => t.MT_DOCTOR == doctorName && t.MT_TIMESLOT_STATUS != "I")
+                .OrderBy(t => t.MT_SLOT_DATE)
+                .ThenBy(t => t.MT_START_TIME)
+                .ToListAsync();
 
-            List<MED_TIMESLOT> timeslots;
-
-            if (role == "Admin")
-            {
-                timeslots = await _context.MED_TIMESLOT
-                    .Where(t => t.MT_SLOT_DATE.Date == parsedDate.Date)
-                    .ToListAsync();
-            }
-            else
-            {
-                timeslots = await _context.MED_TIMESLOT
-                    .Where(t => t.MT_SLOT_DATE.Date == parsedDate.Date
-                             && t.MT_DOCTOR == name)
-                    .ToListAsync();
-            }
-
-            if (timeslots == null || !timeslots.Any())
-            {
-                return NotFound("No timeslots available for the selected date.");
-            }
+            if (timeslots.Count == 0)
+                return NotFound(new { error = $"No active timeslots found for doctor '{doctorName}'." });
 
             return Ok(timeslots);
         }
 
-        //[HttpGet("timeslotcard/{date}/{name?}")]
-        //public async Task<ActionResult<IEnumerable<MED_TIMESLOT>>> GetTimeslotsByDate(string date, string name = null)
-        //{
-        //    if (!DateTime.TryParse(date, out DateTime parsedDate))
-        //    {
-        //        return BadRequest("Invalid date format.");
-        //    }
+        [HttpGet("Doctorid/{userid}")]
+        public async Task<ActionResult<IEnumerable<MED_TIMESLOT>>> GetTimeslotsByDoctorid(string userid)
+        {
+            var today = DateTime.Today;
+            var timeslots = await _context.MED_TIMESLOT
+                .AsNoTracking()
+                .Where(t => t.MT_USER_ID == userid
+                         && t.MT_TIMESLOT_STATUS != "I"
+                         && t.MT_SLOT_DATE >= today)
+                .OrderBy(t => t.MT_SLOT_DATE)
+                .ThenBy(t => t.MT_START_TIME)
+                .ToListAsync();
 
-        //    var query = _context.MED_TIMESLOT
-        //                      .Where(t => t.MT_SLOT_DATE.Date == parsedDate.Date);
+            if (timeslots.Count == 0)
+                return NotFound(new { error = "No upcoming timeslots found for the selected doctor." });
 
-        //    if (!string.IsNullOrEmpty(name))
-        //    {
-        //        query = query.Where(t => t.MT_DOCTOR == name);
-        //    }
+            return Ok(timeslots);
+        }
 
-        //    var timeslots = await query.ToListAsync();
+        [HttpGet("active-timeslots")]
+        public async Task<ActionResult<IEnumerable<MED_TIMESLOT>>> GetActiveTimeslots()
+        {
+            var today = DateTime.Today;
+            var timeslots = await _context.MED_TIMESLOT
+                .AsNoTracking()
+                .Where(t => t.MT_TIMESLOT_STATUS != "I" && t.MT_SLOT_DATE >= today)
+                .OrderBy(t => t.MT_SLOT_DATE)
+                .ThenBy(t => t.MT_START_TIME)
+                .ToListAsync();
 
-        //    if (timeslots == null || !timeslots.Any())
-        //    {
-        //        return NotFound("No timeslots available for the selected date.");
-        //    }
+            return Ok(timeslots);
+        }
 
-        //    return Ok(timeslots);
-        //}
+        // Admin sees all doctors for the date. Doctors see only their own schedule.
+        [HttpGet("timeslotcard/{date}/{name}/{role}")]
+        public async Task<ActionResult<IEnumerable<MED_TIMESLOT>>> GetTimeslotsByDate(string date, string name, string role)
+        {
+            if (!DateTime.TryParse(date, out var parsedDate))
+                return BadRequest(new { error = "Invalid date format." });
 
+            var query = _context.MED_TIMESLOT
+                .AsNoTracking()
+                .Where(t => t.MT_SLOT_DATE == parsedDate.Date && t.MT_TIMESLOT_STATUS != "I");
 
+            var isAdmin = string.Equals(role, "Admin", StringComparison.OrdinalIgnoreCase)
+                       || string.Equals(role, "ADMIN", StringComparison.OrdinalIgnoreCase);
 
+            if (!isAdmin)
+                query = query.Where(t => t.MT_DOCTOR == name);
+
+            var timeslots = await query
+                .OrderBy(t => t.MT_START_TIME)
+                .ToListAsync();
+
+            return Ok(timeslots);
+        }
 
         // POST: api/Timeslot
         [HttpPost]
-        public async Task<ActionResult<MED_TIMESLOT>> PostTimeslot(MED_TIMESLOT timeslot)
+        public async Task<ActionResult<MED_TIMESLOT>> PostTimeslot([FromBody] CreateTimeslotRequest request)
         {
-            if (!ModelState.IsValid)
+            if (request == null)
+                return BadRequest(new { error = "Timeslot details are required." });
+
+            if (string.IsNullOrWhiteSpace(request.DoctorUserId))
+                return BadRequest(new { error = "Please select an attending doctor." });
+
+            if (request.SlotDate.Date < DateTime.Today)
+                return BadRequest(new { error = "A timeslot cannot be created for a past date." });
+
+            if (request.EndTime <= request.StartTime)
+                return BadRequest(new { error = "End time must be later than start time." });
+
+            if ((request.EndTime - request.StartTime).TotalMinutes < 10)
+                return BadRequest(new { error = "A clinical timeslot must be at least 10 minutes long." });
+
+            if (request.MaximumPatients < 1 || request.MaximumPatients > 100)
+                return BadRequest(new { error = "Maximum patients must be between 1 and 100." });
+
+            var channel = (request.DeliveryChannel ?? string.Empty).Trim();
+            if (!string.Equals(channel, "Physical", StringComparison.OrdinalIgnoreCase)
+                && !string.Equals(channel, "Telehealth", StringComparison.OrdinalIgnoreCase))
             {
-                return BadRequest(ModelState);
+                return BadRequest(new { error = "Delivery channel must be Physical or Telehealth." });
             }
+
+            var doctor = await _context.MED_USER_DETAILS
+                .AsNoTracking()
+                .FirstOrDefaultAsync(u => u.MUD_USER_ID == request.DoctorUserId
+                                       && u.MUD_USER_TYPE == "Doc"
+                                       && (u.MUD_STATUS == null || u.MUD_STATUS == "A"));
+
+            if (doctor == null)
+                return BadRequest(new { error = "The selected doctor does not exist or is not active." });
+
+            // A logged-in doctor may create/manage only their own schedule.
+            if (User.IsInRole("Doc"))
+            {
+                var currentUsername = User.Identity?.Name;
+                if (!string.Equals(currentUsername, doctor.MUD_USER_NAME, StringComparison.OrdinalIgnoreCase))
+                    return Forbid();
+            }
+
+            var overlaps = await _context.MED_TIMESLOT
+                .AsNoTracking()
+                .AnyAsync(t => t.MT_USER_ID == doctor.MUD_USER_ID
+                            && t.MT_SLOT_DATE == request.SlotDate.Date
+                            && t.MT_TIMESLOT_STATUS != "I"
+                            && request.StartTime < t.MT_END_TIME
+                            && request.EndTime > t.MT_START_TIME);
+
+            if (overlaps)
+            {
+                return Conflict(new
+                {
+                    error = "This doctor already has an overlapping active timeslot on the selected date."
+                });
+            }
+
+            var doctorName = !string.IsNullOrWhiteSpace(doctor.MUD_FULL_NAME)
+                ? doctor.MUD_FULL_NAME.Trim()
+                : doctor.MUD_USER_NAME?.Trim();
+
+            var timeslot = new MED_TIMESLOT
+            {
+                MT_SLOT_DATE = request.SlotDate.Date,
+                MT_START_TIME = request.StartTime,
+                MT_END_TIME = request.EndTime,
+                MT_PATIENT_NO = 0,
+                MT_MAXIMUM_PATIENTS = request.MaximumPatients,
+                MT_DOCTOR = doctorName,
+                MT_USER_ID = doctor.MUD_USER_ID,
+                MT_ALLOCATED_TIME = request.StartTime,
+                MT_TIMESLOT_STATUS = "A",
+                MT_DELETE_STATUS = "N",
+                MT_CLINIC_ROOM = string.IsNullOrWhiteSpace(request.ClinicRoom) ? null : request.ClinicRoom.Trim(),
+                MT_DELIVERY_CHANNEL = string.Equals(channel, "Telehealth", StringComparison.OrdinalIgnoreCase)
+                    ? "Telehealth"
+                    : "Physical"
+            };
 
             _context.MED_TIMESLOT.Add(timeslot);
             await _context.SaveChangesAsync();
@@ -201,96 +218,85 @@ namespace WebApplication1.Controllers
             return CreatedAtAction(nameof(GetTimeslot), new { id = timeslot.MT_SLOT_ID }, timeslot);
         }
 
-        [HttpDelete("{id}")]
+        // Hard delete is restricted to Admin. The scheduler UI uses soft deactivation instead.
+        [Authorize(Roles = "ADMIN")]
+        [HttpDelete("{id:int}")]
         public async Task<ActionResult> DeleteTimeslot(int id)
         {
             var timeslot = await _context.MED_TIMESLOT.FindAsync(id);
             if (timeslot == null)
-            {
-                return NotFound();
-            }
+                return NotFound(new { error = "Timeslot not found." });
+
             _context.MED_TIMESLOT.Remove(timeslot);
             await _context.SaveChangesAsync();
             return NoContent();
         }
 
-
-        [HttpPut("update-status/{id}")]
+        [HttpPut("update-status/{id:int}")]
         public async Task<ActionResult> UpdateTime(int id)
         {
             var timeslot = await _context.MED_TIMESLOT.FindAsync(id);
-
             if (timeslot == null)
+                return NotFound(new { error = "Timeslot not found." });
+
+            if (timeslot.MT_PATIENT_NO > 0)
             {
-                return NotFound("Timeslot not found.");
+                return Conflict(new
+                {
+                    error = "This timeslot already has patient bookings. Reassign/cancel those appointments before deactivating the slot."
+                });
+            }
+
+            if (User.IsInRole("Doc"))
+            {
+                var currentUsername = User.Identity?.Name;
+                var currentDoctor = await _context.MED_USER_DETAILS
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(u => u.MUD_USER_NAME == currentUsername && u.MUD_USER_TYPE == "Doc");
+
+                if (currentDoctor == null || currentDoctor.MUD_USER_ID != timeslot.MT_USER_ID)
+                    return Forbid();
             }
 
             timeslot.MT_TIMESLOT_STATUS = "I";
-            timeslot.MT_DELETE_STATUS = "y";
+            timeslot.MT_DELETE_STATUS = "Y";
+            await _context.SaveChangesAsync();
 
-            await _context.SaveChangesAsync(); 
-
-            return Ok("Timeslot status updated successfully.");
+            return Ok(new { message = "Timeslot deactivated successfully." });
         }
 
-
-
-        [HttpPatch("{id}/incrementSeat")]
+        [HttpPatch("{id:int}/incrementSeat")]
         public async Task<IActionResult> Patchseatnum(int id)
         {
-            // Find the timeslot by ID
             var timeslot = await _context.MED_TIMESLOT.FindAsync(id);
 
             if (timeslot == null)
-            {
-                return NotFound();
-            }
+                return NotFound(new { error = "Timeslot not found." });
 
-            // Check if today's date exceeds the timeslot date
+            if (timeslot.MT_TIMESLOT_STATUS == "I")
+                return BadRequest(new { error = "This timeslot is inactive." });
+
             if (DateTime.Today > timeslot.MT_SLOT_DATE.Date)
-            {
-                return BadRequest("The timeslot date has passed.");
-            }
+                return BadRequest(new { error = "The timeslot date has passed." });
 
-            // Check if the maximum number of patients is reached
-            if (timeslot.MT_MAXIMUM_PATIENTS.HasValue && timeslot.MT_PATIENT_NO >= timeslot.MT_MAXIMUM_PATIENTS)
-            {
-                return BadRequest("No more seats available.");
-            }
+            var maxPatients = timeslot.MT_MAXIMUM_PATIENTS ?? 0;
+            if (maxPatients <= 0)
+                return BadRequest(new { error = "This timeslot does not have a valid patient capacity." });
 
-            // Increment the seat number
+            if (timeslot.MT_PATIENT_NO >= maxPatients)
+                return BadRequest(new { error = "No more seats are available in this timeslot." });
+
             timeslot.MT_PATIENT_NO += 1;
 
-            // Increment the allocated time by 10 minutes
-            timeslot.MT_ALLOCATED_TIME = timeslot.MT_ALLOCATED_TIME + TimeSpan.FromMinutes(10);
+            // Keep the legacy 10-minute allocation behavior, but never move past the slot end.
+            var currentAllocated = timeslot.MT_ALLOCATED_TIME ?? timeslot.MT_START_TIME;
+            var nextAllocated = currentAllocated.Add(TimeSpan.FromMinutes(10));
+            timeslot.MT_ALLOCATED_TIME = nextAllocated <= timeslot.MT_END_TIME
+                ? nextAllocated
+                : timeslot.MT_END_TIME;
 
-            // Mark the timeslot as modified
-            _context.Entry(timeslot).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TimeslotExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            await _context.SaveChangesAsync();
             return NoContent();
-        }
-
-
-
-        private bool TimeslotExists(int id)
-        {
-            return _context.MED_TIMESLOT.Any(e => e.MT_SLOT_ID == id);
         }
     }
 }

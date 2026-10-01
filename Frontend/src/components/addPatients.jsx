@@ -1,144 +1,719 @@
-// CareSync+ Patient Intake & Clinical Registration
-import React, { useState, useEffect } from "react";
+// // CareSync+ Patient Intake & Clinical Registration
+// import React, { useState, useEffect } from "react";
+// import axios from "axios";
+// import {
+//   Box,
+//   Button,
+//   TextField,
+//   Typography,
+//   FormControl,
+//   InputLabel,
+//   Select,
+//   MenuItem,
+//   Alert,
+//   CircularProgress,
+//   Grid,
+//   Divider,
+//   IconButton,
+//   InputAdornment,
+// } from "@mui/material";
+// import {
+//   Person as PersonIcon,
+//   Email as EmailIcon,
+//   Phone as PhoneIcon,
+//   Home as HomeIcon,
+//   Cake as CakeIcon,
+//   People as PeopleIcon,
+//   Notes as NotesIcon,
+//   Badge as BadgeIcon,
+//   LocationCity as CityIcon,
+//   Close as CloseIcon,
+//   Save as SaveIcon,
+//   Shield as ShieldIcon,
+// } from "@mui/icons-material";
+
+// const Addpatient = ({ patientCode, onSuccess, handleClose }) => {
+//   const Name = localStorage.getItem("Name") || "Staff";
+//   const role = localStorage.getItem("Role") || "Admin";
+
+//   const [formData, setFormData] = useState({
+//     MPD_PATIENT_NAME: "",
+//     MPD_MOBILE_NO: "",
+//     MPD_NIC_NO: "",
+//     MPD_PATIENT_REMARKS: "",
+//     MPD_ADDRESS: "",
+//     MPD_CITY: "",
+//     MPD_REMARKS: "",
+//     MPD_GUARDIAN: "",
+//     MPD_GUARDIAN_CONTACT_NO: "",
+//     MPD_PATIENT_CODE: "",
+//     MPD_EMAIL: "",
+//     MPD_PATIENT_TYPE: "Inpatient",
+//     MPD_STATUS: "A",
+//     MPD_CREATED_BY: Name,
+//     MPD_UPDATED_BY: "",
+//     MPD_BIRTHDAY: "",
+//     MPD_GENDER: "Male",
+//     MPD_CREATED_DATE: new Date().toISOString(),
+//     MPD_UPDATED_DATE: null,
+//   });
+
+//   const [errorMessage, setErrorMessage] = useState("");
+//   const [successMessage, setSuccessMessage] = useState("");
+//   const [formErrors, setFormErrors] = useState({});
+//   const [isLoading, setIsLoading] = useState(false);
+//   const isEditMode = Boolean(patientCode);
+
+//   useEffect(() => {
+//     if (patientCode) {
+//       fetchPatientDetails(patientCode);
+//     }
+//   }, [patientCode]);
+
+//   const fetchPatientDetails = async (code) => {
+//     setIsLoading(true);
+//     try {
+//       const response = await axios.get(
+//         `${process.env.REACT_APP_API_BASE_URL}/Patient/${code}`
+//       );
+//       let patientData = response.data;
+//       if (patientData.MPD_BIRTHDAY) {
+//         patientData.MPD_BIRTHDAY = patientData.MPD_BIRTHDAY.split("T")[0];
+//       }
+//       setFormData(patientData);
+//     } catch (error) {
+//       console.error("Error fetching patient details:", error);
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   };
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData((prev) => ({ ...prev, [name]: value }));
+
+//     const errors = { ...formErrors };
+//     if (name === "MPD_MOBILE_NO") {
+//       errors.contact = /^[0-9]{10}$/.test(value) ? "" : "Contact must be 10 digits";
+//     }
+//     if (name === "MPD_EMAIL") {
+//       errors.email = !value || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? "" : "Invalid email address";
+//     }
+//     setFormErrors(errors);
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     setErrorMessage("");
+//     setSuccessMessage("");
+
+//     if (formErrors.contact || formErrors.email) {
+//       setErrorMessage("Please resolve input validation errors before submitting.");
+//       return;
+//     }
+
+//     setIsLoading(true);
+//     try {
+//       if (isEditMode) {
+//         await axios.patch(
+//           `${process.env.REACT_APP_API_BASE_URL}/Patient/update/${formData.MPD_PATIENT_CODE || patientCode}`,
+//           formData
+//         );
+//         setSuccessMessage("Patient details updated successfully!");
+//       } else {
+//         await axios.post(
+//           `${process.env.REACT_APP_API_BASE_URL}/Patient/patient-registration`,
+//           formData
+//         );
+//         setSuccessMessage("New patient registered in hospital database!");
+//       }
+
+//       setTimeout(() => {
+//         if (onSuccess) onSuccess();
+//         if (handleClose) handleClose();
+//       }, 1000);
+//     } catch (error) {
+//       // Offline fallback
+//       setSuccessMessage("Patient data synchronized with local clinical directory.");
+//       setTimeout(() => {
+//         if (onSuccess) onSuccess();
+//         if (handleClose) handleClose();
+//       }, 1000);
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   };
+
+//   return (
+//     <Box
+//       sx={{
+//         p: { xs: 2, md: 3 },
+//         background: "#FFFFFF",
+//         borderRadius: "16px",
+//         maxWidth: 820,
+//         margin: "0 auto",
+//       }}
+//     >
+//       {/* Modal/Page Header */}
+//       <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
+//         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+//           <Box
+//             sx={{
+//               width: 42,
+//               height: 42,
+//               borderRadius: "10px",
+//               background: "#0A5364",
+//               color: "white",
+//               display: "flex",
+//               alignItems: "center",
+//               justifyContent: "center",
+//             }}
+//           >
+//             <PersonIcon />
+//           </Box>
+//           <Box>
+//             <Typography variant="h6" sx={{ fontWeight: 800, color: "#0F172A", lineHeight: 1.2 }}>
+//               {isEditMode ? "Edit Patient Clinical Record" : "New Patient Intake & Registration"}
+//             </Typography>
+//             <Typography variant="caption" sx={{ color: "#64748B" }}>
+//               Secure EHR Data Entry • HIPAA Protected
+//             </Typography>
+//           </Box>
+//         </Box>
+
+//         {handleClose && (
+//           <IconButton onClick={handleClose} size="small" sx={{ color: "#64748B" }}>
+//             <CloseIcon />
+//           </IconButton>
+//         )}
+//       </Box>
+
+//       <Divider sx={{ mb: 2.5 }} />
+
+//       {errorMessage && (
+//         <Alert severity="error" sx={{ mb: 2, borderRadius: "10px", fontSize: "0.85rem" }}>
+//           {errorMessage}
+//         </Alert>
+//       )}
+
+//       {successMessage && (
+//         <Alert severity="success" sx={{ mb: 2, borderRadius: "10px", fontSize: "0.85rem" }}>
+//           {successMessage}
+//         </Alert>
+//       )}
+
+//       {isLoading ? (
+//         <Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
+//           <CircularProgress sx={{ color: "#0A6E7C" }} />
+//         </Box>
+//       ) : (
+//         <Box component="form" onSubmit={handleSubmit}>
+//           {/* Section 1: Demographics */}
+//           <Typography variant="subtitle2" sx={{ fontWeight: 800, color: "#0A6E7C", mb: 1.5, display: "flex", alignItems: "center", gap: 1 }}>
+//             <ShieldIcon sx={{ fontSize: 16 }} />
+//             Personal &amp; Demographic Information
+//           </Typography>
+
+//           <Grid container spacing={2} sx={{ mb: 3 }}>
+//             <Grid item xs={12} sm={5}>
+//               <TextField
+//                 fullWidth
+//                 size="small"
+//                 required
+//                 label="Full Patient Name"
+//                 name="MPD_PATIENT_NAME"
+//                 value={formData.MPD_PATIENT_NAME}
+//                 onChange={handleChange}
+//                 placeholder="e.g. Kasun Fernando"
+//                 InputProps={{
+//                   startAdornment: (
+//                     <InputAdornment position="start">
+//                       <PersonIcon sx={{ color: "#0A6E7C", fontSize: 18 }} />
+//                     </InputAdornment>
+//                   ),
+//                 }}
+//                 sx={{ "& .MuiOutlinedInput-root": { borderRadius: "10px" } }}
+//               />
+//             </Grid>
+
+//             <Grid item xs={12} sm={4}>
+//               <TextField
+//                 fullWidth
+//                 size="small"
+//                 label="National Identity (NIC)"
+//                 name="MPD_NIC_NO"
+//                 value={formData.MPD_NIC_NO}
+//                 onChange={handleChange}
+//                 placeholder="e.g. 200311611379"
+//                 InputProps={{
+//                   startAdornment: (
+//                     <InputAdornment position="start">
+//                       <BadgeIcon sx={{ color: "#0A6E7C", fontSize: 18 }} />
+//                     </InputAdornment>
+//                   ),
+//                 }}
+//                 sx={{ "& .MuiOutlinedInput-root": { borderRadius: "10px" } }}
+//               />
+//             </Grid>
+
+//             <Grid item xs={12} sm={3}>
+//               <FormControl fullWidth size="small">
+//                 <InputLabel>Gender</InputLabel>
+//                 <Select
+//                   name="MPD_GENDER"
+//                   value={formData.MPD_GENDER}
+//                   onChange={handleChange}
+//                   label="Gender"
+//                   sx={{ borderRadius: "10px" }}
+//                 >
+//                   <MenuItem value="Male">Male</MenuItem>
+//                   <MenuItem value="Female">Female</MenuItem>
+//                   <MenuItem value="Other">Other</MenuItem>
+//                 </Select>
+//               </FormControl>
+//             </Grid>
+
+//             <Grid item xs={12} sm={6}>
+//               <TextField
+//                 fullWidth
+//                 size="small"
+//                 type="date"
+//                 label="Date of Birth"
+//                 name="MPD_BIRTHDAY"
+//                 value={formData.MPD_BIRTHDAY || ""}
+//                 onChange={handleChange}
+//                 InputLabelProps={{ shrink: true }}
+//                 sx={{ "& .MuiOutlinedInput-root": { borderRadius: "10px" } }}
+//               />
+//             </Grid>
+
+//             <Grid item xs={12} sm={6}>
+//               <FormControl fullWidth size="small">
+//                 <InputLabel>Patient Category</InputLabel>
+//                 <Select
+//                   name="MPD_PATIENT_TYPE"
+//                   value={formData.MPD_PATIENT_TYPE || "Inpatient"}
+//                   onChange={handleChange}
+//                   label="Patient Category"
+//                   sx={{ borderRadius: "10px" }}
+//                 >
+//                   <MenuItem value="Inpatient">Inpatient (Ward)</MenuItem>
+//                   <MenuItem value="Outpatient">Outpatient (OPD)</MenuItem>
+//                   <MenuItem value="Emergency">Emergency Triage</MenuItem>
+//                 </Select>
+//               </FormControl>
+//             </Grid>
+//           </Grid>
+
+//           {/* Section 2: Contact Details */}
+//           <Typography variant="subtitle2" sx={{ fontWeight: 800, color: "#0A6E7C", mb: 1.5, display: "flex", alignItems: "center", gap: 1 }}>
+//             <PhoneIcon sx={{ fontSize: 16 }} />
+//             Contact &amp; Residence Coordinates
+//           </Typography>
+
+//           <Grid container spacing={2} sx={{ mb: 3 }}>
+//             <Grid item xs={12} sm={6}>
+//               <TextField
+//                 fullWidth
+//                 size="small"
+//                 required
+//                 label="Primary Phone / Hotline"
+//                 name="MPD_MOBILE_NO"
+//                 value={formData.MPD_MOBILE_NO}
+//                 onChange={handleChange}
+//                 error={Boolean(formErrors.contact)}
+//                 helperText={formErrors.contact}
+//                 placeholder="0766706951"
+//                 InputProps={{
+//                   startAdornment: (
+//                     <InputAdornment position="start">
+//                       <PhoneIcon sx={{ color: "#0A6E7C", fontSize: 18 }} />
+//                     </InputAdornment>
+//                   ),
+//                 }}
+//                 sx={{ "& .MuiOutlinedInput-root": { borderRadius: "10px" } }}
+//               />
+//             </Grid>
+
+//             <Grid item xs={12} sm={6}>
+//               <TextField
+//                 fullWidth
+//                 size="small"
+//                 label="Email Address"
+//                 name="MPD_EMAIL"
+//                 type="email"
+//                 value={formData.MPD_EMAIL}
+//                 onChange={handleChange}
+//                 error={Boolean(formErrors.email)}
+//                 helperText={formErrors.email}
+//                 placeholder="patient@gmail.com"
+//                 InputProps={{
+//                   startAdornment: (
+//                     <InputAdornment position="start">
+//                       <EmailIcon sx={{ color: "#0A6E7C", fontSize: 18 }} />
+//                     </InputAdornment>
+//                   ),
+//                 }}
+//                 sx={{ "& .MuiOutlinedInput-root": { borderRadius: "10px" } }}
+//               />
+//             </Grid>
+
+//             <Grid item xs={12} sm={6}>
+//               <TextField
+//                 fullWidth
+//                 size="small"
+//                 label="Ward / Residential Address"
+//                 name="MPD_ADDRESS"
+//                 value={formData.MPD_ADDRESS}
+//                 onChange={handleChange}
+//                 placeholder="Ward 4A • Bed #12, Central Wing"
+//                 InputProps={{
+//                   startAdornment: (
+//                     <InputAdornment position="start">
+//                       <HomeIcon sx={{ color: "#0A6E7C", fontSize: 18 }} />
+//                     </InputAdornment>
+//                   ),
+//                 }}
+//                 sx={{ "& .MuiOutlinedInput-root": { borderRadius: "10px" } }}
+//               />
+//             </Grid>
+
+//             <Grid item xs={12} sm={6}>
+//               <TextField
+//                 fullWidth
+//                 size="small"
+//                 label="City / District"
+//                 name="MPD_CITY"
+//                 value={formData.MPD_CITY}
+//                 onChange={handleChange}
+//                 placeholder="Bandaragama"
+//                 InputProps={{
+//                   startAdornment: (
+//                     <InputAdornment position="start">
+//                       <CityIcon sx={{ color: "#0A6E7C", fontSize: 18 }} />
+//                     </InputAdornment>
+//                   ),
+//                 }}
+//                 sx={{ "& .MuiOutlinedInput-root": { borderRadius: "10px" } }}
+//               />
+//             </Grid>
+//           </Grid>
+
+//           {/* Section 3: Guardian & Clinical Remarks */}
+//           <Typography variant="subtitle2" sx={{ fontWeight: 800, color: "#0A6E7C", mb: 1.5, display: "flex", alignItems: "center", gap: 1 }}>
+//             <PeopleIcon sx={{ fontSize: 16 }} />
+//             Guardian / Emergency Contact &amp; Clinical Notes
+//           </Typography>
+
+//           <Grid container spacing={2} sx={{ mb: 3 }}>
+//             <Grid item xs={12} sm={4}>
+//               <TextField
+//                 fullWidth
+//                 size="small"
+//                 label="Guardian Full Name"
+//                 name="MPD_GUARDIAN"
+//                 value={formData.MPD_GUARDIAN}
+//                 onChange={handleChange}
+//                 placeholder="Emergency Next of Kin"
+//                 sx={{ "& .MuiOutlinedInput-root": { borderRadius: "10px" } }}
+//               />
+//             </Grid>
+
+//             <Grid item xs={12} sm={4}>
+//               <TextField
+//                 fullWidth
+//                 size="small"
+//                 label="Guardian Contact Hotline"
+//                 name="MPD_GUARDIAN_CONTACT_NO"
+//                 value={formData.MPD_GUARDIAN_CONTACT_NO}
+//                 onChange={handleChange}
+//                 placeholder="0771234567"
+//                 sx={{ "& .MuiOutlinedInput-root": { borderRadius: "10px" } }}
+//               />
+//             </Grid>
+
+//             <Grid item xs={12} sm={4}>
+//               <TextField
+//                 fullWidth
+//                 size="small"
+//                 multiline
+//                 rows={1}
+//                 label="Special Medical Remarks &amp; Allergies"
+//                 name="MPD_PATIENT_REMARKS"
+//                 value={formData.MPD_PATIENT_REMARKS}
+//                 onChange={handleChange}
+//                 placeholder="Known drug allergies..."
+//                 sx={{ "& .MuiOutlinedInput-root": { borderRadius: "10px", fontSize: "13px" } }}
+//               />
+//             </Grid>
+//           </Grid>
+
+//           {/* Form Action Controls */}
+//           <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 1.5, pt: 1 }}>
+//             {handleClose && (
+//               <button type="button" className="btn-secondary-white" onClick={handleClose}>
+//                 Cancel
+//               </button>
+//             )}
+//             <button type="submit" className="btn-primary-cyan" disabled={isLoading}>
+//               {isLoading ? <CircularProgress size={16} color="inherit" /> : <SaveIcon sx={{ fontSize: 16 }} />}
+//               <span>{isEditMode ? "Update Clinical Record" : "Register Patient in EHR"}</span>
+//             </button>
+//           </Box>
+//         </Box>
+//       )}
+//     </Box>
+//   );
+// };
+
+// export default Addpatient;
+
+
+// CareSync Patient Intake & Clinical Registration
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
-  Box,
-  Button,
-  TextField,
-  Typography,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   Alert,
+  Box,
   CircularProgress,
-  Grid,
   Divider,
+  FormControl,
+  Grid,
   IconButton,
   InputAdornment,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
 } from "@mui/material";
 import {
-  Person as PersonIcon,
-  Email as EmailIcon,
-  Phone as PhoneIcon,
-  Home as HomeIcon,
-  Cake as CakeIcon,
-  People as PeopleIcon,
-  Notes as NotesIcon,
   Badge as BadgeIcon,
-  LocationCity as CityIcon,
   Close as CloseIcon,
+  Email as EmailIcon,
+  Home as HomeIcon,
+  LocationCity as CityIcon,
+  People as PeopleIcon,
+  Person as PersonIcon,
+  Phone as PhoneIcon,
   Save as SaveIcon,
   Shield as ShieldIcon,
 } from "@mui/icons-material";
 
+const BLOOD_GROUPS = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
+
+const getInitialFormData = (staffName) => ({
+  MPD_PATIENT_NAME: "",
+  MPD_MOBILE_NO: "",
+  MPD_NIC_NO: "",
+  MPD_PATIENT_REMARKS: "",
+  MPD_ADDRESS: "",
+  MPD_CITY: "",
+  MPD_GUARDIAN: "",
+  MPD_GUARDIAN_CONTACT_NO: "",
+  MPD_PATIENT_CODE: "",
+  MPD_EMAIL: "",
+  MPD_PATIENT_TYPE: "",
+  MPD_STATUS: "A",
+  MPD_CREATED_BY: staffName,
+  MPD_UPDATED_BY: "",
+  MPD_BIRTHDAY: "",
+  MPD_GENDER: "",
+  MPD_BLOOD_GROUP: "",
+});
+
 const Addpatient = ({ patientCode, onSuccess, handleClose }) => {
-  const Name = localStorage.getItem("Name") || "Staff";
-  const role = localStorage.getItem("Role") || "Admin";
+  const staffName = localStorage.getItem("Name") || "Staff";
 
-  const [formData, setFormData] = useState({
-    MPD_PATIENT_NAME: "",
-    MPD_MOBILE_NO: "",
-    MPD_NIC_NO: "",
-    MPD_PATIENT_REMARKS: "",
-    MPD_ADDRESS: "",
-    MPD_CITY: "",
-    MPD_REMARKS: "",
-    MPD_GUARDIAN: "",
-    MPD_GUARDIAN_CONTACT_NO: "",
-    MPD_PATIENT_CODE: "",
-    MPD_EMAIL: "",
-    MPD_PATIENT_TYPE: "Inpatient",
-    MPD_STATUS: "A",
-    MPD_CREATED_BY: Name,
-    MPD_UPDATED_BY: "",
-    MPD_BIRTHDAY: "",
-    MPD_GENDER: "Male",
-    MPD_CREATED_DATE: new Date().toISOString(),
-    MPD_UPDATED_DATE: null,
-  });
-
+  const [formData, setFormData] = useState(() => getInitialFormData(staffName));
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [formErrors, setFormErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+
   const isEditMode = Boolean(patientCode);
 
   useEffect(() => {
-    if (patientCode) {
-      fetchPatientDetails(patientCode);
-    }
-  }, [patientCode]);
-
-  const fetchPatientDetails = async (code) => {
-    setIsLoading(true);
-    try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/Patient/${code}`
-      );
-      let patientData = response.data;
-      if (patientData.MPD_BIRTHDAY) {
-        patientData.MPD_BIRTHDAY = patientData.MPD_BIRTHDAY.split("T")[0];
-      }
-      setFormData(patientData);
-    } catch (error) {
-      console.error("Error fetching patient details:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-
-    const errors = { ...formErrors };
-    if (name === "MPD_MOBILE_NO") {
-      errors.contact = /^[0-9]{10}$/.test(value) ? "" : "Contact must be 10 digits";
-    }
-    if (name === "MPD_EMAIL") {
-      errors.email = !value || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? "" : "Invalid email address";
-    }
-    setFormErrors(errors);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setErrorMessage("");
-    setSuccessMessage("");
-
-    if (formErrors.contact || formErrors.email) {
-      setErrorMessage("Please resolve input validation errors before submitting.");
+    if (!patientCode) {
+      setFormData(getInitialFormData(staffName));
       return;
     }
 
+    const fetchPatientDetails = async () => {
+      setIsLoading(true);
+      setErrorMessage("");
+
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/Patient/${patientCode}`
+        );
+
+        const patient = response.data || {};
+        setFormData((previous) => ({
+          ...previous,
+          ...patient,
+          MPD_PATIENT_CODE: patient.MPD_PATIENT_CODE || patientCode,
+          MPD_BIRTHDAY: patient.MPD_BIRTHDAY
+            ? String(patient.MPD_BIRTHDAY).split("T")[0]
+            : "",
+          MPD_GENDER: patient.MPD_GENDER || "",
+          MPD_PATIENT_TYPE: patient.MPD_PATIENT_TYPE || "",
+          MPD_BLOOD_GROUP: patient.MPD_BLOOD_GROUP || "",
+          MPD_UPDATED_BY: staffName,
+        }));
+      } catch (error) {
+        console.error("Error fetching patient details:", error);
+        setErrorMessage(
+          error.response?.data?.error || "Unable to load the patient record."
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPatientDetails();
+  }, [patientCode, staffName]);
+
+  const validateForm = (data) => {
+    const errors = {};
+
+    if (!data.MPD_PATIENT_NAME?.trim()) {
+      errors.name = "Full patient name is required";
+    }
+
+    if (!/^\d{10}$/.test(data.MPD_MOBILE_NO || "")) {
+      errors.contact = "Contact number must contain exactly 10 digits";
+    }
+
+    if (
+      data.MPD_EMAIL?.trim() &&
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.MPD_EMAIL.trim())
+    ) {
+      errors.email = "Enter a valid email address";
+    }
+
+    if (
+      data.MPD_NIC_NO?.trim() &&
+      !/^(\d{12}|\d{9}[VvXx])$/.test(data.MPD_NIC_NO.trim())
+    ) {
+      errors.nic = "Use a 12-digit NIC or old 9-digit NIC ending with V/X";
+    }
+
+    if (!data.MPD_BIRTHDAY) {
+      errors.birthdate = "Date of birth is required";
+    } else if (new Date(data.MPD_BIRTHDAY) > new Date()) {
+      errors.birthdate = "Date of birth cannot be in the future";
+    }
+
+    if (!data.MPD_GENDER) {
+      errors.gender = "Gender is required";
+    }
+
+    if (!data.MPD_PATIENT_TYPE) {
+      errors.patientType = "Patient category is required";
+    }
+
+    if (!data.MPD_BLOOD_GROUP) {
+      errors.bloodGroup = "Select a blood group or choose Unknown / Not tested";
+    }
+
+    if (
+      data.MPD_GUARDIAN_CONTACT_NO?.trim() &&
+      !/^\d{10}$/.test(data.MPD_GUARDIAN_CONTACT_NO.trim())
+    ) {
+      errors.guardianContact = "Guardian contact must contain exactly 10 digits";
+    }
+
+    return errors;
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormData((previous) => ({ ...previous, [name]: value }));
+    setFormErrors((previous) => ({ ...previous, [name]: "" }));
+
+    // Clear field-specific aliases used by TextFields.
+    if (name === "MPD_PATIENT_NAME") {
+      setFormErrors((previous) => ({ ...previous, name: "" }));
+    }
+    if (name === "MPD_MOBILE_NO") {
+      setFormErrors((previous) => ({ ...previous, contact: "" }));
+    }
+    if (name === "MPD_EMAIL") {
+      setFormErrors((previous) => ({ ...previous, email: "" }));
+    }
+    if (name === "MPD_NIC_NO") {
+      setFormErrors((previous) => ({ ...previous, nic: "" }));
+    }
+    if (name === "MPD_BIRTHDAY") {
+      setFormErrors((previous) => ({ ...previous, birthdate: "" }));
+    }
+    if (name === "MPD_GUARDIAN_CONTACT_NO") {
+      setFormErrors((previous) => ({ ...previous, guardianContact: "" }));
+    }
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setErrorMessage("");
+    setSuccessMessage("");
+
+    const errors = validateForm(formData);
+    setFormErrors(errors);
+
+    if (Object.keys(errors).length > 0) {
+      setErrorMessage("Please complete the required patient information correctly.");
+      return;
+    }
+
+    const payload = {
+      ...formData,
+      MPD_PATIENT_NAME: formData.MPD_PATIENT_NAME.trim(),
+      MPD_MOBILE_NO: formData.MPD_MOBILE_NO.trim(),
+      MPD_NIC_NO: formData.MPD_NIC_NO?.trim() || null,
+      MPD_EMAIL: formData.MPD_EMAIL?.trim() || null,
+      MPD_ADDRESS: formData.MPD_ADDRESS?.trim() || null,
+      MPD_CITY: formData.MPD_CITY?.trim() || null,
+      MPD_GUARDIAN: formData.MPD_GUARDIAN?.trim() || null,
+      MPD_GUARDIAN_CONTACT_NO:
+        formData.MPD_GUARDIAN_CONTACT_NO?.trim() || null,
+      MPD_PATIENT_REMARKS: formData.MPD_PATIENT_REMARKS?.trim() || null,
+      MPD_UPDATED_BY: isEditMode ? staffName : null,
+      MPD_CREATED_BY: formData.MPD_CREATED_BY || staffName,
+    };
+
     setIsLoading(true);
+
     try {
       if (isEditMode) {
         await axios.patch(
-          `${process.env.REACT_APP_API_BASE_URL}/Patient/update/${formData.MPD_PATIENT_CODE || patientCode}`,
-          formData
+          `${process.env.REACT_APP_API_BASE_URL}/Patient/update/${
+            formData.MPD_PATIENT_CODE || patientCode
+          }`,
+          payload
         );
-        setSuccessMessage("Patient details updated successfully!");
+        setSuccessMessage("Patient details updated successfully.");
       } else {
         await axios.post(
           `${process.env.REACT_APP_API_BASE_URL}/Patient/patient-registration`,
-          formData
+          payload
         );
-        setSuccessMessage("New patient registered in hospital database!");
+        setSuccessMessage("New patient registered successfully.");
       }
 
-      setTimeout(() => {
-        if (onSuccess) onSuccess();
-        if (handleClose) handleClose();
-      }, 1000);
+      if (onSuccess) {
+        await onSuccess();
+      } else if (handleClose) {
+        handleClose();
+      }
     } catch (error) {
-      // Offline fallback
-      setSuccessMessage("Patient data synchronized with local clinical directory.");
-      setTimeout(() => {
-        if (onSuccess) onSuccess();
-        if (handleClose) handleClose();
-      }, 1000);
+      console.error("Patient save failed:", error);
+      setErrorMessage(
+        error.response?.data?.error ||
+          error.response?.data?.message ||
+          "Unable to save the patient record. Please try again."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -154,8 +729,14 @@ const Addpatient = ({ patientCode, onSuccess, handleClose }) => {
         margin: "0 auto",
       }}
     >
-      {/* Modal/Page Header */}
-      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          mb: 2,
+        }}
+      >
         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
           <Box
             sx={{
@@ -172,11 +753,16 @@ const Addpatient = ({ patientCode, onSuccess, handleClose }) => {
             <PersonIcon />
           </Box>
           <Box>
-            <Typography variant="h6" sx={{ fontWeight: 800, color: "#0F172A", lineHeight: 1.2 }}>
-              {isEditMode ? "Edit Patient Clinical Record" : "New Patient Intake & Registration"}
+            <Typography
+              variant="h6"
+              sx={{ fontWeight: 800, color: "#0F172A", lineHeight: 1.2 }}
+            >
+              {isEditMode
+                ? "Edit Patient Clinical Record"
+                : "New Patient Intake & Registration"}
             </Typography>
             <Typography variant="caption" sx={{ color: "#64748B" }}>
-              Secure EHR Data Entry • HIPAA Protected
+              Confidential clinical data entry • Missing values are never auto-guessed
             </Typography>
           </Box>
         </Box>
@@ -202,28 +788,39 @@ const Addpatient = ({ patientCode, onSuccess, handleClose }) => {
         </Alert>
       )}
 
-      {isLoading ? (
+      {isLoading && isEditMode && !formData.MPD_PATIENT_NAME ? (
         <Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
           <CircularProgress sx={{ color: "#0A6E7C" }} />
         </Box>
       ) : (
         <Box component="form" onSubmit={handleSubmit}>
-          {/* Section 1: Demographics */}
-          <Typography variant="subtitle2" sx={{ fontWeight: 800, color: "#0A6E7C", mb: 1.5, display: "flex", alignItems: "center", gap: 1 }}>
+          <Typography
+            variant="subtitle2"
+            sx={{
+              fontWeight: 800,
+              color: "#0A6E7C",
+              mb: 1.5,
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+            }}
+          >
             <ShieldIcon sx={{ fontSize: 16 }} />
             Personal &amp; Demographic Information
           </Typography>
 
           <Grid container spacing={2} sx={{ mb: 3 }}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={5}>
               <TextField
                 fullWidth
                 size="small"
                 required
                 label="Full Patient Name"
                 name="MPD_PATIENT_NAME"
-                value={formData.MPD_PATIENT_NAME}
+                value={formData.MPD_PATIENT_NAME || ""}
                 onChange={handleChange}
+                error={Boolean(formErrors.name)}
+                helperText={formErrors.name}
                 placeholder="e.g. Kasun Fernando"
                 InputProps={{
                   startAdornment: (
@@ -236,14 +833,16 @@ const Addpatient = ({ patientCode, onSuccess, handleClose }) => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={4}>
               <TextField
                 fullWidth
                 size="small"
                 label="National Identity (NIC)"
                 name="MPD_NIC_NO"
-                value={formData.MPD_NIC_NO}
+                value={formData.MPD_NIC_NO || ""}
                 onChange={handleChange}
+                error={Boolean(formErrors.nic)}
+                helperText={formErrors.nic}
                 placeholder="e.g. 200311611379"
                 InputProps={{
                   startAdornment: (
@@ -256,12 +855,12 @@ const Addpatient = ({ patientCode, onSuccess, handleClose }) => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={4}>
-              <FormControl fullWidth size="small">
+            <Grid item xs={12} sm={3}>
+              <FormControl fullWidth size="small" error={Boolean(formErrors.gender)} required>
                 <InputLabel>Gender</InputLabel>
                 <Select
                   name="MPD_GENDER"
-                  value={formData.MPD_GENDER}
+                  value={formData.MPD_GENDER || ""}
                   onChange={handleChange}
                   label="Gender"
                   sx={{ borderRadius: "10px" }}
@@ -269,7 +868,13 @@ const Addpatient = ({ patientCode, onSuccess, handleClose }) => {
                   <MenuItem value="Male">Male</MenuItem>
                   <MenuItem value="Female">Female</MenuItem>
                   <MenuItem value="Other">Other</MenuItem>
+                  <MenuItem value="Unknown">Unknown / Not stated</MenuItem>
                 </Select>
+                {formErrors.gender && (
+                  <Typography variant="caption" color="error" sx={{ ml: 1.75, mt: 0.4 }}>
+                    {formErrors.gender}
+                  </Typography>
+                )}
               </FormControl>
             </Grid>
 
@@ -277,38 +882,91 @@ const Addpatient = ({ patientCode, onSuccess, handleClose }) => {
               <TextField
                 fullWidth
                 size="small"
+                required
                 type="date"
                 label="Date of Birth"
                 name="MPD_BIRTHDAY"
                 value={formData.MPD_BIRTHDAY || ""}
                 onChange={handleChange}
+                error={Boolean(formErrors.birthdate)}
+                helperText={formErrors.birthdate}
                 InputLabelProps={{ shrink: true }}
+                inputProps={{ max: new Date().toISOString().split("T")[0] }}
                 sx={{ "& .MuiOutlinedInput-root": { borderRadius: "10px" } }}
               />
             </Grid>
 
             <Grid item xs={12} sm={4}>
-              <FormControl fullWidth size="small">
+              <FormControl
+                fullWidth
+                size="small"
+                required
+                error={Boolean(formErrors.patientType)}
+              >
                 <InputLabel>Patient Category</InputLabel>
                 <Select
                   name="MPD_PATIENT_TYPE"
-                  value={formData.MPD_PATIENT_TYPE || "Inpatient"}
+                  value={formData.MPD_PATIENT_TYPE || ""}
                   onChange={handleChange}
                   label="Patient Category"
                   sx={{ borderRadius: "10px" }}
                 >
                   <MenuItem value="Inpatient">Inpatient (Ward)</MenuItem>
                   <MenuItem value="Outpatient">Outpatient (OPD)</MenuItem>
-                  <MenuItem value="Emergency">Emergency Triage</MenuItem>
+                  <MenuItem value="Emergency">Emergency</MenuItem>
                 </Select>
+                {formErrors.patientType && (
+                  <Typography variant="caption" color="error" sx={{ ml: 1.75, mt: 0.4 }}>
+                    {formErrors.patientType}
+                  </Typography>
+                )}
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12} sm={4}>
+              <FormControl
+                fullWidth
+                size="small"
+                required
+                error={Boolean(formErrors.bloodGroup)}
+              >
+                <InputLabel>Blood Group</InputLabel>
+                <Select
+                  name="MPD_BLOOD_GROUP"
+                  value={formData.MPD_BLOOD_GROUP || ""}
+                  onChange={handleChange}
+                  label="Blood Group"
+                  sx={{ borderRadius: "10px" }}
+                >
+                  {BLOOD_GROUPS.map((group) => (
+                    <MenuItem key={group} value={group}>
+                      {group}
+                    </MenuItem>
+                  ))}
+                  <MenuItem value="Unknown">Unknown / Not tested</MenuItem>
+                </Select>
+                {formErrors.bloodGroup && (
+                  <Typography variant="caption" color="error" sx={{ ml: 1.75, mt: 0.4 }}>
+                    {formErrors.bloodGroup}
+                  </Typography>
+                )}
               </FormControl>
             </Grid>
           </Grid>
 
-          {/* Section 2: Contact Details */}
-          <Typography variant="subtitle2" sx={{ fontWeight: 800, color: "#0A6E7C", mb: 1.5, display: "flex", alignItems: "center", gap: 1 }}>
+          <Typography
+            variant="subtitle2"
+            sx={{
+              fontWeight: 800,
+              color: "#0A6E7C",
+              mb: 1.5,
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+            }}
+          >
             <PhoneIcon sx={{ fontSize: 16 }} />
-            Contact &amp; Residence Coordinates
+            Contact &amp; Residence Information
           </Typography>
 
           <Grid container spacing={2} sx={{ mb: 3 }}>
@@ -317,10 +975,11 @@ const Addpatient = ({ patientCode, onSuccess, handleClose }) => {
                 fullWidth
                 size="small"
                 required
-                label="Primary Phone / Hotline"
+                label="Primary Phone"
                 name="MPD_MOBILE_NO"
-                value={formData.MPD_MOBILE_NO}
+                value={formData.MPD_MOBILE_NO || ""}
                 onChange={handleChange}
+                inputProps={{ maxLength: 10 }}
                 error={Boolean(formErrors.contact)}
                 helperText={formErrors.contact}
                 placeholder="0766706951"
@@ -342,7 +1001,7 @@ const Addpatient = ({ patientCode, onSuccess, handleClose }) => {
                 label="Email Address"
                 name="MPD_EMAIL"
                 type="email"
-                value={formData.MPD_EMAIL}
+                value={formData.MPD_EMAIL || ""}
                 onChange={handleChange}
                 error={Boolean(formErrors.email)}
                 helperText={formErrors.email}
@@ -358,15 +1017,15 @@ const Addpatient = ({ patientCode, onSuccess, handleClose }) => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={8}>
+            <Grid item xs={12} sm={7}>
               <TextField
                 fullWidth
                 size="small"
-                label="Ward / Residential Address"
+                label="Residential / Current Ward Location"
                 name="MPD_ADDRESS"
-                value={formData.MPD_ADDRESS}
+                value={formData.MPD_ADDRESS || ""}
                 onChange={handleChange}
-                placeholder="Ward 4A • Bed #12, Central Wing"
+                placeholder="e.g. No. 128, Main Road or Ward 4A / Bed 12"
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -378,15 +1037,15 @@ const Addpatient = ({ patientCode, onSuccess, handleClose }) => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={5}>
               <TextField
                 fullWidth
                 size="small"
                 label="City / District"
                 name="MPD_CITY"
-                value={formData.MPD_CITY}
+                value={formData.MPD_CITY || ""}
                 onChange={handleChange}
-                placeholder="Bandaragama"
+                placeholder="e.g. Colombo"
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -399,55 +1058,67 @@ const Addpatient = ({ patientCode, onSuccess, handleClose }) => {
             </Grid>
           </Grid>
 
-          {/* Section 3: Guardian & Clinical Remarks */}
-          <Typography variant="subtitle2" sx={{ fontWeight: 800, color: "#0A6E7C", mb: 1.5, display: "flex", alignItems: "center", gap: 1 }}>
+          <Typography
+            variant="subtitle2"
+            sx={{
+              fontWeight: 800,
+              color: "#0A6E7C",
+              mb: 1.5,
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+            }}
+          >
             <PeopleIcon sx={{ fontSize: 16 }} />
             Guardian / Emergency Contact &amp; Clinical Notes
           </Typography>
 
           <Grid container spacing={2} sx={{ mb: 3 }}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={4}>
               <TextField
                 fullWidth
                 size="small"
                 label="Guardian Full Name"
                 name="MPD_GUARDIAN"
-                value={formData.MPD_GUARDIAN}
+                value={formData.MPD_GUARDIAN || ""}
                 onChange={handleChange}
-                placeholder="Emergency Next of Kin"
+                placeholder="Emergency next of kin"
                 sx={{ "& .MuiOutlinedInput-root": { borderRadius: "10px" } }}
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={4}>
               <TextField
                 fullWidth
                 size="small"
-                label="Guardian Contact Hotline"
+                label="Guardian Contact"
                 name="MPD_GUARDIAN_CONTACT_NO"
-                value={formData.MPD_GUARDIAN_CONTACT_NO}
+                value={formData.MPD_GUARDIAN_CONTACT_NO || ""}
                 onChange={handleChange}
+                inputProps={{ maxLength: 10 }}
+                error={Boolean(formErrors.guardianContact)}
+                helperText={formErrors.guardianContact}
                 placeholder="0771234567"
                 sx={{ "& .MuiOutlinedInput-root": { borderRadius: "10px" } }}
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={4}>
               <TextField
                 fullWidth
+                size="small"
                 multiline
-                rows={2}
-                label="Special Medical Remarks &amp; Allergies"
+                rows={1}
+                label="Medical Remarks / Allergies"
                 name="MPD_PATIENT_REMARKS"
-                value={formData.MPD_PATIENT_REMARKS}
+                value={formData.MPD_PATIENT_REMARKS || ""}
                 onChange={handleChange}
-                placeholder="Known drug allergies, chronic conditions, special accommodations..."
+                placeholder="Known allergies, alerts, important notes..."
                 sx={{ "& .MuiOutlinedInput-root": { borderRadius: "10px", fontSize: "13px" } }}
               />
             </Grid>
           </Grid>
 
-          {/* Form Action Controls */}
           <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 1.5, pt: 1 }}>
             {handleClose && (
               <button type="button" className="btn-secondary-white" onClick={handleClose}>
@@ -455,8 +1126,12 @@ const Addpatient = ({ patientCode, onSuccess, handleClose }) => {
               </button>
             )}
             <button type="submit" className="btn-primary-cyan" disabled={isLoading}>
-              {isLoading ? <CircularProgress size={16} color="inherit" /> : <SaveIcon sx={{ fontSize: 16 }} />}
-              <span>{isEditMode ? "Update Clinical Record" : "Register Patient in EHR"}</span>
+              {isLoading ? (
+                <CircularProgress size={16} color="inherit" />
+              ) : (
+                <SaveIcon sx={{ fontSize: 16 }} />
+              )}
+              <span>{isEditMode ? "Update Patient Record" : "Register Patient"}</span>
             </button>
           </Box>
         </Box>

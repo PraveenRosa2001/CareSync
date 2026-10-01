@@ -1,16 +1,11 @@
-﻿
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Numerics;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using WebApplication1.Data;
-using System.Security.Cryptography;
-
-using WebApplication1.Models;
 
 namespace webapplication3.Controllers
 {
@@ -21,99 +16,114 @@ namespace webapplication3.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _configuration;
 
-        public LoginController(ApplicationDbContext context, IConfiguration configuration)
+        public LoginController(
+            ApplicationDbContext context,
+            IConfiguration configuration)
         {
             _context = context;
             _configuration = configuration;
         }
 
-
-        //This login model used for the login only
         public class LoginModel
         {
             public string? Username { get; set; }
             public string? Password { get; set; }
         }
 
-
-        private string Hashpassword(string password)
+        private static string HashPassword(string password)
         {
-
-
-            using (var sha256 = SHA256.Create())
-            {
-                var bytes = Encoding.UTF8.GetBytes(password);
-                var hash = sha256.ComputeHash(bytes);
-                return Convert.ToBase64String(hash);
-            }
+            using var sha256 = SHA256.Create();
+            var bytes = Encoding.UTF8.GetBytes(password);
+            var hash = sha256.ComputeHash(bytes);
+            return Convert.ToBase64String(hash);
         }
 
+        [AllowAnonymous]
         [HttpPost("Login")]
         public IActionResult Login([FromBody] LoginModel login)
         {
-            if (login == null || string.IsNullOrEmpty(login.Username) || string.IsNullOrEmpty(login.Password))
+            if (login == null ||
+                string.IsNullOrWhiteSpace(login.Username) ||
+                string.IsNullOrWhiteSpace(login.Password))
             {
                 return BadRequest("Invalid login request");
             }
 
-            // Check if the username exists
+            var username = login.Username.Trim();
+
+            // Keep compatibility with all existing CareSync staff accounts.
             var user = _context.MED_USER_DETAILS
-                        .FirstOrDefault(u => u.MUD_USER_NAME == login.Username);
+                .FirstOrDefault(u => u.MUD_USER_NAME == username);
 
             if (user == null)
             {
                 return Unauthorized("Invalid username");
             }
-            var hashedInputPassword = Hashpassword(login.Password);
-            // Check if the password matches
 
+            var hashedInputPassword = HashPassword(login.Password);
 
-            // Check if either the plain password or hashed password matches
-            if (user.MUD_PASSWORD != login.Password && user.MUD_PASSWORD != hashedInputPassword)
+            // Existing database rows may contain either the old plain-text value
+            // or the SHA256 value. Do NOT force a password migration during login.
+            if (user.MUD_PASSWORD != login.Password &&
+                user.MUD_PASSWORD != hashedInputPassword)
             {
                 return Unauthorized("Invalid password");
             }
 
-
-
-
-            /* if (user.MUD_PASSWORD != login.Password )
-             {
-                 return Unauthorized("Invalid password");
-             }*/
-
-            // Generate the JWT token if credentials are correct
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_configuration["Jwt:SecretKey"]);
-
-            var claims = new[]
+            var jwtSecretKey = _configuration["Jwt:SecretKey"];
+            if (string.IsNullOrWhiteSpace(jwtSecretKey))
             {
-        new Claim(ClaimTypes.Name, user.MUD_USER_NAME),
-        new Claim(ClaimTypes.Role, user.MUD_USER_TYPE)
-    };
+                return StatusCode(500, "JWT secret key is not configured.");
+            }
 
-            var tokenDescriptor = new SecurityTokenDescriptor
+            var key = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(jwtSecretKey));
+
+            var claims = new List<Claim>
             {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddHours(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                new Claim(
+                    ClaimTypes.NameIdentifier,
+                    user.MUD_USER_ID ?? string.Empty),
+                new Claim(
+                    ClaimTypes.Name,
+                    user.MUD_USER_NAME ?? username),
+                new Claim(
+                    ClaimTypes.Role,
+                    user.MUD_USER_TYPE ?? string.Empty)
             };
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var tokenString = tokenHandler.WriteToken(token);
+            var token = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.UtcNow.AddHours(8),
+                signingCredentials: new SigningCredentials(
+                    key,
+                    SecurityAlgorithms.HmacSha256)
+            );
+
+            var tokenString = new JwtSecurityTokenHandler()
+                .WriteToken(token);
 
             return Ok(new
             {
                 Message = "Login successful",
                 Role = user.MUD_USER_TYPE,
                 Token = tokenString,
-                Name = login.Username,
+                Name = user.MUD_USER_NAME,
                 id = user.MUD_USER_ID
+            });
+        }
+
+        [Authorize]
+        [HttpGet("validate-token")]
+        public IActionResult ValidateToken()
+        {
+            return Ok(new
+            {
+                valid = true,
+                userId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                username = User.Identity?.Name,
+                role = User.FindFirstValue(ClaimTypes.Role)
             });
         }
     }
 }
-
-
-
-

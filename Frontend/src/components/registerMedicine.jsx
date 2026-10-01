@@ -36,113 +36,7 @@ import {
 } from "@mui/icons-material";
 
 // Initial pharmaceutical inventory matching screenshot 4
-const INITIAL_DRUGS = [
-  {
-    MMC_MATERIAL_CODE: "M001",
-    name: "Amoxycillin",
-    strength: "500mg Oral Capsule • DIN #0482910",
-    category: "Antibiotic",
-    unitForm: "Capsule (mg)",
-    stock: 31,
-    minStock: 20,
-    unit: "units",
-    status: "Active Stock",
-    rate: 300.0,
-    batch: "BT-99214",
-    expiry: "Exp: Nov 2026",
-    isStockout: false,
-  },
-  {
-    MMC_MATERIAL_CODE: "M002",
-    name: "PCM (Raw Formulation)",
-    strength: "Bulk Compounding Base • DIN #0012891",
-    category: "Analgesic",
-    unitForm: "Grams (g)",
-    stock: 0,
-    minStock: 50,
-    unit: "grams",
-    status: "Out of Stock",
-    rate: 200.0,
-    batch: "RAW-7718",
-    expiry: "Replenish Req.",
-    isStockout: true,
-  },
-  {
-    MMC_MATERIAL_CODE: "M003",
-    name: "Panadol tablet 20mg",
-    strength: "Pediatric Formulation • DIN #0847291",
-    category: "Analgesic",
-    unitForm: "Tablets (mg)",
-    stock: 2,
-    minStock: 15,
-    unit: "boxes",
-    status: "Low Stock",
-    rate: 500.0,
-    batch: "PN-38290",
-    expiry: "Exp: Aug 2025",
-    isStockout: false,
-  },
-  {
-    MMC_MATERIAL_CODE: "M004",
-    name: "piriton 20mg",
-    strength: "Chlorpheniramine Syrup • DIN #0938217",
-    category: "Antihistamine",
-    unitForm: "Syrup / g",
-    stock: 0,
-    minStock: 25,
-    unit: "units",
-    status: "Out of Stock",
-    rate: 40.0,
-    batch: "PR-1120",
-    expiry: "Stockout",
-    isStockout: true,
-  },
-  {
-    MMC_MATERIAL_CODE: "M005",
-    name: "Zeus tablet 20mg",
-    strength: "Atorvastatin Formulation • DIN #0294821",
-    category: "Cardiovascular",
-    unitForm: "Tablets (mg)",
-    stock: 0,
-    minStock: 10,
-    unit: "units",
-    status: "Out of Stock",
-    rate: 200.0,
-    batch: "ZS-44109",
-    expiry: "Backordered",
-    isStockout: true,
-  },
-  {
-    MMC_MATERIAL_CODE: "M006",
-    name: "pandol",
-    strength: "General Analgesic Strip • DIN #0192843",
-    category: "Analgesic",
-    unitForm: "Unit Strip (mg)",
-    stock: 5,
-    minStock: 20,
-    unit: "strips",
-    status: "Low Stock",
-    rate: 2.0,
-    batch: "PD-8812",
-    expiry: "Exp: Jan 2026",
-    isStockout: false,
-  },
-  {
-    MMC_MATERIAL_CODE: "M007",
-    name: "paracetamol",
-    strength: "120mg/5ml Infusion Grade • DIN #0873194",
-    category: "Analgesic",
-    unitForm: "Bottles (mg)",
-    stock: 45,
-    minStock: 15,
-    unit: "bottles",
-    status: "Active Stock",
-    rate: 20.0,
-    batch: "PC-9942",
-    expiry: "Exp: Dec 2027",
-    isStockout: false,
-  },
-];
+const INITIAL_DRUGS = [];
 
 export default function RegisterMedicine() {
   const [medicines, setMedicines] = useState(INITIAL_DRUGS);
@@ -159,12 +53,12 @@ export default function RegisterMedicine() {
     name: "",
     strength: "",
     category: "Antibiotic",
-    unitForm: "Capsule (mg)",
+    unitForm: "Capsule",
     stock: 50,
     minStock: 20,
     rate: 150.0,
-    batch: "BT-2025",
-    expiry: "Exp: Dec 2026",
+    batch: "",
+    expiry: "",
   });
 
   const showToast = (message, severity = "success") => {
@@ -176,25 +70,41 @@ export default function RegisterMedicine() {
       setLoading(true);
       const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/Material`);
       if (res.data && Array.isArray(res.data) && res.data.length > 0) {
-        const mapped = res.data.map((m, idx) => ({
-          MMC_MATERIAL_CODE: m.MMC_MATERIAL_CODE || `M${idx + 1}`,
-          name: m.MMC_DESCRIPTION || "Medicine",
-          strength: m.MMC_MATERIAL_SPEC || "Standard Formulation",
-          category: idx % 4 === 0 ? "Antibiotic" : idx % 4 === 1 ? "Analgesic" : idx % 4 === 2 ? "Antihistamine" : "Cardiovascular",
-          unitForm: m.MMC_UNIT || "Tablets (mg)",
-          stock: m.MMC_REORDER_LEVEL ? Number(m.MMC_REORDER_LEVEL) : 25,
-          minStock: 20,
-          unit: "units",
-          status: Number(m.MMC_REORDER_LEVEL || 0) <= 0 ? "Out of Stock" : Number(m.MMC_REORDER_LEVEL || 0) < 15 ? "Low Stock" : "Active Stock",
-          rate: m.MMC_RATE ? Number(m.MMC_RATE) : 100.0,
-          batch: `BT-00${idx + 1}`,
-          expiry: "Exp: Nov 2026",
-          isStockout: Number(m.MMC_REORDER_LEVEL || 0) <= 0,
-        }));
+        const mapped = res.data.map((m) => {
+          const stock = Number(m.MMC_REORDER_LEVEL ?? 0);
+          const minStock = Number(m.MMC_MIN_STOCK ?? 0);
+          const inactive = m.MMC_STATUS === "I";
+          const expiry = m.MMC_EXPIRY_DATE ? String(m.MMC_EXPIRY_DATE).slice(0, 10) : "";
+
+          return {
+            MMC_MATERIAL_CODE: m.MMC_MATERIAL_CODE,
+            name: m.MMC_DESCRIPTION || "Unnamed medicine",
+            strength: m.MMC_MATERIAL_SPEC || "Not recorded",
+            category: m.MMC_CATEGORY || "Unclassified",
+            unitForm: m.MMC_UNIT || "Not recorded",
+            stock,
+            minStock,
+            unit: "units",
+            status: inactive
+              ? "Inactive"
+              : stock <= 0
+              ? "Out of Stock"
+              : minStock > 0 && stock <= minStock
+              ? "Low Stock"
+              : "Active Stock",
+            rate: Number(m.MMC_RATE ?? 0),
+            batch: m.MMC_BATCH_NO || "Not recorded",
+            expiry,
+            isStockout: stock <= 0,
+          };
+        });
         setMedicines(mapped);
+      } else {
+        setMedicines([]);
       }
     } catch (e) {
-      console.log("Using cached pharmaceutical catalog");
+      console.error("Failed to load medicine catalogue", e);
+      showToast("Unable to load the medicine catalogue from the server.", "error");
     } finally {
       setLoading(false);
     }
@@ -207,16 +117,16 @@ export default function RegisterMedicine() {
   const handleOpenAdd = () => {
     setEditMode(false);
     setFormData({
-      MMC_MATERIAL_CODE: `M00${medicines.length + 1}`,
+      MMC_MATERIAL_CODE: "",
       name: "",
       strength: "",
       category: "Antibiotic",
-      unitForm: "Capsule (mg)",
-      stock: 50,
+      unitForm: "Capsule",
+      stock: 0,
       minStock: 20,
-      rate: 100.0,
-      batch: "BT-9900",
-      expiry: "Exp: Dec 2026",
+      rate: 0,
+      batch: "",
+      expiry: "",
     });
     setOpenDialog(true);
   };
@@ -238,67 +148,130 @@ export default function RegisterMedicine() {
     setOpenDialog(true);
   };
 
-  const handleDelete = (item) => {
-    if (window.confirm(`Are you sure you want to decommission ${item.name}?`)) {
-      setMedicines((prev) => prev.filter((m) => m.MMC_MATERIAL_CODE !== item.MMC_MATERIAL_CODE));
-      showToast(`${item.name} removed from active formulary.`, "info");
+  const getApiErrorMessage = (err, fallback) => {
+    return (
+      err?.response?.data?.message ||
+      err?.response?.data?.error ||
+      (typeof err?.response?.data === "string" ? err.response.data : null) ||
+      fallback
+    );
+  };
+
+  const handleDelete = async (item) => {
+    if (!window.confirm(`Deactivate ${item.name} from the active formulary?`)) {
+      return;
+    }
+
+    try {
+      setLoading(true);
+      await axios.put(
+        `${process.env.REACT_APP_API_BASE_URL}/Material/updatematerialstatus`,
+        null,
+        { params: { materialcode: item.MMC_MATERIAL_CODE } }
+      );
+      await fetchMedicines();
+      showToast(`${item.name} was deactivated successfully.`, "info");
+    } catch (err) {
+      showToast(
+        getApiErrorMessage(err, "Unable to deactivate this medicine."),
+        "error"
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.name) {
-      showToast("Please enter drug name", "error");
+
+    const name = formData.name.trim();
+    const strength = formData.strength.trim();
+
+    if (!name) {
+      showToast("Please enter the medicine name.", "error");
       return;
     }
 
+    if (!strength) {
+      showToast("Please enter the formulation / strength.", "error");
+      return;
+    }
+
+    if (!formData.unitForm) {
+      showToast("Please select a dosage form.", "error");
+      return;
+    }
+
+    if (Number(formData.stock) < 0 || Number(formData.minStock) < 0) {
+      showToast("Stock values cannot be negative.", "error");
+      return;
+    }
+
+    if (Number(formData.rate) < 0) {
+      showToast("Unit rate cannot be negative.", "error");
+      return;
+    }
+
+    if (formData.expiry) {
+      const expiryDate = new Date(`${formData.expiry}T00:00:00`);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      if (expiryDate < today) {
+        showToast("Expiry date cannot be in the past.", "error");
+        return;
+      }
+    }
+
     setLoading(true);
+
     try {
+      const currentUserId = localStorage.getItem("id") || null;
       const payload = {
-        MMC_MATERIAL_CODE: formData.MMC_MATERIAL_CODE,
-        MMC_DESCRIPTION: formData.name,
-        MMC_MATERIAL_SPEC: formData.strength,
-        MMC_REORDER_LEVEL: formData.stock,
+        MMC_DESCRIPTION: name,
+        MMC_MATERIAL_SPEC: strength,
         MMC_UNIT: formData.unitForm,
-        MMC_RATE: formData.rate,
+        // Legacy database field used by the existing CareSync dispensing code as current stock.
+        MMC_REORDER_LEVEL: Number(formData.stock),
+        MMC_MIN_STOCK: Number(formData.minStock),
+        MMC_CATEGORY: formData.category,
+        MMC_BATCH_NO: formData.batch.trim() || null,
+        MMC_EXPIRY_DATE: formData.expiry || null,
+        MMC_RATE: Number(formData.rate),
         MMC_STATUS: "A",
+        ...(editMode
+          ? { MMC_UPDATED_BY: currentUserId }
+          : { MMC_CREATED_BY: currentUserId }),
       };
 
       if (editMode) {
-        await axios.put(`${process.env.REACT_APP_API_BASE_URL}/Material/${formData.MMC_MATERIAL_CODE}`, payload);
-        showToast(`${formData.name} updated successfully!`, "success");
-      } else {
-        await axios.post(`${process.env.REACT_APP_API_BASE_URL}/Material`, payload);
-        showToast(`${formData.name} registered to formulary!`, "success");
-      }
-    } catch (err) {
-      // Local fallback
-      if (editMode) {
-        setMedicines((prev) =>
-          prev.map((m) =>
-            m.MMC_MATERIAL_CODE === formData.MMC_MATERIAL_CODE
-              ? {
-                  ...m,
-                  ...formData,
-                  status: formData.stock <= 0 ? "Out of Stock" : formData.stock < formData.minStock ? "Low Stock" : "Active Stock",
-                }
-              : m
-          )
+        await axios.patch(
+          `${process.env.REACT_APP_API_BASE_URL}/Material/${formData.MMC_MATERIAL_CODE}`,
+          payload
         );
-        showToast(`${formData.name} updated!`, "success");
+        showToast(`${name} updated successfully.`, "success");
       } else {
-        const newItem = {
-          ...formData,
-          unit: "units",
-          status: formData.stock <= 0 ? "Out of Stock" : formData.stock < formData.minStock ? "Low Stock" : "Active Stock",
-          isStockout: formData.stock <= 0,
-        };
-        setMedicines([newItem, ...medicines]);
-        showToast(`${formData.name} added to inventory!`, "success");
+        await axios.post(
+          `${process.env.REACT_APP_API_BASE_URL}/Material`,
+          payload
+        );
+        showToast(`${name} registered successfully.`, "success");
       }
+
+      await fetchMedicines();
+      setOpenDialog(false);
+    } catch (err) {
+      console.error("Medicine save failed", err);
+      showToast(
+        getApiErrorMessage(
+          err,
+          editMode
+            ? "Unable to update the medicine."
+            : "Unable to register the medicine."
+        ),
+        "error"
+      );
     } finally {
       setLoading(false);
-      setOpenDialog(false);
     }
   };
 
@@ -308,20 +281,85 @@ export default function RegisterMedicine() {
     if (statusFilter === "Low Stock" && m.status !== "Low Stock") return false;
     if (statusFilter === "Depleted" && m.status !== "Out of Stock") return false;
 
-    if (classFilter !== "All Therapeutic Classes" && m.category.toLowerCase() !== classFilter.toLowerCase()) {
+    if (classFilter !== "All Therapeutic Classes" && (m.category || "").toLowerCase() !== classFilter.toLowerCase()) {
       return false;
     }
 
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
       return (
-        m.name.toLowerCase().includes(q) ||
-        m.strength.toLowerCase().includes(q) ||
-        m.batch.toLowerCase().includes(q)
+        (m.name || "").toLowerCase().includes(q) ||
+        (m.strength || "").toLowerCase().includes(q) ||
+        (m.batch || "").toLowerCase().includes(q)
       );
     }
     return true;
   });
+
+  const handleExportCSV = () => {
+    if (filteredMedicines.length === 0) {
+      showToast("No data to export", "warning");
+      return;
+    }
+    const headers = [
+      "Material Code",
+      "Name",
+      "Strength/Spec",
+      "Category",
+      "Unit Form",
+      "Stock",
+      "Min Stock",
+      "Status",
+      "Rate",
+      "Batch",
+      "Expiry"
+    ];
+    
+    const csvRows = [headers.join(",")];
+    
+    for (const m of filteredMedicines) {
+      const row = [
+        m.MMC_MATERIAL_CODE,
+        `"${m.name || ""}"`,
+        `"${m.strength || ""}"`,
+        m.category,
+        m.unitForm,
+        m.stock,
+        m.minStock,
+        m.status,
+        m.rate,
+        `"${m.batch || ""}"`,
+        `"${m.expiry || ""}"`
+      ];
+      csvRows.push(row.join(","));
+    }
+    
+    const csvString = csvRows.join("\n");
+    const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", `formulary_export_${new Date().getTime()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showToast("Formulary exported successfully!", "success");
+  };
+
+  const allCount = medicines.length;
+  const activeCount = medicines.filter((m) => m.status !== "Inactive").length;
+  const inStockCount = medicines.filter(m => m.status === "Active Stock" || m.status === "Low Stock").length;
+  const lowStockCount = medicines.filter(m => m.status === "Low Stock").length;
+  const depletedCount = medicines.filter(m => m.status === "Out of Stock").length;
+  const expiringCount = medicines.filter((m) => {
+    if (!m.expiry) return false;
+    const expiryDate = new Date(`${m.expiry}T00:00:00`);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const days = (expiryDate - today) / (1000 * 60 * 60 * 24);
+    return days >= 0 && days <= 30;
+  }).length;
+  const dailyDispensation = 0;
 
   return (
     <div className="hospital-admin-page-container">
@@ -337,7 +375,7 @@ export default function RegisterMedicine() {
         <div className="page-action-group">
           <button
             className="btn-secondary-white"
-            onClick={() => showToast("Exporting National Formulary dataset...", "info")}
+            onClick={handleExportCSV}
           >
             <DownloadIcon sx={{ fontSize: 16 }} />
             <span>Formulary Export</span>
@@ -355,10 +393,10 @@ export default function RegisterMedicine() {
           <div>
             <div className="kpi-label">TOTAL ACTIVE SKUS</div>
             <div className="kpi-val-row">
-              <span className="kpi-number">842</span>
-              <span className="kpi-delta-pill blue">+18 this mo</span>
+              <span className="kpi-number">{activeCount}</span>
+              <span className="kpi-delta-pill blue">Live catalogue</span>
             </div>
-            <div className="kpi-subtext">97.8% formulary coverage</div>
+            <div className="kpi-subtext">{allCount - activeCount} inactive SKU(s)</div>
           </div>
           <div className="kpi-icon-box blue">
             <InventoryIcon sx={{ fontSize: 22 }} />
@@ -369,7 +407,7 @@ export default function RegisterMedicine() {
           <div>
             <div className="kpi-label">LOW STOCK ALERTS</div>
             <div className="kpi-val-row">
-              <span className="kpi-number" style={{ color: "#DC2626" }}>14</span>
+              <span className="kpi-number" style={{ color: "#DC2626" }}>{lowStockCount}</span>
               <span className="kpi-delta-pill red">SKUs critical</span>
             </div>
             <div className="kpi-subtext">Action required: PO trigger</div>
@@ -383,7 +421,7 @@ export default function RegisterMedicine() {
           <div>
             <div className="kpi-label">EXPIRING &lt;30 DAYS</div>
             <div className="kpi-val-row">
-              <span className="kpi-number">6</span>
+              <span className="kpi-number">{expiringCount}</span>
               <span className="kpi-delta-pill amber">Batches marked</span>
             </div>
             <div className="kpi-subtext">Quarantine protocol live</div>
@@ -397,7 +435,7 @@ export default function RegisterMedicine() {
           <div>
             <div className="kpi-label">DAILY DISPENSATION</div>
             <div className="kpi-val-row">
-              <span className="kpi-number">1,420</span>
+              <span className="kpi-number">{dailyDispensation}</span>
               <span className="kpi-delta-pill blue">Units today</span>
             </div>
             <div className="kpi-subtext">99.4% dispense accuracy</div>
@@ -430,25 +468,25 @@ export default function RegisterMedicine() {
                 className={`filter-pill-btn ${statusFilter === "All" ? "active" : ""}`}
                 onClick={() => setStatusFilter("All")}
               >
-                All (842)
+                All ({allCount})
               </button>
               <button
                 className={`filter-pill-btn ${statusFilter === "In Stock" ? "active" : ""}`}
                 onClick={() => setStatusFilter("In Stock")}
               >
-                In Stock
+                In Stock ({inStockCount})
               </button>
               <button
                 className={`filter-pill-btn ${statusFilter === "Low Stock" ? "active" : ""}`}
                 onClick={() => setStatusFilter("Low Stock")}
               >
-                Low Stock
+                Low Stock ({lowStockCount})
               </button>
               <button
                 className={`filter-pill-btn ${statusFilter === "Depleted" ? "active" : ""}`}
                 onClick={() => setStatusFilter("Depleted")}
               >
-                Depleted
+                Depleted ({depletedCount})
               </button>
             </div>
 
@@ -471,6 +509,7 @@ export default function RegisterMedicine() {
               <option value="Analgesic">Analgesics</option>
               <option value="Antihistamine">Antihistamines</option>
               <option value="Cardiovascular">Cardiovascular</option>
+              <option value="Gastrointestinal">Gastrointestinal</option>
             </select>
 
             <button className="topbar-icon-btn" title="Reload formulary" onClick={fetchMedicines}>
@@ -497,7 +536,7 @@ export default function RegisterMedicine() {
             <tbody>
               {filteredMedicines.map((item) => {
                 const isOutOfStock = item.stock <= 0;
-                const isLowStock = item.stock > 0 && item.stock < item.minStock;
+                const isLowStock = item.stock > 0 && item.minStock > 0 && item.stock <= item.minStock;
 
                 return (
                   <tr key={item.MMC_MATERIAL_CODE}>
@@ -538,7 +577,9 @@ export default function RegisterMedicine() {
                     </td>
 
                     <td>
-                      {isOutOfStock ? (
+                      {item.status === "Inactive" ? (
+                        <span className="status-tag out">● Inactive</span>
+                      ) : isOutOfStock ? (
                         <span className="status-tag out">● Out of Stock</span>
                       ) : isLowStock ? (
                         <span className="status-tag low">● Low Stock</span>
@@ -556,7 +597,7 @@ export default function RegisterMedicine() {
                         {item.batch}
                       </div>
                       <div style={{ fontSize: "11px", color: isOutOfStock ? "#DC2626" : "#64748B" }}>
-                        {item.expiry}
+                        {item.expiry ? `Exp: ${item.expiry}` : "Expiry not recorded"}
                       </div>
                     </td>
 
@@ -573,7 +614,8 @@ export default function RegisterMedicine() {
                         <button
                           className="topbar-icon-btn"
                           style={{ width: "30px", height: "30px" }}
-                          title="Decommission"
+                          title={item.status === "Inactive" ? "Already inactive" : "Deactivate medicine"}
+                          disabled={item.status === "Inactive" || loading}
                           onClick={() => handleDelete(item)}
                         >
                           <DeleteIcon sx={{ fontSize: 16 }} />
@@ -599,7 +641,7 @@ export default function RegisterMedicine() {
             color: "#64748B",
           }}
         >
-          <span>Showing 7 of 842 registered pharmaceutical records</span>
+          <span>Showing {filteredMedicines.length} of {allCount} registered pharmaceutical records</span>
           <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
             <button className="filter-pill-btn" style={{ padding: "4px 8px" }}>&lsaquo;</button>
             <button className="filter-pill-btn active" style={{ padding: "4px 10px" }}>1</button>
@@ -742,12 +784,16 @@ export default function RegisterMedicine() {
                   label="Unit Form"
                   onChange={(e) => setFormData({ ...formData, unitForm: e.target.value })}
                 >
-                  <MenuItem value="Capsule (mg)">Capsule (mg)</MenuItem>
-                  <MenuItem value="Tablets (mg)">Tablets (mg)</MenuItem>
-                  <MenuItem value="Grams (g)">Grams (g)</MenuItem>
-                  <MenuItem value="Syrup / g">Syrup / g</MenuItem>
-                  <MenuItem value="Unit Strip (mg)">Unit Strip (mg)</MenuItem>
-                  <MenuItem value="Bottles (mg)">Bottles (mg)</MenuItem>
+                  <MenuItem value="Capsule">Capsule</MenuItem>
+                  <MenuItem value="Tablet">Tablet</MenuItem>
+                  <MenuItem value="Syrup">Syrup</MenuItem>
+                  <MenuItem value="Injection">Injection</MenuItem>
+                  <MenuItem value="Vial">Vial</MenuItem>
+                  <MenuItem value="Bottle">Bottle</MenuItem>
+                  <MenuItem value="Cream / Ointment">Cream / Ointment</MenuItem>
+                  <MenuItem value="Drops">Drops</MenuItem>
+                  <MenuItem value="Inhaler">Inhaler</MenuItem>
+                  <MenuItem value="Sachet">Sachet</MenuItem>
                 </Select>
               </FormControl>
             </div>
@@ -758,6 +804,7 @@ export default function RegisterMedicine() {
                 type="number"
                 value={formData.stock}
                 onChange={(e) => setFormData({ ...formData, stock: Number(e.target.value) })}
+                inputProps={{ min: 0, step: "1" }}
                 required
                 fullWidth
                 size="small"
@@ -767,6 +814,7 @@ export default function RegisterMedicine() {
                 type="number"
                 value={formData.minStock}
                 onChange={(e) => setFormData({ ...formData, minStock: Number(e.target.value) })}
+                inputProps={{ min: 0, step: "1" }}
                 required
                 fullWidth
                 size="small"
@@ -779,6 +827,7 @@ export default function RegisterMedicine() {
                 type="number"
                 value={formData.rate}
                 onChange={(e) => setFormData({ ...formData, rate: Number(e.target.value) })}
+                inputProps={{ min: 0, step: "0.01" }}
                 required
                 fullWidth
                 size="small"
@@ -789,8 +838,19 @@ export default function RegisterMedicine() {
                 onChange={(e) => setFormData({ ...formData, batch: e.target.value })}
                 fullWidth
                 size="small"
+                placeholder="e.g. BT-2026-014"
               />
             </div>
+
+            <TextField
+              label="Expiry Date"
+              type="date"
+              value={formData.expiry}
+              onChange={(e) => setFormData({ ...formData, expiry: e.target.value })}
+              InputLabelProps={{ shrink: true }}
+              fullWidth
+              size="small"
+            />
           </DialogContent>
           <DialogActions sx={{ p: 2 }}>
             <Button onClick={() => setOpenDialog(false)}>Cancel</Button>

@@ -31,160 +31,19 @@ import {
   ArrowForward as ArrowForwardIcon,
   Warning as WarningIcon,
 } from "@mui/icons-material";
+import { ROLES, normalizeRole } from "../utils/roleAccess";
 
 // Initial mock patients matching screenshot 2
-const MOCK_QUEUE = [
-  {
-    code: "PA0020",
-    name: "Chenuka Kuruppu",
-    phone: "0766706951",
-    doctor: "Dr. Test (Cardiology • Ward 3B)",
-    time: "10:14 AM • 05/09/2025",
-    status: "Pending",
-    pendingCount: 1,
-    age: "34Y",
-    sex: "Male",
-    allergies: "None Reported",
-    drugs: [
-      {
-        id: 1,
-        name: "Amoxycillin 500mg",
-        desc: "Capsule • Oral • GlaxoSmithKline",
-        schedule: "Daily TDS (Every 8h)",
-        prescribedQty: 5,
-        givenQty: 5,
-        rate: 150.0,
-        stock: 31,
-        stockStatus: "Safe",
-        selected: true,
-      },
-      {
-        id: 2,
-        name: "Paracetamol 500mg",
-        desc: "Tablet • Post-Meal • State Pharma",
-        schedule: "BD Post-Meal (PRN)",
-        prescribedQty: 10,
-        givenQty: 10,
-        rate: 90.0,
-        stock: 246,
-        stockStatus: "Amp",
-        selected: true,
-      },
-    ],
-  },
-  {
-    code: "PA0001",
-    name: "PatientTest Alpha",
-    phone: "0750104549",
-    doctor: "Dr. Nipuna (Neurology)",
-    time: "Dispensed: 09:42 AM",
-    status: "Completed",
-    pendingCount: 0,
-    age: "45Y",
-    sex: "Female",
-    allergies: "Penicillin",
-    drugs: [
-      {
-        id: 3,
-        name: "Atorvastatin 20mg",
-        desc: "Tablet • Oral • Pfizer",
-        schedule: "Once Nightly",
-        prescribedQty: 30,
-        givenQty: 30,
-        rate: 45.0,
-        stock: 120,
-        stockStatus: "Safe",
-        selected: true,
-      },
-    ],
-  },
-  {
-    code: "PA0015",
-    name: "Kavinda Perera",
-    phone: "0718899201",
-    doctor: "Dr. Test (Cardiology)",
-    time: "Allocated: 09:15 AM",
-    status: "Pending",
-    pendingCount: 3,
-    age: "29Y",
-    sex: "Male",
-    allergies: "None Reported",
-    drugs: [
-      {
-        id: 4,
-        name: "Metformin 500mg",
-        desc: "Tablet • Oral • Merck",
-        schedule: "BD With Meals",
-        prescribedQty: 60,
-        givenQty: 60,
-        rate: 12.0,
-        stock: 80,
-        stockStatus: "Safe",
-        selected: true,
-      },
-    ],
-  },
-  {
-    code: "PA0012",
-    name: "Harini Silva",
-    phone: "0773341990",
-    doctor: "Dr. Samaranayake",
-    time: "05/08/2025",
-    status: "Completed",
-    pendingCount: 0,
-    age: "52Y",
-    sex: "Female",
-    allergies: "Sulfa drugs",
-    drugs: [
-      {
-        id: 5,
-        name: "Omeprazole 20mg",
-        desc: "Capsule • Oral • Cipla",
-        schedule: "OD Before Breakfast",
-        prescribedQty: 14,
-        givenQty: 14,
-        rate: 25.0,
-        stock: 200,
-        stockStatus: "Safe",
-        selected: true,
-      },
-    ],
-  },
-  {
-    code: "PA0007",
-    name: "Dinuka Jayasinghe",
-    phone: "0709923411",
-    doctor: "Dr. Nipuna (Neurology)",
-    time: "05/08/2025",
-    status: "Completed",
-    pendingCount: 0,
-    age: "38Y",
-    sex: "Male",
-    allergies: "None Reported",
-    drugs: [
-      {
-        id: 6,
-        name: "Cetirizine 10mg",
-        desc: "Tablet • Oral • Glaxo",
-        schedule: "OD At Night",
-        prescribedQty: 10,
-        givenQty: 10,
-        rate: 15.0,
-        stock: 90,
-        stockStatus: "Safe",
-        selected: true,
-      },
-    ],
-  },
-];
+const MOCK_QUEUE = [];
 
 export default function Pharmacy() {
   const navigate = useNavigate();
+  const role = normalizeRole(localStorage.getItem("Role"));
   const [queue, setQueue] = useState(MOCK_QUEUE);
   const [filterTab, setFilterTab] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedPatient, setSelectedPatient] = useState(MOCK_QUEUE[0]);
-  const [activeDrugs, setActiveDrugs] = useState(MOCK_QUEUE[0].drugs);
+  const [selectedPatient, setSelectedPatient] = useState(MOCK_QUEUE[0] || null);
+  const [activeDrugs, setActiveDrugs] = useState(MOCK_QUEUE[0]?.drugs || []);
   const [paymentMethod, setPaymentMethod] = useState("Direct Insurer Claim");
   const [loading, setLoading] = useState(false);
   const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
@@ -316,6 +175,10 @@ export default function Pharmacy() {
     return true;
   });
 
+  const allCount = queue.length;
+  const pendingCount = queue.filter((p) => p.status === "Pending").length;
+  const fulfilledCount = queue.filter((p) => p.status === "Completed").length;
+
   return (
     <div className="hospital-admin-page-container">
       {/* ── Page Header ────────────────────────────────────── */}
@@ -375,8 +238,8 @@ export default function Pharmacy() {
           <div>
             <div className="kpi-label">ALLOCATED PATIENTS</div>
             <div className="kpi-val-row">
-              <span className="kpi-number">45</span>
-              <span className="kpi-delta-pill blue">+6 today</span>
+              <span className="kpi-number">{allCount}</span>
+              <span className="kpi-delta-pill blue">Active Queue</span>
             </div>
             <div className="kpi-subtext">Assigned to Dispensary</div>
           </div>
@@ -389,7 +252,7 @@ export default function Pharmacy() {
           <div>
             <div className="kpi-label">PENDING DISPENSE</div>
             <div className="kpi-val-row">
-              <span className="kpi-number" style={{ color: "#DC2626" }}>8</span>
+              <span className="kpi-number" style={{ color: "#DC2626" }}>{pendingCount}</span>
               <span className="kpi-delta-pill red">Action needed</span>
             </div>
             <div className="kpi-subtext">3 Critical / Antibiotics</div>
@@ -403,8 +266,8 @@ export default function Pharmacy() {
           <div>
             <div className="kpi-label">COMPLETED INVOICED</div>
             <div className="kpi-val-row">
-              <span className="kpi-number">37</span>
-              <span className="kpi-delta-pill blue">82.2% rate</span>
+              <span className="kpi-number">{fulfilledCount}</span>
+              <span className="kpi-delta-pill blue">Dispatched</span>
             </div>
             <div className="kpi-subtext">Dispatched to Patients</div>
           </div>
@@ -446,7 +309,7 @@ export default function Pharmacy() {
                   borderRadius: "12px",
                 }}
               >
-                Total Queue: 45
+                Total Queue: {allCount}
               </span>
             </div>
 
@@ -476,19 +339,19 @@ export default function Pharmacy() {
                 className={`filter-pill-btn ${filterTab === "All" ? "active" : ""}`}
                 onClick={() => setFilterTab("All")}
               >
-                All (45)
+                All ({allCount})
               </button>
               <button
                 className={`filter-pill-btn ${filterTab === "Pending" ? "active" : ""}`}
                 onClick={() => setFilterTab("Pending")}
               >
-                Pending (8)
+                Pending ({pendingCount})
               </button>
               <button
                 className={`filter-pill-btn ${filterTab === "Fulfilled" ? "active" : ""}`}
                 onClick={() => setFilterTab("Fulfilled")}
               >
-                Fulfilled (37)
+                Fulfilled ({fulfilledCount})
               </button>
             </div>
 
@@ -701,6 +564,14 @@ export default function Pharmacy() {
 
         {/* Right Column: Treatment Details, Drugs Table & Invoice Generation */}
         <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+          {!selectedPatient ? (
+            <div style={{ padding: "40px", textAlign: "center", color: "#64748B", background: "#FFFFFF", borderRadius: "14px", border: "1px solid #E2E8F0" }}>
+              <PharmacyIcon sx={{ fontSize: 48, color: "#E2E8F0", marginBottom: "16px" }} />
+              <h3>No Patients in Queue</h3>
+              <p>Select a patient from the live feed to begin dispensing medications.</p>
+            </div>
+          ) : (
+            <>
           {/* Treatment Details Header Card */}
           <div className="clinical-table-card" style={{ padding: "20px" }}>
             <div
@@ -760,13 +631,15 @@ export default function Pharmacy() {
                 >
                   <PrintIcon sx={{ fontSize: 18 }} />
                 </button>
-                <button
-                  className="topbar-icon-btn"
-                  title="Patient Medical History"
-                  onClick={() => navigate(`/dashboard/medical-history`)}
-                >
-                  <HistoryIcon sx={{ fontSize: 18 }} />
-                </button>
+                {role !== ROLES.PHARMACIST && (
+                  <button
+                    className="topbar-icon-btn"
+                    title="Patient Medical History"
+                    onClick={() => navigate(`/dashboard/medical-history`)}
+                  >
+                    <HistoryIcon sx={{ fontSize: 18 }} />
+                  </button>
+                )}
               </div>
             </div>
 
@@ -1099,6 +972,8 @@ export default function Pharmacy() {
               </button>
             </div>
           </div>
+          </>
+          )}
         </div>
       </div>
 

@@ -1140,6 +1140,7 @@ D:\CareSync\Backend\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplicat
 D:\CareSync\Backend\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.csproj.CoreCompileInputs.cache
 D:\CareSync\Backend\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.MvcApplicationPartsAssemblyInfo.cs
 D:\CareSync\Backend\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.MvcApplicationPartsAssemblyInfo.cache
+D:\CareSync\Backend\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.sourcelink.json
 D:\CareSync\Backend\WebApplication1\WebApplication1\obj\Debug\net8.0\scopedcss\bundle\WebApplication1.styles.css
 D:\CareSync\Backend\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets.build.json
 D:\CareSync\Backend\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets.development.json

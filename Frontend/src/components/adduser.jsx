@@ -42,104 +42,33 @@ import {
 } from "@mui/icons-material";
 
 // Initial mock data matching screenshot 1 accurately for seamless fallback & instant fidelity
-const INITIAL_STAFF = [
-  {
-    MUD_USER_ID: "U1",
-    MUD_USER_NAME: "kuruppu",
-    MUD_FULL_NAME: "Kuruppu233",
-    MUD_EMAIL: "cheukakuruppu@gmail.com",
-    MUD_USER_TYPE: "Admin",
-    MUD_SPECIALIZATION: "Psychiatrist",
-    MUD_NIC: "981240182V",
-    MUD_CONTACT_NO: "075010454",
-    created: "18/04/2025",
-    status: "Active",
-  },
-  {
-    MUD_USER_ID: "U2",
-    MUD_USER_NAME: "sanvidu",
-    MUD_FULL_NAME: "Sanvidu kuruppu",
-    MUD_EMAIL: "sanvidu@gmail.com",
-    MUD_USER_TYPE: "Doc",
-    MUD_SPECIALIZATION: "Psychiatrist",
-    MUD_NIC: "951234567V",
-    MUD_CONTACT_NO: "0771234567",
-    created: "12/03/2025",
-    status: "Active",
-  },
-  {
-    MUD_USER_ID: "U3",
-    MUD_USER_NAME: "Ravidu",
-    MUD_FULL_NAME: "Ravidu dissanayaka",
-    MUD_EMAIL: "ravidu@gmail.com",
-    MUD_USER_TYPE: "Doc",
-    MUD_SPECIALIZATION: "Cardiologist",
-    MUD_NIC: "941987654V",
-    MUD_CONTACT_NO: "0719876543",
-    created: "01/02/2025",
-    status: "Active",
-  },
-  {
-    MUD_USER_ID: "U4",
-    MUD_USER_NAME: "DrNipun",
-    MUD_FULL_NAME: "Nipun galagoda",
-    MUD_EMAIL: "nipun@gmail.com",
-    MUD_USER_TYPE: "Doc",
-    MUD_SPECIALIZATION: "Cardiologist",
-    MUD_NIC: "961555444V",
-    MUD_CONTACT_NO: "0765554443",
-    created: "20/01/2025",
-    status: "Active",
-  },
-  {
-    MUD_USER_ID: "U5",
-    MUD_USER_NAME: "Dr chenuka",
-    MUD_FULL_NAME: "testing_user",
-    MUD_EMAIL: "chenukuruppu@gmail.com",
-    MUD_USER_TYPE: "Doc",
-    MUD_SPECIALIZATION: "Neurologist",
-    MUD_NIC: "931222333V",
-    MUD_CONTACT_NO: "0782223334",
-    created: "15/01/2025",
-    status: "Active",
-  },
-  {
-    MUD_USER_ID: "U6",
-    MUD_USER_NAME: "Admin12",
-    MUD_FULL_NAME: "admin",
-    MUD_EMAIL: "chenukakuruppu@gmail.com",
-    MUD_USER_TYPE: "Admin",
-    MUD_SPECIALIZATION: "Systems Director",
-    MUD_NIC: "901111222V",
-    MUD_CONTACT_NO: "0751112223",
-    created: "10/01/2025",
-    status: "Active",
-  },
-  {
-    MUD_USER_ID: "U7",
-    MUD_USER_NAME: "lakmali",
-    MUD_FULL_NAME: "lakmali withanage",
-    MUD_EMAIL: "lakmali@gmail.com",
-    MUD_USER_TYPE: "Doc",
-    MUD_SPECIALIZATION: "Cardiologist",
-    MUD_NIC: "921888999V",
-    MUD_CONTACT_NO: "0728889990",
-    created: "05/01/2025",
-    status: "Active",
-  },
-  {
-    MUD_USER_ID: "U8",
-    MUD_USER_NAME: "pharm_alpha",
-    MUD_FULL_NAME: "Pharm. Test Alpha",
-    MUD_EMAIL: "pharm.alpha@medicare.lk",
-    MUD_USER_TYPE: "Phuser",
-    MUD_SPECIALIZATION: "Clinical Dispensary Lead",
-    MUD_NIC: "911999888V",
-    MUD_CONTACT_NO: "0779998882",
-    created: "14/02/2025",
-    status: "Active",
-  },
-];
+const INITIAL_STAFF = [];
+
+const normalizeRole = (role) => {
+  const value = String(role || "").trim().toLowerCase();
+  if (value === "doc" || value.includes("doctor")) return "Doc";
+  if (value === "phuser" || value.includes("pharm")) return "Phuser";
+  if (value === "admin" || value.includes("administrator")) return "Admin";
+  return String(role || "Unknown").trim();
+};
+
+const formatMemberSince = (dateValue) => {
+  if (!dateValue) return "Not recorded";
+  const date = new Date(dateValue);
+  return Number.isNaN(date.getTime()) ? "Not recorded" : date.toLocaleDateString("en-GB");
+};
+
+const extractApiError = (error) => {
+  const data = error?.response?.data;
+  if (typeof data === "string") return data;
+  if (data?.error) return data.error;
+  if (data?.title) return data.title;
+  if (data?.errors && typeof data.errors === "object") {
+    const first = Object.values(data.errors).flat().find(Boolean);
+    if (first) return first;
+  }
+  return "Unable to create the user. Please check the entered details and try again.";
+};
 
 export default function AddUser() {
   const navigate = useNavigate();
@@ -152,14 +81,14 @@ export default function AddUser() {
 
   // Inspector / Right Panel selected user
   const [selectedUser, setSelectedUser] = useState({
-    username: "AdminTest",
-    userType: "Admin",
-    fullName: "AdminTest Master Controller",
-    email: "rosapraveen123@gmail.com",
-    nic: "981240182V",
-    hotline: "075010454",
+    username: "",
+    userType: "",
+    fullName: "",
+    email: "",
+    nic: "",
+    hotline: "",
     password: "••••••••••••••••••••",
-    memberSince: "18/04/2025",
+    memberSince: "Not recorded",
   });
 
   const [activeSessions, setActiveSessions] = useState([
@@ -188,8 +117,8 @@ export default function AddUser() {
     MUD_SPECIALIZATION: "Cardiologist",
     MUD_FULL_NAME: "",
     MUD_EMAIL: "",
-    MUD_NIC: "",
-    MUD_CONTACT_NO: "",
+    MUD_NIC_NO: "",
+    MUD_CONTACT: "",
   });
 
   const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
@@ -202,24 +131,39 @@ export default function AddUser() {
     try {
       setLoading(true);
       const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/User`);
-      if (response.data && Array.isArray(response.data) && response.data.length > 0) {
-        // Merge backend data with fallback fields
-        const mapped = response.data.map((u, i) => ({
-          MUD_USER_ID: u.MUD_USER_ID || `U-${i}`,
-          MUD_USER_NAME: u.MUD_USER_NAME || u.username || `user_${i}`,
-          MUD_FULL_NAME: u.MUD_FULL_NAME || u.fullName || u.MUD_USER_NAME || `Staff Member`,
-          MUD_EMAIL: u.MUD_EMAIL || u.email || `${u.MUD_USER_NAME || 'user'}@medicare.lk`,
-          MUD_USER_TYPE: u.MUD_USER_TYPE || (u.Role === 'Doc' ? 'Doc' : u.Role === 'Phuser' ? 'Phuser' : 'Admin'),
-          MUD_SPECIALIZATION: u.MUD_SPECIALIZATION || (u.MUD_USER_TYPE === 'Doc' ? 'Cardiologist' : 'Clinical Administrator'),
-          MUD_NIC: u.MUD_NIC || '981240182V',
-          MUD_CONTACT_NO: u.MUD_CONTACT_NO || '075010454',
-          created: '18/04/2025',
-          status: 'Active',
-        }));
-        setUsers(mapped);
+      const apiUsers = Array.isArray(response.data) ? response.data : [];
+
+      const mapped = apiUsers.map((u) => ({
+        MUD_USER_ID: u.MUD_USER_ID || "",
+        MUD_USER_NAME: u.MUD_USER_NAME || "",
+        MUD_FULL_NAME: u.MUD_FULL_NAME || u.MUD_USER_NAME || "Not recorded",
+        MUD_EMAIL: u.MUD_EMAIL || "Not recorded",
+        MUD_USER_TYPE: normalizeRole(u.MUD_USER_TYPE),
+        MUD_SPECIALIZATION: u.MUD_SPECIALIZATION || "Not assigned",
+        MUD_NIC_NO: u.MUD_NIC_NO || "",
+        MUD_CONTACT: u.MUD_CONTACT || "",
+        created: formatMemberSince(u.MUD_CREATED_DATE),
+        status: String(u.MUD_STATUS || "A").toUpperCase() === "A" ? "Active" : "Suspended",
+      }));
+
+      setUsers(mapped);
+
+      if (mapped.length > 0) {
+        const firstUser = mapped[0];
+        setSelectedUser({
+          username: firstUser.MUD_USER_NAME,
+          userType: firstUser.MUD_USER_TYPE,
+          fullName: firstUser.MUD_FULL_NAME,
+          email: firstUser.MUD_EMAIL,
+          nic: firstUser.MUD_NIC_NO || "Not recorded",
+          hotline: firstUser.MUD_CONTACT || "Not recorded",
+          password: "••••••••••••••••••••",
+          memberSince: firstUser.created,
+        });
       }
     } catch (err) {
-      console.log("Using cached/mock staff data");
+      setUsers([]);
+      showToast("Unable to load staff accounts from the server.", "error");
     } finally {
       setLoading(false);
     }
@@ -231,14 +175,14 @@ export default function AddUser() {
 
   const handleSelectRow = (u) => {
     setSelectedUser({
-      username: u.MUD_USER_NAME,
-      userType: u.MUD_USER_TYPE,
-      fullName: u.MUD_FULL_NAME,
-      email: u.MUD_EMAIL,
-      nic: u.MUD_NIC || "981240182V",
-      hotline: u.MUD_CONTACT_NO || "075010454",
+      username: u.MUD_USER_NAME || "",
+      userType: normalizeRole(u.MUD_USER_TYPE),
+      fullName: u.MUD_FULL_NAME || "Not recorded",
+      email: u.MUD_EMAIL || "Not recorded",
+      nic: u.MUD_NIC_NO || "Not recorded",
+      hotline: u.MUD_CONTACT || "Not recorded",
       password: "••••••••••••••••••••",
-      memberSince: u.created || "18/04/2025",
+      memberSince: u.created || "Not recorded",
     });
   };
 
@@ -254,43 +198,61 @@ export default function AddUser() {
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    setFormData((prev) => {
+      if (name !== "MUD_USER_TYPE") {
+        return { ...prev, [name]: value };
+      }
+
+      const defaultSpecialization =
+        value === "Doc"
+          ? "Cardiologist"
+          : value === "Phuser"
+          ? "Clinical Pharmacist"
+          : "Systems Director";
+
+      return {
+        ...prev,
+        MUD_USER_TYPE: value,
+        MUD_SPECIALIZATION: defaultSpecialization,
+      };
+    });
   };
 
   const handleCreateUser = async (e) => {
     e.preventDefault();
-    if (!formData.MUD_USER_NAME || !formData.MUD_PASSWORD || !formData.MUD_EMAIL) {
-      showToast("Please fill all required fields", "error");
+
+    if (
+      !formData.MUD_USER_NAME.trim() ||
+      !formData.MUD_FULL_NAME.trim() ||
+      !formData.MUD_EMAIL.trim() ||
+      !formData.MUD_PASSWORD ||
+      !formData.MUD_USER_TYPE
+    ) {
+      showToast("Please fill all required fields.", "error");
+      return;
+    }
+
+    if (formData.MUD_USER_TYPE === "Doc" && !formData.MUD_SPECIALIZATION) {
+      showToast("Please select a specialization for the doctor.", "error");
+      return;
+    }
+
+    if (formData.MUD_CONTACT && !/^[0-9+\- ]{7,20}$/.test(formData.MUD_CONTACT)) {
+      showToast("Please enter a valid contact number.", "error");
       return;
     }
 
     setLoading(true);
     try {
       const formPayload = new FormData();
-      Object.keys(formData).forEach((k) => formPayload.append(k, formData[k]));
-
-      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/User`, formPayload, {
-        headers: { "Content-Type": "multipart/form-data" },
+      Object.entries(formData).forEach(([key, value]) => {
+        formPayload.append(key, typeof value === "string" ? value.trim() : value);
       });
+
+      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/User`, formPayload);
+
       showToast(`User ${formData.MUD_USER_NAME} created successfully!`, "success");
-    } catch (err) {
-      // Local fallback creation
-      const newUser = {
-        MUD_USER_ID: `U-${Date.now()}`,
-        MUD_USER_NAME: formData.MUD_USER_NAME,
-        MUD_FULL_NAME: formData.MUD_FULL_NAME || formData.MUD_USER_NAME,
-        MUD_EMAIL: formData.MUD_EMAIL,
-        MUD_USER_TYPE: formData.MUD_USER_TYPE,
-        MUD_SPECIALIZATION: formData.MUD_SPECIALIZATION,
-        MUD_NIC: formData.MUD_NIC || "981240182V",
-        MUD_CONTACT_NO: formData.MUD_CONTACT_NO || "075010454",
-        created: new Date().toLocaleDateString("en-GB"),
-        status: "Active",
-      };
-      setUsers([newUser, ...users]);
-      showToast(`User ${formData.MUD_USER_NAME} registered!`, "success");
-    } finally {
-      setLoading(false);
       setOpenDialog(false);
       setFormData({
         MUD_USER_NAME: "",
@@ -300,17 +262,26 @@ export default function AddUser() {
         MUD_SPECIALIZATION: "Cardiologist",
         MUD_FULL_NAME: "",
         MUD_EMAIL: "",
-        MUD_NIC: "",
-        MUD_CONTACT_NO: "",
+        MUD_NIC_NO: "",
+        MUD_CONTACT: "",
       });
+
+      await fetchUsers();
+    } catch (err) {
+      // Never create a fake local user when the database insert fails.
+      // Show the real backend validation/database message and keep the form open.
+      showToast(extractApiError(err), "error");
+    } finally {
+      setLoading(false);
     }
   };
 
   // KPI Calculations
-  const totalStaff = users.length > 80 ? users.length : 86;
-  const totalDoctors = users.filter((u) => u.MUD_USER_TYPE === "Doc").length > 40 ? users.filter((u) => u.MUD_USER_TYPE === "Doc").length : 42;
-  const totalPharmacists = users.filter((u) => u.MUD_USER_TYPE === "Phuser").length > 15 ? users.filter((u) => u.MUD_USER_TYPE === "Phuser").length : 16;
-  const totalAdmins = users.filter((u) => u.MUD_USER_TYPE === "Admin").length > 4 ? users.filter((u) => u.MUD_USER_TYPE === "Admin").length : 5;
+  const totalStaff = users.length;
+  const totalDoctors = users.filter((u) => u.MUD_USER_TYPE === "Doc").length;
+  const totalPharmacists = users.filter((u) => u.MUD_USER_TYPE === "Phuser").length;
+  const totalAdmins = users.filter((u) => u.MUD_USER_TYPE === "Admin").length;
+  const totalSuspended = users.filter((u) => u.status === "Suspended").length;
 
   // Filtered list
   const filteredUsers = users.filter((u) => {
@@ -318,7 +289,7 @@ export default function AddUser() {
     if (roleTab === "Doctors" && u.MUD_USER_TYPE !== "Doc") return false;
     if (roleTab === "Pharmacists" && u.MUD_USER_TYPE !== "Phuser") return false;
     if (roleTab === "Admins" && u.MUD_USER_TYPE !== "Admin") return false;
-    if (roleTab === "Suspended") return false; // mock suspended is empty
+    if (roleTab === "Suspended" && u.status !== "Suspended") return false;
 
     // Search query
     if (searchQuery) {
@@ -504,7 +475,7 @@ export default function AddUser() {
                   className={`filter-pill-btn ${roleTab === "Suspended" ? "active" : ""}`}
                   onClick={() => setRoleTab("Suspended")}
                 >
-                  Suspended (3)
+                  Suspended ({totalSuspended})
                 </button>
               </div>
             </div>
@@ -559,7 +530,7 @@ export default function AddUser() {
                           {!isAdmin && !isDoc && <span className="category-badge pharmacist">Pharmacist</span>}
                         </td>
                         <td style={{ color: "#475569", fontWeight: 500 }}>
-                          {u.MUD_SPECIALIZATION || "General Practice"}
+                          {u.MUD_SPECIALIZATION || "Not assigned"}
                         </td>
                       </tr>
                     );
@@ -1031,8 +1002,8 @@ export default function AddUser() {
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
               <TextField
                 label="National Identity (NIC)"
-                name="MUD_NIC"
-                value={formData.MUD_NIC}
+                name="MUD_NIC_NO"
+                value={formData.MUD_NIC_NO}
                 onChange={handleFormChange}
                 fullWidth
                 size="small"
@@ -1040,8 +1011,8 @@ export default function AddUser() {
               />
               <TextField
                 label="Emergency Hotline / Contact"
-                name="MUD_CONTACT_NO"
-                value={formData.MUD_CONTACT_NO}
+                name="MUD_CONTACT"
+                value={formData.MUD_CONTACT}
                 onChange={handleFormChange}
                 fullWidth
                 size="small"

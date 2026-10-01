@@ -1,5 +1,6 @@
 // CareSync+ Hospital Dispensary Tax Invoice & Pharmacy Bill
 import React, { useEffect, useState } from "react";
+import LogoOriginal from "../assets/Logo_Original.png";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
@@ -176,278 +177,180 @@ export default function PharmacyInvoice() {
       {/* ── Printable Pharmacy Receipt Sheet ────────────────── */}
       <div
         id="pharmacy-invoice-content"
-        className="clinical-table-card"
         style={{
-          padding: "36px",
+          padding: "40px",
           background: "#FFFFFF",
-          maxWidth: "960px",
+          maxWidth: "800px",
           margin: "0 auto",
+          color: "#000000",
+          fontFamily: "Arial, sans-serif",
           boxShadow: "0 10px 30px rgba(0,0,0,0.06)",
         }}
       >
-        {/* Header Institution Banner */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-            paddingBottom: "22px",
-            borderBottom: "2px solid #E2E8F0",
-            marginBottom: "22px",
-            flexWrap: "wrap",
-            gap: "16px",
-          }}
-        >
-          <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
-            <div
-              style={{
-                width: 58,
-                height: 58,
-                borderRadius: "14px",
-                background: "linear-gradient(135deg, #0A6E7C 0%, #0284C7 100%)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#FFFFFF",
-              }}
-            >
-              <PharmacyIcon sx={{ fontSize: 32 }} />
-            </div>
-            <div>
-              <div style={{ fontSize: "22px", fontWeight: 900, color: "#0F172A", letterSpacing: "-0.02em" }}>
-                CareSync<span style={{ color: "#F97316" }}>+</span> Central Pharmacy
-              </div>
-              <div style={{ fontSize: "12px", color: "#64748B", marginTop: "2px" }}>
-                Main Dispensary Wing • 85/1 Horana Road, Bandaragama • Licensed Pharmacy Vault
-              </div>
-              <div style={{ fontSize: "11px", color: "#0A6E7C", fontWeight: 700, marginTop: "2px" }}>
-                Controlled Medication Dispensation &amp; Tax Settlement
-              </div>
-            </div>
+        {/* Header */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "15px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <img src={LogoOriginal} alt="CareSync Logo" style={{ height: "50px", objectFit: "contain" }} />
           </div>
-
-          <div style={{ textAlign: "right" }}>
-            <span
-              style={{
-                background: "#E0F2FE",
-                color: "#0284C7",
-                fontSize: "12px",
-                fontWeight: 800,
-                padding: "4px 12px",
-                borderRadius: "12px",
-                display: "inline-block",
-                marginBottom: "6px",
-              }}
-            >
-              Dispensation Verified
-            </span>
-            <div style={{ fontSize: "18px", fontWeight: 900, color: "#0F172A" }}>
-              RECEIPT #{invoicedetails?.MTD_SERIAL_NO || serial_no || "PH-0082"}
-            </div>
-            <div style={{ fontSize: "12px", color: "#64748B", marginTop: "2px" }}>
-              Dispensed: <strong>{new Date().toLocaleDateString()}</strong>
-            </div>
+          <div style={{ fontSize: "32px", fontWeight: 900, letterSpacing: "1px" }}>
+            INVOICE
           </div>
         </div>
 
-        {/* Patient Demographic Summary Strip */}
-        <div
-          style={{
-            background: "#F8FAFC",
-            border: "1px solid #E2E8F0",
-            borderRadius: "12px",
-            padding: "16px 20px",
-            marginBottom: "24px",
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-            gap: "14px",
-            fontSize: "12.5px",
-          }}
-        >
-          <div>
-            <span style={{ color: "#64748B", display: "block", fontSize: "11px" }}>PATIENT NAME</span>
-            <strong style={{ color: "#0F172A", fontSize: "14px" }}>{patientName}</strong>
-          </div>
-          <div>
-            <span style={{ color: "#64748B", display: "block", fontSize: "11px" }}>PATIENT ID / NIC</span>
-            <strong style={{ color: "#0F172A" }}>{patientId} • {patients?.MPD_NIC || "200311611379"}</strong>
-          </div>
-          <div>
-            <span style={{ color: "#64748B", display: "block", fontSize: "11px" }}>DESTINATION WARD</span>
-            <strong style={{ color: "#0F172A" }}>{patients?.MPD_ADDRESS || "Ward 4A • Bed #12"}</strong>
-          </div>
-          <div>
-            <span style={{ color: "#64748B", display: "block", fontSize: "11px" }}>PRESCRIBING PHYSICIAN</span>
-            <strong style={{ color: "#0A6E7C" }}>{invoicedetails?.MTD_DOCTOR || "Dr. Staff Physician"}</strong>
+        <div style={{ borderBottom: "2px solid #000", marginBottom: "20px" }}></div>
+
+        {/* Invoice Number & Date (Black Box) */}
+        <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "30px" }}>
+          <div style={{ background: "#000", color: "#FFF", padding: "15px 25px", fontSize: "14px", fontWeight: 600 }}>
+            <div style={{ marginBottom: "5px" }}>Invoice Number: {invoicedetails?.MTD_SERIAL_NO || serial_no || "PH-0082"}</div>
+            <div>Date: {new Date().toLocaleDateString("en-GB")}</div>
           </div>
         </div>
 
-        {/* Itemized Medications Table */}
-        <div style={{ marginBottom: "24px", overflowX: "auto" }}>
-          <table className="clinical-table">
-            <thead>
-              <tr>
-                <th style={{ width: "45%" }}>DISPENSED PHARMACEUTICAL</th>
-                <th style={{ textAlign: "right", width: "18%" }}>UNIT PRICE (RS.)</th>
-                <th style={{ textAlign: "center", width: "15%" }}>QTY DISPENSED</th>
-                <th style={{ textAlign: "right", width: "22%" }}>SUBTOTAL (RS.)</th>
+        {/* FROM and TO */}
+        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "30px", fontSize: "14px", lineHeight: 1.6 }}>
+          <div style={{ width: "45%" }}>
+            <div style={{ fontSize: "16px", fontWeight: 800, marginBottom: "8px" }}>FROM:</div>
+            <div><strong>From:</strong> CareSync+ Hospital (Central Pharmacy)</div>
+            <div>85/1, Horana Road, Bandaragama</div>
+            <div><strong>Phone:</strong> +94 11 234 5678</div>
+            <div><strong>Email:</strong> contact@medicare.lk</div>
+          </div>
+          <div style={{ width: "45%" }}>
+            <div style={{ fontSize: "16px", fontWeight: 800, marginBottom: "8px" }}>TO:</div>
+            <div><strong>To:</strong> {patientName}</div>
+            <div><strong>NIC / ID:</strong> {patientId} • {patients?.MPD_NIC || "200311611379"}</div>
+            <div><strong>Location:</strong> {patients?.MPD_ADDRESS || "Ward 4A • Bed #12"}</div>
+            <div><strong>Prescribing:</strong> {invoicedetails?.MTD_DOCTOR || "Dr. Staff Physician"}</div>
+          </div>
+        </div>
+
+        <div style={{ borderBottom: "1px solid #CCC", marginBottom: "20px" }}></div>
+
+        <div style={{ fontSize: "16px", fontWeight: 800, marginBottom: "15px" }}>
+          Description of Medical Services:
+        </div>
+
+        {/* Table */}
+        <table style={{ width: "100%", borderCollapse: "collapse", marginBottom: "20px", fontSize: "14px" }}>
+          <thead>
+            <tr style={{ background: "#000", color: "#FFF" }}>
+              <th style={{ padding: "10px", textAlign: "center", width: "5%" }}>No</th>
+              <th style={{ padding: "10px", textAlign: "left", width: "45%" }}>Service / Medication Description</th>
+              <th style={{ padding: "10px", textAlign: "center", width: "15%" }}>Qty</th>
+              <th style={{ padding: "10px", textAlign: "right", width: "15%" }}>Rate</th>
+              <th style={{ padding: "10px", textAlign: "right", width: "20%" }}>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {displayMedicines.map((item, index) => {
+              const rate = Number(item.MDD_RATE || 0);
+              const qty = Number(item.MDD_GIVEN_QUANTITY || item.MDD_QUANTITY || 1);
+              const lineTotal = rate * qty;
+              return (
+                <tr key={index} style={{ borderBottom: "1px solid #EEE" }}>
+                  <td style={{ padding: "10px", textAlign: "center" }}>{index + 1}</td>
+                  <td style={{ padding: "10px", textAlign: "left" }}>{item.DrugName || item.MMC_DESCRIPTION || "Dispensed Medicine"}</td>
+                  <td style={{ padding: "10px", textAlign: "center" }}>{qty}</td>
+                  <td style={{ padding: "10px", textAlign: "right" }}>Rs. {rate.toFixed(2)}</td>
+                  <td style={{ padding: "10px", textAlign: "right" }}>Rs. {lineTotal.toFixed(2)}</td>
+                </tr>
+              );
+            })}
+            {Number(treatmentamount) > 0 && (
+              <tr style={{ borderBottom: "1px solid #EEE" }}>
+                <td style={{ padding: "10px", textAlign: "center" }}>{displayMedicines.length + 1}</td>
+                <td style={{ padding: "10px", textAlign: "left" }}>Specialist Consultation Fee</td>
+                <td style={{ padding: "10px", textAlign: "center" }}>1</td>
+                <td style={{ padding: "10px", textAlign: "right" }}>Rs. {Number(treatmentamount).toFixed(2)}</td>
+                <td style={{ padding: "10px", textAlign: "right" }}>Rs. {Number(treatmentamount).toFixed(2)}</td>
               </tr>
-            </thead>
-            <tbody>
-              {displayMedicines.map((item, index) => {
-                const rate = Number(item.MDD_RATE || 0);
-                const qty = Number(item.MDD_GIVEN_QUANTITY || item.MDD_QUANTITY || 1);
-                const lineTotal = rate * qty;
+            )}
+          </tbody>
+        </table>
 
-                return (
-                  <tr key={index}>
-                    <td>
-                      <div style={{ fontWeight: 800, color: "#0F172A", fontSize: "13px" }}>
-                        {item.DrugName || item.MMC_DESCRIPTION || "Dispensed Medicine"}
-                      </div>
-                      <div style={{ fontSize: "11px", color: "#64748B" }}>
-                        Batch &amp; Expiry verified by central pharmacist
-                      </div>
-                    </td>
-                    <td style={{ textAlign: "right", fontSize: "12.5px" }}>
-                      {rate.toFixed(2)}
-                    </td>
-                    <td style={{ textAlign: "center", fontWeight: 700, fontSize: "13px", color: "#0F172A" }}>
-                      {qty}
-                    </td>
-                    <td style={{ textAlign: "right", fontWeight: 800, color: "#0284C7", fontSize: "13.5px" }}>
-                      {lineTotal.toFixed(2)}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Financial Breakdown */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "24px",
-            background: "#F8FAFC",
-            border: "1px solid #E2E8F0",
-            borderRadius: "12px",
-            padding: "20px",
-            marginBottom: "28px",
-          }}
-        >
-          {/* Left: Discount Controls */}
-          <div>
-            <div style={{ fontSize: "13px", fontWeight: 800, color: "#0F172A", marginBottom: "10px" }}>
-              Pharmacy Subsidy &amp; Concessions
+        {/* Totals */}
+        <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "30px", fontSize: "14px" }}>
+          <div style={{ width: "300px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "10px" }}>
+              <span style={{ fontWeight: 800 }}>Sub Total:</span>
+              <span>Rs. {rawSubtotal.toFixed(2)}</span>
             </div>
-
-            <div className="no-print" style={{ marginBottom: "12px" }}>
-              <RadioGroup
-                row
-                value={discountType}
-                onChange={(e) => setDiscountType(e.target.value)}
-              >
-                <FormControlLabel
-                  value="percentage"
-                  control={<Radio size="small" sx={{ color: "#0A6E7C", "&.Mui-checked": { color: "#0A6E7C" } }} />}
-                  label={<span style={{ fontSize: "12px", fontWeight: 600 }}>Percentage (%)</span>}
-                />
-                <FormControlLabel
-                  value="fixed"
-                  control={<Radio size="small" sx={{ color: "#0A6E7C", "&.Mui-checked": { color: "#0A6E7C" } }} />}
-                  label={<span style={{ fontSize: "12px", fontWeight: 600 }}>Fixed Cash (Rs.)</span>}
-                />
-              </RadioGroup>
-
-              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "4px" }}>
-                <TextField
-                  type="number"
-                  size="small"
-                  value={discount}
-                  onChange={(e) => setDiscount(Math.max(0, e.target.value))}
-                  inputProps={{ min: 0, max: discountType === "percentage" ? 100 : rawSubtotal }}
-                  placeholder="Discount"
-                  sx={{ width: "130px", "& .MuiOutlinedInput-root": { borderRadius: "8px", fontSize: "12.5px" } }}
-                />
-                <span style={{ fontSize: "12px", color: "#64748B" }}>
-                  {discountType === "percentage" ? "% concession applied" : "Rs. direct deduction"}
-                </span>
-              </div>
-            </div>
-
-            <div style={{ fontSize: "11.5px", color: "#64748B", lineHeight: 1.6 }}>
-              All pharmaceuticals dispensed in accordance with SLMC pharmacy council guidelines. Medicines once dispensed cannot be exchanged or returned.
-            </div>
-          </div>
-
-          {/* Right: Balance Ledger */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13px" }}>
-              <span style={{ color: "#64748B" }}>Total Medication Cost:</span>
-              <strong style={{ color: "#0F172A" }}>Rs. {drugSubtotal.toFixed(2)}</strong>
-            </div>
-
-            {treatmentamount > 0 && (
-              <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13px" }}>
-                <span style={{ color: "#64748B" }}>Specialist Consultation Fee:</span>
-                <strong style={{ color: "#0F172A" }}>Rs. {treatmentamount.toFixed(2)}</strong>
+            {discount > 0 && (
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "10px" }}>
+                <span style={{ fontWeight: 800 }}>Discount:</span>
+                <span>Rs. {(rawSubtotal - finalPayable).toFixed(2)}</span>
               </div>
             )}
-
-            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13px" }}>
-              <span style={{ color: "#64748B" }}>Gross Pharmacy Subtotal:</span>
-              <strong style={{ color: "#0F172A" }}>Rs. {rawSubtotal.toFixed(2)}</strong>
-            </div>
-
-            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13px", color: "#DC2626" }}>
-              <span>Concession / Discount:</span>
-              <strong>
-                - Rs. {(rawSubtotal - finalPayable).toFixed(2)}{" "}
-                {discountType === "percentage" && discount > 0 ? `(${discount}%)` : ""}
-              </strong>
-            </div>
-
-            <Divider sx={{ my: 0.5 }} />
-
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "10px 14px",
-                background: "linear-gradient(135deg, #0A6E7C 0%, #0284C7 100%)",
-                color: "#FFFFFF",
-                borderRadius: "8px",
-              }}
-            >
-              <span style={{ fontWeight: 800, fontSize: "14px" }}>NET PHARMACY BILL:</span>
-              <span style={{ fontWeight: 900, fontSize: "18px" }}>Rs. {finalPayable.toFixed(2)}</span>
+            <div style={{ borderBottom: "2px solid #000", marginBottom: "10px" }}></div>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <span style={{ fontWeight: 800, fontSize: "16px" }}>Total:</span>
+              <span style={{ fontWeight: 800, fontSize: "16px" }}>Rs. {finalPayable.toFixed(2)}</span>
             </div>
           </div>
         </div>
 
-        {/* Signature Footer */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-end",
-            paddingTop: "24px",
-            borderTop: "1px dashed #CBD5E1",
-          }}
-        >
-          <div style={{ fontSize: "11px", color: "#64748B" }}>
-            <p style={{ margin: 0 }}>Computer-generated clinical prescription dispensation slip.</p>
-            <p style={{ margin: "2px 0 0" }}>CareSync+ Electronic Health Records System v4.2</p>
-          </div>
+        <div style={{ borderBottom: "1px solid #CCC", marginBottom: "20px" }}></div>
 
-          <div style={{ textAlign: "center", width: "220px" }}>
-            <div style={{ borderBottom: "1px solid #94A3B8", height: "40px", marginBottom: "6px" }}></div>
-            <div style={{ fontSize: "12px", fontWeight: 800, color: "#0F172A" }}>Licensed Pharmacist Signature</div>
-            <div style={{ fontSize: "10.5px", color: "#64748B" }}>CareSync+ Pharmacy Department</div>
+        <div style={{ fontSize: "14px", marginBottom: "20px" }}>
+          Thank you for using our medical consultation services. Please make payment within 15 days.
+        </div>
+
+        {/* Footer */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+          <div style={{ background: "#000", color: "#FFF", padding: "15px 20px", fontSize: "13px", lineHeight: 1.6 }}>
+            <div><strong>Payment Method:</strong> Bank Transfer</div>
+            <div><strong>Account:</strong> 123-456-789 (CareSync Health)</div>
+          </div>
+          <div style={{ fontSize: "13px", lineHeight: 1.6, textAlign: "right" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "8px" }}>
+               <span>&#9742;</span>
+               <span>+94 11 234 5678</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "8px", marginTop: "4px" }}>
+               <span>&#127760;</span>
+               <span>www.caresynchospital.lk</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Admin Controls (Hidden from print) */}
+        <div className="no-print" style={{ marginTop: "40px", paddingTop: "20px", borderTop: "1px dashed #CCC" }}>
+          <div style={{ fontSize: "13px", fontWeight: 800, color: "#0F172A", marginBottom: "10px" }}>
+            Pharmacy Subsidy &amp; Concessions
+          </div>
+          <div style={{ marginBottom: "12px" }}>
+            <RadioGroup
+              row
+              value={discountType}
+              onChange={(e) => setDiscountType(e.target.value)}
+            >
+              <FormControlLabel
+                value="percentage"
+                control={<Radio size="small" sx={{ color: "#000", "&.Mui-checked": { color: "#000" } }} />}
+                label={<span style={{ fontSize: "12px", fontWeight: 600 }}>Percentage (%)</span>}
+              />
+              <FormControlLabel
+                value="fixed"
+                control={<Radio size="small" sx={{ color: "#000", "&.Mui-checked": { color: "#000" } }} />}
+                label={<span style={{ fontSize: "12px", fontWeight: 600 }}>Fixed Cash (Rs.)</span>}
+              />
+            </RadioGroup>
+
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "4px" }}>
+              <TextField
+                type="number"
+                size="small"
+                value={discount}
+                onChange={(e) => setDiscount(Math.max(0, e.target.value))}
+                inputProps={{ min: 0, max: discountType === "percentage" ? 100 : rawSubtotal }}
+                placeholder="Discount"
+                sx={{ width: "130px", "& .MuiOutlinedInput-root": { borderRadius: "4px", fontSize: "12.5px" } }}
+              />
+              <span style={{ fontSize: "12px", color: "#64748B" }}>
+                {discountType === "percentage" ? "% concession applied" : "Rs. direct deduction"}
+              </span>
+            </div>
           </div>
         </div>
       </div>

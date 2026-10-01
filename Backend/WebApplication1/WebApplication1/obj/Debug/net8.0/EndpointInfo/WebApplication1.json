@@ -1067,6 +1067,18 @@
         }
       }
     },
+    "/api/Login/validate-token": {
+      "get": {
+        "tags": [
+          "Login"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/Material/{id}": {
       "get": {
         "tags": [
@@ -1243,8 +1255,40 @@
               "text/plain": {
                 "schema": {
                   "type": "array",
+                  "items": { }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Patient/records": {
+      "get": {
+        "tags": [
+          "Patient"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/MED_PATIENTS_DETAILS"
+                    "$ref": "#/components/schemas/PatientRecordDto"
                   }
                 }
               },
@@ -1252,7 +1296,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/MED_PATIENTS_DETAILS"
+                    "$ref": "#/components/schemas/PatientRecordDto"
                   }
                 }
               },
@@ -1260,7 +1304,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/MED_PATIENTS_DETAILS"
+                    "$ref": "#/components/schemas/PatientRecordDto"
                   }
                 }
               }
@@ -1286,24 +1330,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/MED_PATIENTS_DETAILS"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MED_PATIENTS_DETAILS"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MED_PATIENTS_DETAILS"
-                }
-              }
-            }
+            "description": "Success"
           }
         }
       },
@@ -1331,36 +1358,63 @@
                 "type": "object",
                 "properties": {
                   "MPD_PATIENT_CODE": {
+                    "maxLength": 10,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "MPD_PATIENT_NAME": {
+                    "maxLength": 200,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "MPD_PATIENT_TYPE": {
+                    "maxLength": 20,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "MPD_MOBILE_NO": {
+                    "maxLength": 200,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "MPD_NIC_NO": {
+                    "maxLength": 20,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "MPD_PATIENT_REMARKS": {
+                    "maxLength": 2000,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "MPD_ADDRESS": {
+                    "maxLength": 500,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "MPD_GENDER": {
+                    "maxLength": 20,
+                    "minLength": 0,
+                    "type": "string"
+                  },
+                  "MPD_BLOOD_GROUP": {
+                    "maxLength": 10,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "MPD_CITY": {
+                    "maxLength": 100,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "MPD_GUARDIAN": {
+                    "maxLength": 200,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "MPD_GUARDIAN_CONTACT_NO": {
+                    "maxLength": 20,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "MPD_STATUS": {
@@ -1369,6 +1423,8 @@
                     "type": "string"
                   },
                   "MPD_CREATED_BY": {
+                    "maxLength": 50,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "MPD_CREATED_DATE": {
@@ -1376,6 +1432,8 @@
                     "format": "date-time"
                   },
                   "MPD_UPDATED_BY": {
+                    "maxLength": 50,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "MPD_UPDATED_DATE": {
@@ -1387,9 +1445,13 @@
                     "format": "date-time"
                   },
                   "MPD_PASSWORD": {
+                    "maxLength": 200,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "MPD_EMAIL": {
+                    "maxLength": 500,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "MPD_PHOTO": {
@@ -1397,6 +1459,8 @@
                     "format": "byte"
                   },
                   "test": {
+                    "maxLength": 20,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "profileImage": {
@@ -1428,6 +1492,9 @@
                   "style": "form"
                 },
                 "MPD_GENDER": {
+                  "style": "form"
+                },
+                "MPD_BLOOD_GROUP": {
                   "style": "form"
                 },
                 "MPD_CITY": {
@@ -1639,25 +1706,19 @@
               "text/plain": {
                 "schema": {
                   "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/MED_PATIENTS_DETAILS"
-                  }
+                  "items": { }
                 }
               },
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/MED_PATIENTS_DETAILS"
-                  }
+                  "items": { }
                 }
               },
               "text/json": {
                 "schema": {
                   "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/MED_PATIENTS_DETAILS"
-                  }
+                  "items": { }
                 }
               }
             }
@@ -1802,17 +1863,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MED_TIMESLOT"
+                "$ref": "#/components/schemas/CreateTimeslotRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/MED_TIMESLOT"
+                "$ref": "#/components/schemas/CreateTimeslotRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/MED_TIMESLOT"
+                "$ref": "#/components/schemas/CreateTimeslotRequest"
               }
             }
           }
@@ -2647,9 +2708,13 @@
                     "type": "string"
                   },
                   "MUD_PASSWORD": {
+                    "maxLength": 200,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "MUD_USER_TYPE": {
+                    "maxLength": 7,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "MUD_USER_NAME": {
@@ -2672,15 +2737,24 @@
                     "type": "string"
                   },
                   "MUD_EMAIL": {
-                    "type": "string"
+                    "maxLength": 200,
+                    "minLength": 0,
+                    "type": "string",
+                    "format": "email"
                   },
                   "MUD_CONTACT": {
+                    "maxLength": 200,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "MUD_NIC_NO": {
+                    "maxLength": 20,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "MUD_FULL_NAME": {
+                    "maxLength": 100,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "MUD_UPDATED_DATE": {
@@ -2697,6 +2771,8 @@
                     "format": "byte"
                   },
                   "MUD_SPECIALIZATION": {
+                    "maxLength": 20,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "ContentType": {
@@ -3041,9 +3117,13 @@
                     "type": "string"
                   },
                   "MUD_PASSWORD": {
+                    "maxLength": 200,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "MUD_USER_TYPE": {
+                    "maxLength": 7,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "MUD_USER_NAME": {
@@ -3066,15 +3146,24 @@
                     "type": "string"
                   },
                   "MUD_EMAIL": {
-                    "type": "string"
+                    "maxLength": 200,
+                    "minLength": 0,
+                    "type": "string",
+                    "format": "email"
                   },
                   "MUD_CONTACT": {
+                    "maxLength": 200,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "MUD_NIC_NO": {
+                    "maxLength": 20,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "MUD_FULL_NAME": {
+                    "maxLength": 100,
+                    "minLength": 0,
                     "type": "string"
                   },
                   "MUD_UPDATED_DATE": {
@@ -3091,6 +3180,8 @@
                     "format": "byte"
                   },
                   "MUD_SPECIALIZATION": {
+                    "maxLength": 20,
+                    "minLength": 0,
                     "type": "string"
                   }
                 }
@@ -3230,6 +3321,18 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/User/doctors": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
           }
         }
       }
@@ -3435,6 +3538,38 @@
             "nullable": true
           },
           "otp": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateTimeslotRequest": {
+        "type": "object",
+        "properties": {
+          "SlotDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "StartTime": {
+            "$ref": "#/components/schemas/TimeSpan"
+          },
+          "EndTime": {
+            "$ref": "#/components/schemas/TimeSpan"
+          },
+          "MaximumPatients": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "DoctorUserId": {
+            "type": "string",
+            "nullable": true
+          },
+          "ClinicRoom": {
+            "type": "string",
+            "nullable": true
+          },
+          "DeliveryChannel": {
             "type": "string",
             "nullable": true
           }
@@ -3724,18 +3859,26 @@
         "type": "object",
         "properties": {
           "MMC_MATERIAL_CODE": {
+            "maxLength": 10,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
           "MMC_DESCRIPTION": {
+            "maxLength": 1000,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
           "MMC_MATERIAL_SPEC": {
+            "maxLength": 1000,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
           "MMC_UNIT": {
+            "maxLength": 50,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
@@ -3744,17 +3887,53 @@
             "format": "double",
             "nullable": true
           },
+          "MMC_MIN_STOCK": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "MMC_CATEGORY": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "MMC_BATCH_NO": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "MMC_EXPIRY_DATE": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
           "MMC_STATUS": {
             "maxLength": 1,
             "minLength": 0,
             "type": "string",
             "nullable": true
           },
+          "MMC_CREATED_DATE": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
           "MMC_CREATED_BY": {
+            "maxLength": 7,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
+          "MMC_UPDATED_DATE": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
           "MMC_UPDATED_BY": {
+            "maxLength": 7,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
@@ -3773,46 +3952,73 @@
         "type": "object",
         "properties": {
           "MPD_PATIENT_CODE": {
+            "maxLength": 10,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
           "MPD_PATIENT_NAME": {
+            "maxLength": 200,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
           "MPD_PATIENT_TYPE": {
+            "maxLength": 20,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
           "MPD_MOBILE_NO": {
-            "minLength": 1,
+            "maxLength": 200,
+            "minLength": 0,
             "type": "string"
           },
           "MPD_NIC_NO": {
+            "maxLength": 20,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
           "MPD_PATIENT_REMARKS": {
+            "maxLength": 2000,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
           "MPD_ADDRESS": {
+            "maxLength": 500,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
           "MPD_GENDER": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "MPD_BLOOD_GROUP": {
+            "maxLength": 10,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
           "MPD_CITY": {
+            "maxLength": 100,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
           "MPD_GUARDIAN": {
+            "maxLength": 200,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
           "MPD_GUARDIAN_CONTACT_NO": {
+            "maxLength": 20,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
@@ -3823,6 +4029,8 @@
             "nullable": true
           },
           "MPD_CREATED_BY": {
+            "maxLength": 50,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
@@ -3832,6 +4040,8 @@
             "nullable": true
           },
           "MPD_UPDATED_BY": {
+            "maxLength": 50,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
@@ -3846,10 +4056,14 @@
             "nullable": true
           },
           "MPD_PASSWORD": {
+            "maxLength": 200,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
           "MPD_EMAIL": {
+            "maxLength": 500,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
@@ -3859,6 +4073,8 @@
             "nullable": true
           },
           "test": {
+            "maxLength": 20,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           }
@@ -3892,6 +4108,8 @@
             "nullable": true
           },
           "MT_DOCTOR": {
+            "maxLength": 200,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
@@ -3899,14 +4117,32 @@
             "$ref": "#/components/schemas/TimeSpan"
           },
           "MT_USER_ID": {
+            "maxLength": 7,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
           "MT_TIMESLOT_STATUS": {
+            "maxLength": 1,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
           "MT_DELETE_STATUS": {
+            "maxLength": 1,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "MT_CLINIC_ROOM": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "MT_DELIVERY_CHANNEL": {
+            "maxLength": 20,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           }
@@ -4026,11 +4262,13 @@
             "nullable": true
           },
           "MUD_PASSWORD": {
-            "minLength": 1,
+            "maxLength": 200,
+            "minLength": 0,
             "type": "string"
           },
           "MUD_USER_TYPE": {
-            "minLength": 1,
+            "maxLength": 7,
+            "minLength": 0,
             "type": "string"
           },
           "MUD_USER_NAME": {
@@ -4056,18 +4294,27 @@
             "nullable": true
           },
           "MUD_EMAIL": {
+            "maxLength": 200,
+            "minLength": 0,
             "type": "string",
+            "format": "email",
             "nullable": true
           },
           "MUD_CONTACT": {
+            "maxLength": 200,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
           "MUD_NIC_NO": {
+            "maxLength": 20,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
           "MUD_FULL_NAME": {
+            "maxLength": 100,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
@@ -4088,6 +4335,8 @@
             "nullable": true
           },
           "MUD_SPECIALIZATION": {
+            "maxLength": 20,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           }
@@ -4130,6 +4379,108 @@
             "maxLength": 7,
             "minLength": 0,
             "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PatientRecordDto": {
+        "type": "object",
+        "properties": {
+          "PatientCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "PatientName": {
+            "type": "string",
+            "nullable": true
+          },
+          "PatientType": {
+            "type": "string",
+            "nullable": true
+          },
+          "MobileNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "Email": {
+            "type": "string",
+            "nullable": true
+          },
+          "NicNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "DateOfBirth": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "Age": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "Gender": {
+            "type": "string",
+            "nullable": true
+          },
+          "BloodGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "Address": {
+            "type": "string",
+            "nullable": true
+          },
+          "City": {
+            "type": "string",
+            "nullable": true
+          },
+          "GuardianName": {
+            "type": "string",
+            "nullable": true
+          },
+          "GuardianContactNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "Remarks": {
+            "type": "string",
+            "nullable": true
+          },
+          "PatientStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "ClinicalStatusCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "ClinicalStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "AssignedPhysicianId": {
+            "type": "string",
+            "nullable": true
+          },
+          "AssignedPhysicianName": {
+            "type": "string",
+            "nullable": true
+          },
+          "Specialization": {
+            "type": "string",
+            "nullable": true
+          },
+          "LastEncounterDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "NextAppointmentDate": {
+            "type": "string",
+            "format": "date-time",
             "nullable": true
           }
         },

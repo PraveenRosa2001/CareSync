@@ -20,6 +20,7 @@ import {
   VerifiedUser as VerifiedIcon,
 } from '@mui/icons-material';
 import LogoOriginal from '../assets/Logo_Original.png';
+import { ACCESS, ROLES, getDefaultDashboardPath, getRoleLabel, hasAccess, normalizeRole } from '../utils/roleAccess';
 
 export default function Doctordashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -27,7 +28,7 @@ export default function Doctordashboard() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const role = localStorage.getItem('Role') || 'Admin';
+  const role = normalizeRole(localStorage.getItem('Role'));
   const userName = localStorage.getItem('Name') || 'AdminTest';
 
   const handleLogout = () => {
@@ -99,6 +100,63 @@ export default function Doctordashboard() {
     };
   };
 
+  const navItems = [
+    {
+      label: 'Dashboard',
+      to: '/dashboard/overview',
+      icon: DashboardIcon,
+      roles: ACCESS.DASHBOARD,
+    },
+    {
+      label: 'Patient Records',
+      to: '/dashboard/medical-history',
+      icon: PatientRecordsIcon,
+      roles: ACCESS.PATIENT_RECORDS,
+    },
+    {
+      label: 'Drug & Inventory',
+      to: '/dashboard/register-medicines',
+      icon: DrugInventoryIcon,
+      roles: ACCESS.DRUG_INVENTORY,
+    },
+    {
+      label: 'Pharmacy Dispensing',
+      to: '/dashboard/pharmacy',
+      icon: PharmacyIcon,
+      roles: ACCESS.PHARMACY,
+    },
+    {
+      label: 'Appointments & Timeslots',
+      to: '/dashboard/daily-appointments',
+      icon: AppointmentsIcon,
+      roles: ACCESS.APPOINTMENTS,
+      matchExtra: 'add-timeslot',
+    },
+    {
+      label: 'User & Staff',
+      to: '/dashboard/Add-users',
+      icon: UserStaffIcon,
+      roles: ACCESS.USER_STAFF,
+    },
+  ];
+
+  const visibleNavItems = navItems.filter((item) => hasAccess(role, item.roles));
+  const defaultDashboardPath = getDefaultDashboardPath(role);
+
+  const handleAvatarClick = () => {
+    if (role === ROLES.ADMIN) {
+      navigate('/dashboard/Add-users');
+      return;
+    }
+
+    if (role === ROLES.DOCTOR) {
+      navigate('/dashboard/doctor-profile');
+      return;
+    }
+
+    navigate(defaultDashboardPath);
+  };
+
   const contextInfo = getBreadcrumbContext();
 
   return (
@@ -116,103 +174,30 @@ export default function Doctordashboard() {
           </div> */}
         </div>
 
-        {/* Navigation list */}
+        {/* Navigation list - filtered by logged-in staff role */}
         <div className="hospital-nav-scroll">
           <div className="nav-section-label">MAIN WORKSPACE</div>
           <ul className="hospital-nav-list">
-            <li className="hospital-nav-item">
-              <NavLink
-                to="/dashboard/overview"
-                className={({ isActive }) => `hospital-nav-link ${isActive ? 'active' : ''}`}
-                onClick={closeMobile}
-              >
-                <DashboardIcon className="nav-icon" />
-                <span>Dashboard</span>
-              </NavLink>
-            </li>
-
-            <li className="hospital-nav-item">
-              <NavLink
-                to="/dashboard/medical-history"
-                className={({ isActive }) => `hospital-nav-link ${isActive ? 'active' : ''}`}
-                onClick={closeMobile}
-              >
-                <PatientRecordsIcon className="nav-icon" />
-                <span>Patient Records</span>
-              </NavLink>
-            </li>
-
-            <li className="hospital-nav-item">
-              <NavLink
-                to="/dashboard/register-medicines"
-                className={({ isActive }) => `hospital-nav-link ${isActive ? 'active' : ''}`}
-                onClick={closeMobile}
-              >
-                <DrugInventoryIcon className="nav-icon" />
-                <span>Drug & Inventory</span>
-              </NavLink>
-            </li>
-
-            <li className="hospital-nav-item">
-              <NavLink
-                to="/dashboard/pharmacy"
-                className={({ isActive }) => `hospital-nav-link ${isActive ? 'active' : ''}`}
-                onClick={closeMobile}
-              >
-                <PharmacyIcon className="nav-icon" />
-                <span>Pharmacy Dispensing</span>
-              </NavLink>
-            </li>
-
-            <li className="hospital-nav-item">
-              <NavLink
-                to="/dashboard/daily-appointments"
-                className={({ isActive }) =>
-                  `hospital-nav-link ${isActive || location.pathname.includes('add-timeslot') ? 'active' : ''}`
-                }
-                onClick={closeMobile}
-              >
-                <AppointmentsIcon className="nav-icon" />
-                <span>Appointments & Timeslots</span>
-              </NavLink>
-            </li>
-
-            <li className="hospital-nav-item">
-              <NavLink
-                to="/dashboard/Add-users"
-                className={({ isActive }) => `hospital-nav-link ${isActive ? 'active' : ''}`}
-                onClick={closeMobile}
-              >
-                <UserStaffIcon className="nav-icon" />
-                <span>User & Staff</span>
-              </NavLink>
-            </li>
+            {visibleNavItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <li className="hospital-nav-item" key={item.to}>
+                  <NavLink
+                    to={item.to}
+                    className={({ isActive }) =>
+                      `hospital-nav-link ${
+                        isActive || (item.matchExtra && location.pathname.includes(item.matchExtra)) ? 'active' : ''
+                      }`
+                    }
+                    onClick={closeMobile}
+                  >
+                    <Icon className="nav-icon" />
+                    <span>{item.label}</span>
+                  </NavLink>
+                </li>
+              );
+            })}
           </ul>
-
-          {/* <div className="nav-section-label">SYSTEM / CLINICAL</div> */}
-          {/* <ul className="hospital-nav-list">
-            <li className="hospital-nav-item">
-              <NavLink
-                to="/dashboard/emergency"
-                className={({ isActive }) => `hospital-nav-link ${isActive ? 'active' : ''}`}
-                onClick={closeMobile}
-              >
-                <EmergencyIcon className="nav-icon" sx={{ color: '#EF4444 !important' }} />
-                <span>Trauma / Emergency</span>
-              </NavLink>
-            </li>
-
-            <li className="hospital-nav-item">
-              <NavLink
-                to="/dashboard/settings-audit"
-                className={({ isActive }) => `hospital-nav-link ${isActive ? 'active' : ''}`}
-                onClick={closeMobile}
-              >
-                <SettingsIcon className="nav-icon" />
-                <span>Settings & Audit</span>
-              </NavLink>
-            </li>
-          </ul> */}
         </div>
 
         {/* Sidebar Footer User Widget */}
@@ -224,7 +209,7 @@ export default function Doctordashboard() {
             <div className="sidebar-user-info">
               <div className="sidebar-user-name">{userName}</div>
               <div className="sidebar-user-role">
-                {role === 'Admin' ? 'Super Admin' : role === 'Doc' ? 'Attending Doctor' : 'Pharmacist'}
+                {getRoleLabel(role)}
               </div>
             </div>
             <button className="sidebar-logout-btn" onClick={handleLogout} title="Sign Out">
@@ -249,7 +234,7 @@ export default function Doctordashboard() {
               </button>
 
               <div className="topbar-breadcrumbs">
-                <span className="crumb-link" onClick={() => navigate('/dashboard/overview')}>
+                <span className="crumb-link" onClick={() => navigate(defaultDashboardPath)}>
                   Hospital Core
                 </span>
                 <span className="crumb-sep">&rsaquo;</span>
@@ -282,7 +267,7 @@ export default function Doctordashboard() {
                 className="sidebar-user-avatar"
                 style={{ width: 34, height: 34, cursor: 'pointer', fontSize: 13 }}
                 title={`${userName} (${role})`}
-                onClick={() => navigate('/dashboard/Add-users')}
+                onClick={handleAvatarClick}
               >
                 {userName.charAt(0).toUpperCase()}
               </div>

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -30,65 +31,159 @@ namespace webapplication3.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<MED_USER_DETAILS>> PostUser([FromForm] MED_USER_DETAILS userDetails, [FromForm] IFormFile? profileImage)
+        public async Task<ActionResult<MED_USER_DETAILS>> PostUser(
+            [FromForm] MED_USER_DETAILS userDetails,
+            [FromForm] IFormFile? profileImage)
         {
             if (userDetails == null)
             {
-                return BadRequest("User details cannot be null.");
+                return BadRequest(new { error = "User details cannot be null." });
             }
 
-            // Check if the email already exists
+            // Normalize incoming form values before validation / database lookup.
+            userDetails.MUD_USER_NAME = userDetails.MUD_USER_NAME?.Trim();
+            userDetails.MUD_FULL_NAME = userDetails.MUD_FULL_NAME?.Trim();
+            userDetails.MUD_EMAIL = userDetails.MUD_EMAIL?.Trim();
+            userDetails.MUD_NIC_NO = userDetails.MUD_NIC_NO?.Trim();
+            userDetails.MUD_CONTACT = userDetails.MUD_CONTACT?.Trim();
+            userDetails.MUD_SPECIALIZATION = userDetails.MUD_SPECIALIZATION?.Trim();
+
+            if (string.IsNullOrWhiteSpace(userDetails.MUD_USER_NAME) ||
+                string.IsNullOrWhiteSpace(userDetails.MUD_PASSWORD) ||
+                string.IsNullOrWhiteSpace(userDetails.MUD_USER_TYPE) ||
+                string.IsNullOrWhiteSpace(userDetails.MUD_FULL_NAME) ||
+                string.IsNullOrWhiteSpace(userDetails.MUD_EMAIL))
+            {
+                return BadRequest(new
+                {
+                    error = "Username, full name, email, password and user type are required."
+                });
+            }
+
+            // MUD_USER_TYPE is a foreign key to MED_USER_TYPES.MUT_USER_TYPE.
+            // Resolve the submitted value against the real database row first.
+            var resolvedUserType = await ResolveUserTypeAsync(userDetails.MUD_USER_TYPE);
+            if (resolvedUserType == null)
+            {
+                var availableTypes = await _context.MED_USER_TYPES
+                    .AsNoTracking()
+                    .OrderBy(t => t.MUT_USER_TYPE)
+                    .Select(t => t.MUT_USER_TYPE)
+                    .ToListAsync();
+
+                return BadRequest(new
+                {
+                    error = $"Invalid user type '{userDetails.MUD_USER_TYPE}'. The role must exist in MED_USER_TYPES first.",
+                    availableUserTypes = availableTypes
+                });
+            }
+
+            userDetails.MUD_USER_TYPE = resolvedUserType.MUT_USER_TYPE;
+
+            if (string.Equals(userDetails.MUD_USER_TYPE, "Doc", StringComparison.OrdinalIgnoreCase) &&
+                string.IsNullOrWhiteSpace(userDetails.MUD_SPECIALIZATION))
+            {
+                return BadRequest(new { error = "Specialization is required for doctors." });
+            }
+
             var existingEmail = await _context.MED_USER_DETAILS
-                .FirstOrDefaultAsync(u => u.MUD_EMAIL == userDetails.MUD_EMAIL);
+                .AsNoTracking()
+                .FirstOrDefaultAsync(u => u.MUD_EMAIL != null &&
+                                          u.MUD_EMAIL.ToLower() == userDetails.MUD_EMAIL.ToLower());
             if (existingEmail != null)
             {
                 return BadRequest(new { error = "Email already exists." });
             }
 
-            // Check if the username already exists
             var existingUsername = await _context.MED_USER_DETAILS
-                .FirstOrDefaultAsync(u => u.MUD_USER_NAME == userDetails.MUD_USER_NAME);
+                .AsNoTracking()
+                .FirstOrDefaultAsync(u => u.MUD_USER_NAME != null &&
+                                          u.MUD_USER_NAME.ToLower() == userDetails.MUD_USER_NAME.ToLower());
             if (existingUsername != null)
             {
                 return BadRequest(new { error = "Username already exists." });
             }
-            // Generate the new ID
-            userDetails.MUD_USER_ID = await GenerateUserIdAsync();
 
-            // Set created date
-            userDetails.MUD_CREATED_DATE = DateTime.UtcNow;
-
-
-
-            // Encrypt the password (hashing)
-            userDetails.MUD_PASSWORD = Hashpassword(userDetails.MUD_PASSWORD);
-
-
-
-
-            // Handle the profile image if provided
-            if (profileImage != null && profileImage.Length > 0)
+            if (!string.IsNullOrWhiteSpace(userDetails.MUD_NIC_NO))
             {
-                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "uploads");
-                if (!Directory.Exists(uploadsFolder))
+                var existingNic = await _context.MED_USER_DETAILS
+                    .AsNoTracking()
+                    .AnyAsync(u => u.MUD_NIC_NO == userDetails.MUD_NIC_NO);
+                if (existingNic)
                 {
-                    Directory.CreateDirectory(uploadsFolder);
+                    return BadRequest(new { error = "NIC number already exists." });
                 }
-
-                var filePath = Path.Combine(uploadsFolder, profileImage.FileName);
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await profileImage.CopyToAsync(stream);
-                }
-                // Save the path to the database or set it in the model if required
-                // userDetails.MUD_PHOTO = filePath;
             }
 
-            // Add the user details to the database
-            _context.MED_USER_DETAILS.Add(userDetails);
-            await _context.SaveChangesAsync();
+            if (!string.IsNullOrWhiteSpace(userDetails.MUD_CONTACT))
+            {
+                var existingContact = await _context.MED_USER_DETAILS
+                    .AsNoTracking()
+                    .AnyAsync(u => u.MUD_CONTACT == userDetails.MUD_CONTACT);
+                if (existingContact)
+                {
+                    return BadRequest(new { error = "Contact number already exists." });
+                }
+            }
 
-            return CreatedAtAction(nameof(GetUserById), new { id = userDetails.MUD_USER_ID }, userDetails);
+            userDetails.MUD_USER_ID = await GenerateUserIdAsync();
+            userDetails.MUD_STATUS = string.IsNullOrWhiteSpace(userDetails.MUD_STATUS)
+                ? "A"
+                : userDetails.MUD_STATUS.Trim().Substring(0, 1).ToUpperInvariant();
+            userDetails.MUD_CREATED_DATE = DateTime.UtcNow;
+            userDetails.MUD_UPDATED_DATE = null;
+            userDetails.MUD_UPDATED_BY = null;
+
+            userDetails.MUD_PASSWORD = Hashpassword(userDetails.MUD_PASSWORD);
+
+            if (profileImage != null && profileImage.Length > 0)
+            {
+                const long maxProfileImageBytes = 2 * 1024 * 1024;
+                if (profileImage.Length > maxProfileImageBytes)
+                {
+                    return BadRequest(new { error = "Profile image must be 2 MB or smaller." });
+                }
+
+                await using var memoryStream = new MemoryStream();
+                await profileImage.CopyToAsync(memoryStream);
+                userDetails.MUD_PHOTO = memoryStream.ToArray();
+            }
+
+            _context.MED_USER_DETAILS.Add(userDetails);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlEx && sqlEx.Number == 547)
+            {
+                return BadRequest(new
+                {
+                    error = "The selected user role is not configured correctly in MED_USER_TYPES. Run the supplied user-type seed SQL script."
+                });
+            }
+            catch (DbUpdateException)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    error = "The user could not be saved because of a database error."
+                });
+            }
+
+            // Do not return the password hash to the browser after creation.
+            return CreatedAtAction(nameof(GetUserById), new { id = userDetails.MUD_USER_ID }, new
+            {
+                userDetails.MUD_USER_ID,
+                userDetails.MUD_USER_NAME,
+                userDetails.MUD_USER_TYPE,
+                userDetails.MUD_STATUS,
+                userDetails.MUD_SPECIALIZATION,
+                userDetails.MUD_FULL_NAME,
+                userDetails.MUD_EMAIL,
+                userDetails.MUD_NIC_NO,
+                userDetails.MUD_CONTACT,
+                userDetails.MUD_CREATED_DATE
+            });
         }
 
 
@@ -187,20 +282,30 @@ namespace webapplication3.Controllers
         // Helper method to generate user ID
         private async Task<string> GenerateUserIdAsync()
         {
-            var lastUser = await _context.MED_USER_DETAILS
-                .OrderByDescending(u => u.MUD_USER_ID)
-                .FirstOrDefaultAsync();
+            // Only UserNNN IDs participate in this sequence. Legacy IDs such
+            // as ADM0001 must not be passed to int.Parse().
+            var existingIds = await _context.MED_USER_DETAILS
+                .AsNoTracking()
+                .Where(u => u.MUD_USER_ID != null && u.MUD_USER_ID.StartsWith("User"))
+                .Select(u => u.MUD_USER_ID!)
+                .ToListAsync();
 
-            if (lastUser == null)
+            var maxNumber = 0;
+            foreach (var existingId in existingIds)
             {
-                return "User001";
+                if (existingId.Length > 4 &&
+                    int.TryParse(existingId.Substring(4), out var number))
+                {
+                    maxNumber = Math.Max(maxNumber, number);
+                }
             }
 
-            string lastId = lastUser.MUD_USER_ID;
-            int lastNumber = int.Parse(lastId.Substring(4)); // Extract the number part after "User"
+            if (maxNumber >= 999)
+            {
+                throw new InvalidOperationException("User ID sequence has reached User999.");
+            }
 
-
-            return $"User{(lastNumber + 1).ToString("D3")}";
+            return $"User{maxNumber + 1:D3}";
         }
 
 
@@ -257,6 +362,31 @@ namespace webapplication3.Controllers
             return Ok(users);
         }
 
+
+
+        // GET: api/User/doctors
+        // Returns only active doctor accounts needed by the scheduler.
+        // Password hashes and other sensitive staff fields are deliberately excluded.
+        [HttpGet("doctors")]
+        public async Task<IActionResult> GetActiveDoctorsForScheduling()
+        {
+            var doctors = await _context.MED_USER_DETAILS
+                .AsNoTracking()
+                .Where(u => u.MUD_USER_TYPE == "Doc"
+                         && (u.MUD_STATUS == null || u.MUD_STATUS == "A"))
+                .OrderBy(u => u.MUD_FULL_NAME ?? u.MUD_USER_NAME)
+                .Select(u => new
+                {
+                    UserId = u.MUD_USER_ID,
+                    FullName = u.MUD_FULL_NAME,
+                    UserName = u.MUD_USER_NAME,
+                    Specialization = u.MUD_SPECIALIZATION,
+                    Status = u.MUD_STATUS
+                })
+                .ToListAsync();
+
+            return Ok(doctors);
+        }
 
 
         // GET: api/User
@@ -318,9 +448,15 @@ namespace webapplication3.Controllers
            
 
             // Update user properties
-            user.MUD_USER_NAME = userDetails.MUD_USER_NAME;
-            user.MUD_USER_TYPE = userDetails.MUD_USER_TYPE;
-            user.MUD_SPECIALIZATION = userDetails.MUD_SPECIALIZATION;
+            var resolvedUserType = await ResolveUserTypeAsync(userDetails.MUD_USER_TYPE);
+            if (resolvedUserType == null)
+            {
+                return BadRequest(new { error = "The selected user type does not exist in MED_USER_TYPES." });
+            }
+
+            user.MUD_USER_NAME = userDetails.MUD_USER_NAME?.Trim();
+            user.MUD_USER_TYPE = resolvedUserType.MUT_USER_TYPE;
+            user.MUD_SPECIALIZATION = userDetails.MUD_SPECIALIZATION?.Trim();
             user.MUD_STATUS = userDetails.MUD_STATUS;
             user.MUD_NIC_NO = userDetails.MUD_NIC_NO;
             user.MUD_EMAIL = userDetails.MUD_EMAIL;
@@ -329,15 +465,11 @@ namespace webapplication3.Controllers
             user.MUD_UPDATED_DATE = DateTime.UtcNow;
             user.MUD_UPDATED_BY = "system"; // Replace with actual updating user if available
 
-            if (!string.IsNullOrEmpty(userDetails.MUD_PASSWORD) && userDetails.MUD_PASSWORD.Length != 44)
+            if (!string.IsNullOrWhiteSpace(userDetails.MUD_PASSWORD) &&
+                !userDetails.MUD_PASSWORD.Contains('•') &&
+                !LooksLikeSha256Base64(userDetails.MUD_PASSWORD))
             {
                 user.MUD_PASSWORD = Hashpassword(userDetails.MUD_PASSWORD);
-            }
-            else
-            {
-                user.MUD_PASSWORD = userDetails.MUD_PASSWORD;
-
-
             }
            
 
@@ -457,10 +589,46 @@ namespace webapplication3.Controllers
             }
         }
 
-        private bool IsHashed(string password)
+        private async Task<MED_USER_TYPES?> ResolveUserTypeAsync(string? requestedType)
         {
-            // SHA256 hashed passwords are always 44 characters long in Base64
-            return password.Length == 44 && password.All(c => char.IsLetterOrDigit(c) || c == '/' || c == '+');
+            if (string.IsNullOrWhiteSpace(requestedType))
+            {
+                return null;
+            }
+
+            var normalized = requestedType.Trim();
+            normalized = normalized.ToLowerInvariant() switch
+            {
+                "doctor" => "Doc",
+                "attending doctor" => "Doc",
+                "pharmacist" => "Phuser",
+                "pharmacy user" => "Phuser",
+                "licensed pharmacist" => "Phuser",
+                "administrator" => "Admin",
+                "system administrator" => "Admin",
+                _ => normalized
+            };
+
+            var userTypes = await _context.MED_USER_TYPES
+                .AsNoTracking()
+                .ToListAsync();
+
+            return userTypes.FirstOrDefault(t =>
+                string.Equals(t.MUT_USER_TYPE, normalized, StringComparison.OrdinalIgnoreCase) &&
+                (string.IsNullOrWhiteSpace(t.MUT_STATUS) ||
+                 string.Equals(t.MUT_STATUS, "A", StringComparison.OrdinalIgnoreCase)));
+        }
+
+        private static bool LooksLikeSha256Base64(string value)
+        {
+            try
+            {
+                return Convert.FromBase64String(value).Length == 32;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
         }
 
 
