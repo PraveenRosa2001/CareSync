@@ -3,62 +3,34 @@
   "WorkspaceRootPath": "D:\\CareSync\\Backend\\WebApplication1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|d:\\caresync\\backend\\webapplication1\\webapplication1\\controllers\\materialcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\materialcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|d:\\caresync\\backend\\webapplication1\\webapplication1\\services\\caresyncemailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\services\\caresyncemailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|d:\\caresync\\backend\\webapplication1\\webapplication1\\models\\med_material_catalogue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\models\\med_material_catalogue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|d:\\caresync\\backend\\webapplication1\\webapplication1\\services\\appointmentreminderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\services\\appointmentreminderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|d:\\caresync\\backend\\webapplication1\\webapplication1\\controllers\\timeslotcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\timeslotcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|d:\\caresync\\backend\\webapplication1\\webapplication1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|d:\\caresync\\backend\\webapplication1\\webapplication1\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|d:\\caresync\\backend\\webapplication1\\webapplication1\\controllers\\patientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\patientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|d:\\caresync\\backend\\webapplication1\\webapplication1\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|d:\\caresync\\backend\\webapplication1\\webapplication1\\models\\med_timeslot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\models\\med_timeslot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|d:\\caresync\\backend\\webapplication1\\webapplication1\\models\\med_user_details.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\models\\med_user_details.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|d:\\caresync\\backend\\webapplication1\\webapplication1\\controllers\\treatmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\treatmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|d:\\caresync\\backend\\webapplication1\\webapplication1\\controllers\\appoinmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\appoinmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|d:\\caresync\\backend\\webapplication1\\webapplication1\\controllers\\appoinmentlogincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\appoinmentlogincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|d:\\caresync\\backend\\webapplication1\\webapplication1\\controllers\\patientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\patientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|d:\\caresync\\backend\\webapplication1\\webapplication1\\dtos\\patientrecorddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\dtos\\patientrecorddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|d:\\caresync\\backend\\webapplication1\\webapplication1\\models\\med_patients_details.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\models\\med_patients_details.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|d:\\caresync\\backend\\webapplication1\\webapplication1\\controllers\\timeslotcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC7132F0-CE9B-4DEC-9026-37C85B51EEE5}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\timeslotcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
-      "VerticalTabListWidth": 134,
+      "VerticalTabListWidth": 183,
       "DocumentGroups": [
         {
           "DockedWidth": 200,
@@ -67,170 +39,79 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "materialController.cs",
-              "DocumentMoniker": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Controllers\\materialController.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\materialController.cs",
-              "ToolTip": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Controllers\\materialController.cs",
-              "RelativeToolTip": "WebApplication1\\Controllers\\materialController.cs",
-              "ViewState": "AgIAABUBAAAAAAAAAAAYwCEBAABBAAAAAAAAAA==",
+              "Title": "CareSyncEmailService.cs",
+              "DocumentMoniker": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Services\\CareSyncEmailService.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Services\\CareSyncEmailService.cs",
+              "ToolTip": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Services\\CareSyncEmailService.cs",
+              "RelativeToolTip": "WebApplication1\\Services\\CareSyncEmailService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-01T12:51:50.666Z",
+              "WhenOpened": "2026-10-02T07:51:57.586Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "MED_MATERIAL_CATALOGUE.cs",
-              "DocumentMoniker": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Models\\MED_MATERIAL_CATALOGUE.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Models\\MED_MATERIAL_CATALOGUE.cs",
-              "ToolTip": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Models\\MED_MATERIAL_CATALOGUE.cs",
-              "RelativeToolTip": "WebApplication1\\Models\\MED_MATERIAL_CATALOGUE.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAswCkAAAAAAAAAAAAAAA==",
+              "Title": "AppointmentReminderService.cs",
+              "DocumentMoniker": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Services\\AppointmentReminderService.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Services\\AppointmentReminderService.cs",
+              "ToolTip": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Services\\AppointmentReminderService.cs",
+              "RelativeToolTip": "WebApplication1\\Services\\AppointmentReminderService.cs",
+              "ViewState": "AgIAAP0AAAAAAAAAAAAYwBgBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-01T12:51:15.59Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Program.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Program.cs",
-              "ToolTip": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Program.cs",
-              "RelativeToolTip": "WebApplication1\\Program.cs",
-              "ViewState": "AgIAAFoAAAAAAAAAAAAYwGMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-01T06:21:39.642Z",
+              "WhenOpened": "2026-10-02T07:51:36.409Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "loginController.cs",
-              "DocumentMoniker": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Controllers\\loginController.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\loginController.cs",
-              "ToolTip": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Controllers\\loginController.cs",
-              "RelativeToolTip": "WebApplication1\\Controllers\\loginController.cs",
-              "ViewState": "AgIAAGYAAAAAAAAAAAAYwIEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-01T11:08:31.911Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "timeslotController.cs",
-              "DocumentMoniker": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Controllers\\timeslotController.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\timeslotController.cs",
-              "ToolTip": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Controllers\\timeslotController.cs",
-              "RelativeToolTip": "WebApplication1\\Controllers\\timeslotController.cs",
-              "ViewState": "AgIAABMBAAAAAAAAAAAYwBsBAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-01T10:58:14.511Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "MED_TIMESLOT.cs",
-              "DocumentMoniker": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Models\\MED_TIMESLOT.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Models\\MED_TIMESLOT.cs",
-              "ToolTip": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Models\\MED_TIMESLOT.cs",
-              "RelativeToolTip": "WebApplication1\\Models\\MED_TIMESLOT.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAywCoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-01T10:57:47.844Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "userController.cs",
-              "DocumentMoniker": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Controllers\\userController.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\userController.cs",
-              "ToolTip": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Controllers\\userController.cs",
-              "RelativeToolTip": "WebApplication1\\Controllers\\userController.cs",
-              "ViewState": "AgIAAGwCAAAAAAAAAAAYwHkCAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-01T10:27:00.488Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "MED_USER_DETAILS.cs",
-              "DocumentMoniker": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Models\\MED_USER_DETAILS.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Models\\MED_USER_DETAILS.cs",
-              "ToolTip": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Models\\MED_USER_DETAILS.cs",
-              "RelativeToolTip": "WebApplication1\\Models\\MED_USER_DETAILS.cs",
-              "ViewState": "AgIAAFUAAAAAAAAAAAAYwGUAAAA3AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-01T10:25:47.26Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
               "Title": "patientController.cs",
               "DocumentMoniker": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Controllers\\patientController.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Controllers\\patientController.cs",
               "ToolTip": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Controllers\\patientController.cs",
               "RelativeToolTip": "WebApplication1\\Controllers\\patientController.cs",
-              "ViewState": "AgIAAEYBAAAAAAAAAAAAAE0BAAAPAAAAAAAAAA==",
+              "ViewState": "AgIAAHADAAAAAAAAAAAYwIsDAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-01T08:40:30.368Z",
+              "WhenOpened": "2026-10-02T07:35:50.981Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "PatientRecordDto.cs",
-              "DocumentMoniker": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\DTOs\\PatientRecordDto.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\DTOs\\PatientRecordDto.cs",
-              "ToolTip": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\DTOs\\PatientRecordDto.cs",
-              "RelativeToolTip": "WebApplication1\\DTOs\\PatientRecordDto.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAA1wCkAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "treatmentController.cs",
+              "DocumentMoniker": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Controllers\\treatmentController.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\treatmentController.cs",
+              "ToolTip": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Controllers\\treatmentController.cs",
+              "RelativeToolTip": "WebApplication1\\Controllers\\treatmentController.cs",
+              "ViewState": "AgIAAAsEAAAAAAAAAAAuwBEEAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-01T08:39:54.826Z",
+              "WhenOpened": "2026-10-02T07:11:37.237Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "MED_PATIENTS_DETAILS.cs",
-              "DocumentMoniker": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Models\\MED_PATIENTS_DETAILS.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Models\\MED_PATIENTS_DETAILS.cs",
-              "ToolTip": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Models\\MED_PATIENTS_DETAILS.cs",
-              "RelativeToolTip": "WebApplication1\\Models\\MED_PATIENTS_DETAILS.cs",
-              "ViewState": "AgIAAGkAAAAAAAAAAAAYwHIAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-01T08:36:05.998Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "appoinmentloginController.cs",
-              "DocumentMoniker": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Controllers\\appoinmentloginController.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\appoinmentloginController.cs",
-              "ToolTip": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Controllers\\appoinmentloginController.cs",
-              "RelativeToolTip": "WebApplication1\\Controllers\\appoinmentloginController.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAApwBAAAABVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-01T06:21:28.603Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 3,
               "Title": "appoinmentController.cs",
               "DocumentMoniker": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Controllers\\appoinmentController.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Controllers\\appoinmentController.cs",
               "ToolTip": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Controllers\\appoinmentController.cs",
               "RelativeToolTip": "WebApplication1\\Controllers\\appoinmentController.cs",
-              "ViewState": "AgIAAP4AAAAAAAAAAAApwOkAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAO4AAAAAAAAAAAAIwPwAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-01T06:21:00.738Z",
+              "WhenOpened": "2026-10-02T07:11:21.732Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "timeslotController.cs",
+              "DocumentMoniker": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Controllers\\timeslotController.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\timeslotController.cs",
+              "ToolTip": "D:\\CareSync\\Backend\\WebApplication1\\WebApplication1\\Controllers\\timeslotController.cs",
+              "RelativeToolTip": "WebApplication1\\Controllers\\timeslotController.cs",
+              "ViewState": "AgIAAJ0BAAAAAAAAAAAYwLgBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-02T06:47:38.796Z",
               "EditorCaption": ""
             }
           ]

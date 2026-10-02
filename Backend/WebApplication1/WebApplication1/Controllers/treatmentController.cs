@@ -4,8 +4,10 @@ using WebApplication1.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 using WebApplication1.Services;
 
 
@@ -17,13 +19,16 @@ namespace WebApplication1.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly ILogger<TreatmentController> _logger;
-        private readonly IEmailService _emailService;
+        private readonly IConfiguration _configuration;
 
-        public TreatmentController(ApplicationDbContext context, ILogger<TreatmentController> logger, IEmailService emailService)
+        public TreatmentController(
+            ApplicationDbContext context,
+            ILogger<TreatmentController> logger,
+            IConfiguration configuration)
         {
             _context = context;
             _logger = logger;
-            _emailService = emailService;
+            _configuration = configuration;
         }
 
 
@@ -120,20 +125,108 @@ namespace WebApplication1.Controllers
         }
 
         // GET: api/treatment/patient/{patientId}
+        // Patient portal: schema-safe medical history query.
+        // This deliberately reads only the columns required by the portal so newer
+        // scheduler/reminder columns cannot break the existing patient history API.
         [HttpGet("patient/{patientId}")]
-        public async Task<ActionResult<IEnumerable<MED_TREATMENT_DETAILS>>> GetTreatmentsByPatientId(string patientId)
+        public async Task<ActionResult<IEnumerable<object>>> GetTreatmentsByPatientId(string patientId)
         {
-            var treatments = await _context.MED_TREATMENT_DETAILS
-                                           .Where(t => t.MTD_PATIENT_CODE == patientId)
-                                           .ToListAsync();
-
-            if (treatments == null || treatments.Count == 0)
+            if (string.IsNullOrWhiteSpace(patientId))
             {
-                return NotFound();
+                return BadRequest("Patient code cannot be null or empty.");
             }
 
-            return Ok(treatments);
+            try
+            {
+                var results = new List<Dictionary<string, object?>>();
+                var connection = _context.Database.GetDbConnection();
+                var shouldClose = connection.State != ConnectionState.Open;
+
+                if (shouldClose)
+                    await connection.OpenAsync();
+
+                try
+                {
+                    await using var command = connection.CreateCommand();
+                    command.CommandText = @"
+                        SELECT
+                            MTD_PATIENT_CODE,
+                            MTD_SERIAL_NO,
+                            MTD_DATE,
+                            MTD_DOCTOR,
+                            MTD_TYPE,
+                            MTD_COMPLAIN,
+                            MTD_DIAGNOSTICS,
+                            MTD_REMARKS,
+                            MTD_AMOUNT,
+                            MTD_PAYMENT_STATUS,
+                            MTD_TREATMENT_STATUS,
+                            MTD_SMS_STATUS,
+                            MTD_SMS,
+                            MTD_MEDICAL_STATUS,
+                            MTD_STATUS,
+                            MTD_CREATED_BY,
+                            MTD_CREATED_DATE,
+                            MTD_UPDATED_BY,
+                            MTD_UPDATED_DATE,
+                            MTD_APPOINMENT_ID,
+                            MTD_CHANNEL_NO
+                        FROM dbo.MED_TREATMENT_DETAILS
+                        WHERE MTD_PATIENT_CODE = @patientId
+                        ORDER BY COALESCE(MTD_CREATED_DATE, MTD_DATE) DESC, MTD_SERIAL_NO DESC;";
+
+                    var parameter = command.CreateParameter();
+                    parameter.ParameterName = "@patientId";
+                    parameter.Value = patientId.Trim();
+                    command.Parameters.Add(parameter);
+
+                    await using var reader = await command.ExecuteReaderAsync();
+                    while (await reader.ReadAsync())
+                    {
+                        results.Add(new Dictionary<string, object?>
+                        {
+                            ["MTD_PATIENT_CODE"] = (reader.IsDBNull(reader.GetOrdinal("MTD_PATIENT_CODE")) ? null : reader.GetValue(reader.GetOrdinal("MTD_PATIENT_CODE"))),
+                            ["MTD_SERIAL_NO"] = (reader.IsDBNull(reader.GetOrdinal("MTD_SERIAL_NO")) ? null : reader.GetValue(reader.GetOrdinal("MTD_SERIAL_NO"))),
+                            ["MTD_DATE"] = (reader.IsDBNull(reader.GetOrdinal("MTD_DATE")) ? null : reader.GetValue(reader.GetOrdinal("MTD_DATE"))),
+                            ["MTD_DOCTOR"] = (reader.IsDBNull(reader.GetOrdinal("MTD_DOCTOR")) ? null : reader.GetValue(reader.GetOrdinal("MTD_DOCTOR"))),
+                            ["MTD_TYPE"] = (reader.IsDBNull(reader.GetOrdinal("MTD_TYPE")) ? null : reader.GetValue(reader.GetOrdinal("MTD_TYPE"))),
+                            ["MTD_COMPLAIN"] = (reader.IsDBNull(reader.GetOrdinal("MTD_COMPLAIN")) ? null : reader.GetValue(reader.GetOrdinal("MTD_COMPLAIN"))),
+                            ["MTD_DIAGNOSTICS"] = (reader.IsDBNull(reader.GetOrdinal("MTD_DIAGNOSTICS")) ? null : reader.GetValue(reader.GetOrdinal("MTD_DIAGNOSTICS"))),
+                            ["MTD_REMARKS"] = (reader.IsDBNull(reader.GetOrdinal("MTD_REMARKS")) ? null : reader.GetValue(reader.GetOrdinal("MTD_REMARKS"))),
+                            ["MTD_AMOUNT"] = (reader.IsDBNull(reader.GetOrdinal("MTD_AMOUNT")) ? null : reader.GetValue(reader.GetOrdinal("MTD_AMOUNT"))),
+                            ["MTD_PAYMENT_STATUS"] = (reader.IsDBNull(reader.GetOrdinal("MTD_PAYMENT_STATUS")) ? null : reader.GetValue(reader.GetOrdinal("MTD_PAYMENT_STATUS"))),
+                            ["MTD_TREATMENT_STATUS"] = (reader.IsDBNull(reader.GetOrdinal("MTD_TREATMENT_STATUS")) ? null : reader.GetValue(reader.GetOrdinal("MTD_TREATMENT_STATUS"))),
+                            ["MTD_SMS_STATUS"] = (reader.IsDBNull(reader.GetOrdinal("MTD_SMS_STATUS")) ? null : reader.GetValue(reader.GetOrdinal("MTD_SMS_STATUS"))),
+                            ["MTD_SMS"] = (reader.IsDBNull(reader.GetOrdinal("MTD_SMS")) ? null : reader.GetValue(reader.GetOrdinal("MTD_SMS"))),
+                            ["MTD_MEDICAL_STATUS"] = (reader.IsDBNull(reader.GetOrdinal("MTD_MEDICAL_STATUS")) ? null : reader.GetValue(reader.GetOrdinal("MTD_MEDICAL_STATUS"))),
+                            ["MTD_STATUS"] = (reader.IsDBNull(reader.GetOrdinal("MTD_STATUS")) ? null : reader.GetValue(reader.GetOrdinal("MTD_STATUS"))),
+                            ["MTD_CREATED_BY"] = (reader.IsDBNull(reader.GetOrdinal("MTD_CREATED_BY")) ? null : reader.GetValue(reader.GetOrdinal("MTD_CREATED_BY"))),
+                            ["MTD_CREATED_DATE"] = (reader.IsDBNull(reader.GetOrdinal("MTD_CREATED_DATE")) ? null : reader.GetValue(reader.GetOrdinal("MTD_CREATED_DATE"))),
+                            ["MTD_UPDATED_BY"] = (reader.IsDBNull(reader.GetOrdinal("MTD_UPDATED_BY")) ? null : reader.GetValue(reader.GetOrdinal("MTD_UPDATED_BY"))),
+                            ["MTD_UPDATED_DATE"] = (reader.IsDBNull(reader.GetOrdinal("MTD_UPDATED_DATE")) ? null : reader.GetValue(reader.GetOrdinal("MTD_UPDATED_DATE"))),
+                            ["MTD_APPOINMENT_ID"] = (reader.IsDBNull(reader.GetOrdinal("MTD_APPOINMENT_ID")) ? null : reader.GetValue(reader.GetOrdinal("MTD_APPOINMENT_ID"))),
+                            ["MTD_CHANNEL_NO"] = (reader.IsDBNull(reader.GetOrdinal("MTD_CHANNEL_NO")) ? null : reader.GetValue(reader.GetOrdinal("MTD_CHANNEL_NO")))
+                        });
+                    }
+                }
+                finally
+                {
+                    if (shouldClose)
+                        await connection.CloseAsync();
+                }
+
+                if (results.Count == 0)
+                    return NotFound("No treatment records found for the given patient code.");
+
+                return Ok(results);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to load treatment history for patient {PatientId}.", patientId);
+                return StatusCode(500, new { message = "Unable to load the patient's medical history." });
+            }
         }
+
 
 
 
@@ -544,72 +637,164 @@ namespace WebApplication1.Controllers
 
 
 
+        // Patient portal / staff dossier: schema-safe treatment + prescription detail.
         [HttpGet("patient/record/{patientId}/{serialNo}")]
         public async Task<IActionResult> GetTreatmentRecord(string patientId, int serialNo)
         {
+            if (string.IsNullOrWhiteSpace(patientId) || serialNo <= 0)
+                return BadRequest("A valid patient code and treatment serial number are required.");
 
-
-            var firstSerialNo = await _context.MED_TREATMENT_DETAILS
-                .Where(t => t.MTD_PATIENT_CODE == patientId)// Inorder to find the treatment number I want to find the first treatment number
-                .OrderBy(t => t.MTD_SERIAL_NO)
-                .Select(t => t.MTD_SERIAL_NO)
-                .FirstOrDefaultAsync();
-
-
-            var treatmentQuery = from t in _context.MED_TREATMENT_DETAILS
-                                 where t.MTD_PATIENT_CODE == patientId && t.MTD_SERIAL_NO == serialNo
-                                 select t;
-
-            var drugsQuery = from d in _context.MED_DRUGS_DETAILS
-                             where d.MDD_PATIENT_CODE == patientId && d.MDD_SERIAL_NO == serialNo && d.MDD_STATUS != "I" // The condition is I used a patientid, serial number and status is not active
-                             join m in _context.MED_MATERIAL_CATALOGUE
-                             on d.MDD_MATERIAL_CODE equals m.MMC_MATERIAL_CODE
-                             select new
-                             {
-                                 d.MDD_MATERIAL_CODE,
-                                 d.MDD_QUANTITY,
-                                 d.MDD_RATE,
-                                 d.MDD_AMOUNT,
-                                 d.MDD_DOSAGE,
-                                 d.MDD_TAKES,
-                                 d.MDD_GIVEN_QUANTITY,
-                                 d.MDD_STATUS,
-
-                                 DrugName = m.MMC_DESCRIPTION,
-                                 Stock = _context.MED_MATERIAL_CATALOGUE
-                                .Where(m => m.MMC_MATERIAL_CODE == d.MDD_MATERIAL_CODE)
-                                .Select(m => m.MMC_REORDER_LEVEL)
-                                .FirstOrDefault()
-
-
-
-
-                             };
-
-            var treatmentRecord = await (from t in treatmentQuery
-                                         select new
-                                         {
-                                             t.MTD_PATIENT_CODE,
-                                             t.MTD_SERIAL_NO,
-                                             t.MTD_DATE,
-                                             t.MTD_DOCTOR,
-                                             t.MTD_TYPE,
-                                             t.MTD_COMPLAIN,
-                                             t.MTD_DIAGNOSTICS,
-                                             t.MTD_REMARKS,
-                                             t.MTD_AMOUNT,
-                                             Treatmentnumber = (t.MTD_SERIAL_NO - firstSerialNo + 1),
-                                             t.MTD_TREATMENT_STATUS,
-                                             Drugs = drugsQuery.ToList()
-                                         }).FirstOrDefaultAsync();
-
-            if (treatmentRecord == null)
+            try
             {
-                return NotFound("Treatment record not found.");
-            }
+                var connection = _context.Database.GetDbConnection();
+                var shouldClose = connection.State != ConnectionState.Open;
+                if (shouldClose)
+                    await connection.OpenAsync();
 
-            return Ok(treatmentRecord);
+                try
+                {
+                    int? firstSerialNo = null;
+                    await using (var firstCommand = connection.CreateCommand())
+                    {
+                        firstCommand.CommandText = @"
+                            SELECT MIN(MTD_SERIAL_NO)
+                            FROM dbo.MED_TREATMENT_DETAILS
+                            WHERE MTD_PATIENT_CODE = @patientId;";
+                        var firstPatientParameter = firstCommand.CreateParameter();
+                        firstPatientParameter.ParameterName = "@patientId";
+                        firstPatientParameter.Value = patientId.Trim();
+                        firstCommand.Parameters.Add(firstPatientParameter);
+                        var scalar = await firstCommand.ExecuteScalarAsync();
+                        if (scalar != null && scalar != DBNull.Value)
+                            firstSerialNo = Convert.ToInt32(scalar);
+                    }
+
+                    Dictionary<string, object?>? treatment = null;
+                    await using (var treatmentCommand = connection.CreateCommand())
+                    {
+                        treatmentCommand.CommandText = @"
+                            SELECT TOP (1)
+                                MTD_PATIENT_CODE,
+                                MTD_SERIAL_NO,
+                                MTD_DATE,
+                                MTD_DOCTOR,
+                                MTD_TYPE,
+                                MTD_COMPLAIN,
+                                MTD_DIAGNOSTICS,
+                                MTD_REMARKS,
+                                MTD_AMOUNT,
+                                MTD_PAYMENT_STATUS,
+                                MTD_TREATMENT_STATUS,
+                                MTD_APPOINMENT_ID,
+                                MTD_CHANNEL_NO,
+                                MTD_CREATED_DATE
+                            FROM dbo.MED_TREATMENT_DETAILS
+                            WHERE MTD_PATIENT_CODE = @patientId
+                              AND MTD_SERIAL_NO = @serialNo;";
+                        var treatmentPatientParameter = treatmentCommand.CreateParameter();
+                        treatmentPatientParameter.ParameterName = "@patientId";
+                        treatmentPatientParameter.Value = patientId.Trim();
+                        treatmentCommand.Parameters.Add(treatmentPatientParameter);
+                        var treatmentSerialParameter = treatmentCommand.CreateParameter();
+                        treatmentSerialParameter.ParameterName = "@serialNo";
+                        treatmentSerialParameter.Value = serialNo;
+                        treatmentCommand.Parameters.Add(treatmentSerialParameter);
+
+                        await using var reader = await treatmentCommand.ExecuteReaderAsync();
+                        if (await reader.ReadAsync())
+                        {
+                            var actualSerial = Convert.ToInt32((reader.IsDBNull(reader.GetOrdinal("MTD_SERIAL_NO")) ? null : reader.GetValue(reader.GetOrdinal("MTD_SERIAL_NO"))) ?? serialNo);
+                            treatment = new Dictionary<string, object?>
+                            {
+                                ["MTD_PATIENT_CODE"] = (reader.IsDBNull(reader.GetOrdinal("MTD_PATIENT_CODE")) ? null : reader.GetValue(reader.GetOrdinal("MTD_PATIENT_CODE"))),
+                                ["MTD_SERIAL_NO"] = actualSerial,
+                                ["MTD_DATE"] = (reader.IsDBNull(reader.GetOrdinal("MTD_DATE")) ? null : reader.GetValue(reader.GetOrdinal("MTD_DATE"))),
+                                ["MTD_DOCTOR"] = (reader.IsDBNull(reader.GetOrdinal("MTD_DOCTOR")) ? null : reader.GetValue(reader.GetOrdinal("MTD_DOCTOR"))),
+                                ["MTD_TYPE"] = (reader.IsDBNull(reader.GetOrdinal("MTD_TYPE")) ? null : reader.GetValue(reader.GetOrdinal("MTD_TYPE"))),
+                                ["MTD_COMPLAIN"] = (reader.IsDBNull(reader.GetOrdinal("MTD_COMPLAIN")) ? null : reader.GetValue(reader.GetOrdinal("MTD_COMPLAIN"))),
+                                ["MTD_DIAGNOSTICS"] = (reader.IsDBNull(reader.GetOrdinal("MTD_DIAGNOSTICS")) ? null : reader.GetValue(reader.GetOrdinal("MTD_DIAGNOSTICS"))),
+                                ["MTD_REMARKS"] = (reader.IsDBNull(reader.GetOrdinal("MTD_REMARKS")) ? null : reader.GetValue(reader.GetOrdinal("MTD_REMARKS"))),
+                                ["MTD_AMOUNT"] = (reader.IsDBNull(reader.GetOrdinal("MTD_AMOUNT")) ? null : reader.GetValue(reader.GetOrdinal("MTD_AMOUNT"))),
+                                ["MTD_PAYMENT_STATUS"] = (reader.IsDBNull(reader.GetOrdinal("MTD_PAYMENT_STATUS")) ? null : reader.GetValue(reader.GetOrdinal("MTD_PAYMENT_STATUS"))),
+                                ["MTD_TREATMENT_STATUS"] = (reader.IsDBNull(reader.GetOrdinal("MTD_TREATMENT_STATUS")) ? null : reader.GetValue(reader.GetOrdinal("MTD_TREATMENT_STATUS"))),
+                                ["MTD_APPOINMENT_ID"] = (reader.IsDBNull(reader.GetOrdinal("MTD_APPOINMENT_ID")) ? null : reader.GetValue(reader.GetOrdinal("MTD_APPOINMENT_ID"))),
+                                ["MTD_CHANNEL_NO"] = (reader.IsDBNull(reader.GetOrdinal("MTD_CHANNEL_NO")) ? null : reader.GetValue(reader.GetOrdinal("MTD_CHANNEL_NO"))),
+                                ["MTD_CREATED_DATE"] = (reader.IsDBNull(reader.GetOrdinal("MTD_CREATED_DATE")) ? null : reader.GetValue(reader.GetOrdinal("MTD_CREATED_DATE"))),
+                                ["Treatmentnumber"] = firstSerialNo.HasValue ? actualSerial - firstSerialNo.Value + 1 : 1
+                            };
+                        }
+                    }
+
+                    if (treatment == null)
+                        return NotFound("Treatment record not found.");
+
+                    var drugs = new List<Dictionary<string, object?>>();
+                    await using (var drugCommand = connection.CreateCommand())
+                    {
+                        drugCommand.CommandText = @"
+                            SELECT
+                                d.MDD_MATERIAL_CODE,
+                                d.MDD_QUANTITY,
+                                d.MDD_RATE,
+                                d.MDD_AMOUNT,
+                                d.MDD_DOSAGE,
+                                d.MDD_TAKES,
+                                d.MDD_GIVEN_QUANTITY,
+                                d.MDD_STATUS,
+                                m.MMC_DESCRIPTION AS DrugName,
+                                m.MMC_REORDER_LEVEL AS Stock
+                            FROM dbo.MED_DRUGS_DETAILS AS d
+                            LEFT JOIN dbo.MED_MATERIAL_CATALOGUE AS m
+                              ON m.MMC_MATERIAL_CODE = d.MDD_MATERIAL_CODE
+                            WHERE d.MDD_PATIENT_CODE = @patientId
+                              AND d.MDD_SERIAL_NO = @serialNo
+                              AND (d.MDD_STATUS IS NULL OR d.MDD_STATUS <> 'I')
+                            ORDER BY d.MDD_MATERIAL_CODE;";
+                        var drugPatientParameter = drugCommand.CreateParameter();
+                        drugPatientParameter.ParameterName = "@patientId";
+                        drugPatientParameter.Value = patientId.Trim();
+                        drugCommand.Parameters.Add(drugPatientParameter);
+                        var drugSerialParameter = drugCommand.CreateParameter();
+                        drugSerialParameter.ParameterName = "@serialNo";
+                        drugSerialParameter.Value = serialNo;
+                        drugCommand.Parameters.Add(drugSerialParameter);
+
+                        await using var reader = await drugCommand.ExecuteReaderAsync();
+                        while (await reader.ReadAsync())
+                        {
+                            drugs.Add(new Dictionary<string, object?>
+                            {
+                                ["MDD_MATERIAL_CODE"] = (reader.IsDBNull(reader.GetOrdinal("MDD_MATERIAL_CODE")) ? null : reader.GetValue(reader.GetOrdinal("MDD_MATERIAL_CODE"))),
+                                ["MDD_QUANTITY"] = (reader.IsDBNull(reader.GetOrdinal("MDD_QUANTITY")) ? null : reader.GetValue(reader.GetOrdinal("MDD_QUANTITY"))),
+                                ["MDD_RATE"] = (reader.IsDBNull(reader.GetOrdinal("MDD_RATE")) ? null : reader.GetValue(reader.GetOrdinal("MDD_RATE"))),
+                                ["MDD_AMOUNT"] = (reader.IsDBNull(reader.GetOrdinal("MDD_AMOUNT")) ? null : reader.GetValue(reader.GetOrdinal("MDD_AMOUNT"))),
+                                ["MDD_DOSAGE"] = (reader.IsDBNull(reader.GetOrdinal("MDD_DOSAGE")) ? null : reader.GetValue(reader.GetOrdinal("MDD_DOSAGE"))),
+                                ["MDD_TAKES"] = (reader.IsDBNull(reader.GetOrdinal("MDD_TAKES")) ? null : reader.GetValue(reader.GetOrdinal("MDD_TAKES"))),
+                                ["MDD_GIVEN_QUANTITY"] = (reader.IsDBNull(reader.GetOrdinal("MDD_GIVEN_QUANTITY")) ? null : reader.GetValue(reader.GetOrdinal("MDD_GIVEN_QUANTITY"))),
+                                ["MDD_STATUS"] = (reader.IsDBNull(reader.GetOrdinal("MDD_STATUS")) ? null : reader.GetValue(reader.GetOrdinal("MDD_STATUS"))),
+                                ["DrugName"] = (reader.IsDBNull(reader.GetOrdinal("DrugName")) ? null : reader.GetValue(reader.GetOrdinal("DrugName"))) ?? (reader.IsDBNull(reader.GetOrdinal("MDD_MATERIAL_CODE")) ? null : reader.GetValue(reader.GetOrdinal("MDD_MATERIAL_CODE"))),
+                                ["Stock"] = (reader.IsDBNull(reader.GetOrdinal("Stock")) ? null : reader.GetValue(reader.GetOrdinal("Stock")))
+                            });
+                        }
+                    }
+
+                    treatment["Drugs"] = drugs;
+                    return Ok(treatment);
+                }
+                finally
+                {
+                    if (shouldClose)
+                        await connection.CloseAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex,
+                    "Failed to load treatment record {PatientId}/{SerialNo}.", patientId, serialNo);
+                return StatusCode(500, new { message = "Unable to load the treatment record." });
+            }
         }
+
 
 
 
@@ -796,7 +981,8 @@ namespace WebApplication1.Controllers
 
             try
             {
-                await _emailService.SendNotificationEmailAsync(
+                var emailService = new CareSyncEmailService(_configuration);
+                await emailService.SendNotificationEmailAsync(
                     patient.MPD_EMAIL!,
                     patient.MPD_PATIENT_NAME,
                     "Your Medicare prescription",

@@ -1,1025 +1,650 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
-  Box,
-  Button,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  Snackbar,
   Alert,
-  Checkbox,
-  Tooltip,
+  CircularProgress,
+  Snackbar,
 } from "@mui/material";
 import {
   Search as SearchIcon,
-  ReceiptLong as ReceiptIcon,
   LocalPharmacy as PharmacyIcon,
+  Inventory2 as InventoryIcon,
   CheckCircle as CheckCircleIcon,
-  Print as PrintIcon,
-  History as HistoryIcon,
+  WarningAmber as WarningIcon,
+  ReceiptLong as ReceiptIcon,
   Refresh as RefreshIcon,
-  Shield as ShieldIcon,
-  Message as SmsIcon,
-  Close as CloseIcon,
-  Group as GroupIcon,
-  Description as DocIcon,
-  ArrowForward as ArrowForwardIcon,
-  Warning as WarningIcon,
+  History as HistoryIcon,
+  MedicalServices as MedicalIcon,
+  Person as PersonIcon,
 } from "@mui/icons-material";
 import { ROLES, normalizeRole } from "../utils/roleAccess";
+import "../styles/pharmacy.css";
 
-// Initial mock patients matching screenshot 2
-const MOCK_QUEUE = [];
+const API_BASE =
+  process.env.REACT_APP_API_BASE_URL || "http://localhost:5155/api";
+
+const money = (value) =>
+  `Rs. ${Number(value || 0).toLocaleString("en-LK", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
+
+const formatDate = (value) => {
+  if (!value) return "Not recorded";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "Not recorded";
+  return date.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+};
+
+const formatTime = (value) => {
+  if (!value) return "Not recorded";
+  const parts = String(value).split(":");
+  if (parts.length < 2) return String(value);
+  const d = new Date();
+  d.setHours(Number(parts[0]), Number(parts[1]), 0, 0);
+  return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+};
+
+const getErrorMessage = (error, fallback) => {
+  const data = error?.response?.data;
+  if (Array.isArray(data?.errors) && data.errors.length > 0) {
+    return data.errors.join(" ");
+  }
+  return data?.message || data?.error || fallback;
+};
 
 export default function Pharmacy() {
   const navigate = useNavigate();
   const role = normalizeRole(localStorage.getItem("Role"));
-  const [queue, setQueue] = useState(MOCK_QUEUE);
-  const [filterTab, setFilterTab] = useState("All");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedPatient, setSelectedPatient] = useState(MOCK_QUEUE[0] || null);
-  const [activeDrugs, setActiveDrugs] = useState(MOCK_QUEUE[0]?.drugs || []);
-  const [paymentMethod, setPaymentMethod] = useState("Direct Insurer Claim");
-  const [loading, setLoading] = useState(false);
-  const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
-  const [guideModal, setGuideModal] = useState(false);
+
+  const [queue, setQueue] = useState([]);
+  const [selectedSummary, setSelectedSummary] = useState(null);
+  const [encounter, setEncounter] = useState(null);
+  const [dispenseLines, setDispenseLines] = useState([]);
+  const [filter, setFilter] = useState("All");
+  const [search, setSearch] = useState("");
+  const [queueLoading, setQueueLoading] = useState(true);
+  const [detailLoading, setDetailLoading] = useState(false);
+  const [dispensing, setDispensing] = useState(false);
+  const [lastDispenseResult, setLastDispenseResult] = useState(null);
+  const [toast, setToast] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
 
   const showToast = (message, severity = "success") => {
-    setSnackbar({ open: true, message, severity });
+    setToast({ open: true, message, severity });
   };
 
-  // Sync with real backend if live
-  const fetchPharmacyData = async () => {
+  const loadQueue = async (preferredKey = null) => {
     try {
-      setLoading(true);
-      const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/Treatment/preparationcomplete`);
-      if (res.data && Array.isArray(res.data) && res.data.length > 0) {
-        const liveQueue = res.data.map((p, idx) => ({
-          code: p.MPD_PATIENT_CODE || `PA00${idx + 1}`,
-          name: p.MPD_PATIENT_NAME || `Patient ${idx + 1}`,
-          phone: p.MPD_MOBILE_NO || "0771234567",
-          doctor: p.DoctorName || "Dr. Medical Lead",
-          time: p.MTD_DATE ? new Date(p.MTD_DATE).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "Today",
-          status: p.Status === "C" ? "Completed" : "Pending",
-          pendingCount: p.PendingCount || 1,
-          serial: p.MTD_SERIAL_NO || 1,
-          age: "34Y",
-          sex: "Male",
-          allergies: "None Reported",
-          drugs: [
-            {
-              id: 1,
-              name: "Amoxycillin 500mg",
-              desc: "Capsule • Oral",
-              schedule: "Daily TDS (Every 8h)",
-              prescribedQty: 5,
-              givenQty: 5,
-              rate: 150.0,
-              stock: 31,
-              stockStatus: "Safe",
-              selected: true,
-            },
-            {
-              id: 2,
-              name: "Paracetamol 500mg",
-              desc: "Tablet • Post-Meal",
-              schedule: "BD Post-Meal (PRN)",
-              prescribedQty: 10,
-              givenQty: 10,
-              rate: 90.0,
-              stock: 246,
-              stockStatus: "Amp",
-              selected: true,
-            },
-          ],
-        }));
-        setQueue(liveQueue);
-        setSelectedPatient(liveQueue[0]);
-        setActiveDrugs(liveQueue[0].drugs);
+      setQueueLoading(true);
+      const response = await axios.get(`${API_BASE}/Pharmacy/queue`);
+      const rows = Array.isArray(response.data) ? response.data : [];
+      setQueue(rows);
+
+      const currentKey = preferredKey ||
+        (selectedSummary
+          ? `${selectedSummary.PatientCode}|${selectedSummary.SerialNo}`
+          : null);
+
+      const nextSelected =
+        rows.find(
+          (row) => `${row.PatientCode}|${row.SerialNo}` === currentKey
+        ) || rows[0] || null;
+
+      setSelectedSummary(nextSelected);
+      if (!nextSelected) {
+        setEncounter(null);
+        setDispenseLines([]);
       }
-    } catch (e) {
-      console.log("Using clinical queue fallback");
+    } catch (error) {
+      setQueue([]);
+      setSelectedSummary(null);
+      setEncounter(null);
+      setDispenseLines([]);
+      showToast(
+        getErrorMessage(error, "Unable to load the pharmacy prescription queue."),
+        "error"
+      );
     } finally {
-      setLoading(false);
+      setQueueLoading(false);
+    }
+  };
+
+  const loadEncounter = async (summary) => {
+    if (!summary) return;
+
+    try {
+      setDetailLoading(true);
+      const response = await axios.get(
+        `${API_BASE}/Pharmacy/encounter/${encodeURIComponent(
+          summary.PatientCode
+        )}/${summary.SerialNo}`
+      );
+
+      const data = response.data;
+      setEncounter(data);
+      setLastDispenseResult(null);
+
+      const lines = (data?.Drugs || []).map((drug) => {
+        const remaining = Number(drug.RemainingQty || 0);
+        const stock = Number(drug.Stock || 0);
+        const canDispense = remaining > 0 && stock > 0;
+        return {
+          ...drug,
+          Selected: canDispense,
+          DispenseNow: canDispense ? Math.min(remaining, stock) : 0,
+        };
+      });
+
+      setDispenseLines(lines);
+    } catch (error) {
+      setEncounter(null);
+      setDispenseLines([]);
+      showToast(
+        getErrorMessage(error, "Unable to load the selected prescription."),
+        "error"
+      );
+    } finally {
+      setDetailLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchPharmacyData();
+    loadQueue();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleSelectPatient = (p) => {
-    setSelectedPatient(p);
-    setActiveDrugs(p.drugs || []);
+  useEffect(() => {
+    if (selectedSummary) {
+      loadEncounter(selectedSummary);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedSummary?.PatientCode, selectedSummary?.SerialNo]);
+
+  const counts = useMemo(
+    () => ({
+      all: queue.length,
+      pending: queue.filter((row) => row.Status === "Pending").length,
+      fulfilled: queue.filter((row) => row.Status === "Fulfilled").length,
+    }),
+    [queue]
+  );
+
+  const filteredQueue = useMemo(() => {
+    const query = search.trim().toLowerCase();
+    return queue.filter((row) => {
+      if (filter !== "All" && row.Status !== filter) return false;
+      if (!query) return true;
+      return [row.PatientName, row.PatientCode, row.MobileNo, row.DoctorName]
+        .filter(Boolean)
+        .some((value) => String(value).toLowerCase().includes(query));
+    });
+  }, [queue, filter, search]);
+
+  const selectedDispenseTotal = useMemo(
+    () =>
+      dispenseLines
+        .filter((line) => line.Selected && Number(line.DispenseNow) > 0)
+        .reduce(
+          (sum, line) =>
+            sum + Number(line.DispenseNow || 0) * Number(line.Rate || 0),
+          0
+        ),
+    [dispenseLines]
+  );
+
+  const selectedCount = dispenseLines.filter(
+    (line) => line.Selected && Number(line.DispenseNow) > 0
+  ).length;
+
+  const updateLine = (materialCode, patch) => {
+    setDispenseLines((current) =>
+      current.map((line) =>
+        line.MaterialCode === materialCode ? { ...line, ...patch } : line
+      )
+    );
   };
 
-  const handleQuantityChange = (drugId, delta) => {
-    setActiveDrugs((prev) =>
-      prev.map((d) => {
-        if (d.id === drugId) {
-          const nextQty = Math.max(0, d.givenQty + delta);
-          return { ...d, givenQty: nextQty };
-        }
-        return d;
+  const changeQuantity = (line, delta) => {
+    const maxAllowed = Math.min(
+      Number(line.RemainingQty || 0),
+      Number(line.Stock || 0)
+    );
+    const next = Math.max(
+      0,
+      Math.min(maxAllowed, Number(line.DispenseNow || 0) + delta)
+    );
+    updateLine(line.MaterialCode, {
+      DispenseNow: next,
+      Selected: next > 0,
+    });
+  };
+
+  const toggleAll = () => {
+    const eligible = dispenseLines.filter(
+      (line) => Number(line.RemainingQty) > 0 && Number(line.Stock) > 0
+    );
+    const allSelected =
+      eligible.length > 0 && eligible.every((line) => line.Selected);
+
+    setDispenseLines((current) =>
+      current.map((line) => {
+        const canDispense =
+          Number(line.RemainingQty) > 0 && Number(line.Stock) > 0;
+        if (!canDispense) return { ...line, Selected: false, DispenseNow: 0 };
+        return {
+          ...line,
+          Selected: !allSelected,
+          DispenseNow: !allSelected
+            ? Math.min(Number(line.RemainingQty), Number(line.Stock))
+            : 0,
+        };
       })
     );
   };
 
-  const handleToggleDrug = (drugId) => {
-    setActiveDrugs((prev) =>
-      prev.map((d) => (d.id === drugId ? { ...d, selected: !d.selected } : d))
+  const handleDispense = async () => {
+    if (!encounter) return;
+
+    const lines = dispenseLines
+      .filter((line) => line.Selected && Number(line.DispenseNow) > 0)
+      .map((line) => ({
+        MaterialCode: line.MaterialCode,
+        Quantity: Number(line.DispenseNow),
+      }));
+
+    if (lines.length === 0) {
+      showToast("Select at least one pending medicine to dispense.", "warning");
+      return;
+    }
+
+    try {
+      setDispensing(true);
+      const patientCode = encounter.Patient.Code;
+      const serialNo = encounter.Treatment.SerialNo;
+
+      const response = await axios.post(
+        `${API_BASE}/Pharmacy/dispense/${encodeURIComponent(
+          patientCode
+        )}/${serialNo}`,
+        {
+          DispenserUserId: localStorage.getItem("id") || null,
+          Lines: lines,
+        }
+      );
+
+      const updatedEncounter = response.data?.Encounter;
+      if (updatedEncounter) {
+        setEncounter(updatedEncounter);
+        setDispenseLines(
+          (updatedEncounter.Drugs || []).map((drug) => {
+            const remaining = Number(drug.RemainingQty || 0);
+            const stock = Number(drug.Stock || 0);
+            const canDispense = remaining > 0 && stock > 0;
+            return {
+              ...drug,
+              Selected: canDispense,
+              DispenseNow: canDispense ? Math.min(remaining, stock) : 0,
+            };
+          })
+        );
+      }
+
+      setLastDispenseResult(response.data);
+      showToast(response.data?.message || "Medicines dispensed successfully.");
+      await loadQueue(`${patientCode}|${serialNo}`);
+    } catch (error) {
+      showToast(
+        getErrorMessage(error, "The selected medicines could not be dispensed."),
+        "error"
+      );
+    } finally {
+      setDispensing(false);
+    }
+  };
+
+  const openReceipt = () => {
+    if (!encounter) return;
+    navigate(
+      `/dashboard/pharmacy-invoice/${encounter.Patient.Code}/${encounter.Treatment.SerialNo}`,
+      { state: { dispenseResult: lastDispenseResult } }
     );
   };
 
-  const handleSelectAll = (selectAll) => {
-    setActiveDrugs((prev) => prev.map((d) => ({ ...d, selected: selectAll })));
-  };
-
-  // Calculations
-  const drugSubtotal = activeDrugs
-    .filter((d) => d.selected)
-    .reduce((acc, d) => acc + d.givenQty * d.rate, 0) || 1650.0;
-  const packagingFee = 250.0;
-  const subsidyAmount = -(drugSubtotal * 0.1);
-  const totalNetPayable = Math.max(0, drugSubtotal + packagingFee + subsidyAmount);
-
-  const handleDispense = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      showToast(`Invoice generated & medications dispensed for ${selectedPatient.name}!`, "success");
-      // Mark as completed
-      setQueue((prev) =>
-        prev.map((p) => (p.code === selectedPatient.code ? { ...p, status: "Completed", pendingCount: 0 } : p))
-      );
-      setSelectedPatient((prev) => ({ ...prev, status: "Completed", pendingCount: 0 }));
-    }, 900);
-  };
-
-  const filteredQueue = queue.filter((p) => {
-    if (filterTab === "Pending" && p.status !== "Pending") return false;
-    if (filterTab === "Fulfilled" && p.status !== "Completed") return false;
-    if (searchQuery) {
-      const q = searchQuery.toLowerCase();
-      return (
-        p.name.toLowerCase().includes(q) ||
-        p.code.toLowerCase().includes(q) ||
-        p.phone.includes(q)
-      );
-    }
-    return true;
-  });
-
-  const allCount = queue.length;
-  const pendingCount = queue.filter((p) => p.status === "Pending").length;
-  const fulfilledCount = queue.filter((p) => p.status === "Completed").length;
+  const patientLocation = encounter
+    ? [encounter.Patient.Address, encounter.Patient.City]
+        .filter(Boolean)
+        .join(", ") || "Not recorded"
+    : "";
 
   return (
-    <div className="hospital-admin-page-container">
-      {/* ── Page Header ────────────────────────────────────── */}
-      <div className="page-title-row">
+    <div className="pharm-page">
+      <section className="pharm-page-header">
         <div>
-          <h1 className="page-title-heading">Hospital Pharmacy Dispensing &amp; Invoicing</h1>
-          <p className="page-subtitle-text">
-            Verify clinical doctor orders, allocate prescribed drugs, adjust stock dosages, and generate itemized hospital tax invoices in real-time.
+          <div className="pharm-eyebrow">Clinical Operations / Central Pharmacy</div>
+          <h1>Pharmacy Dispensing</h1>
+          <p>
+            Review the physician's actual prescription, validate live stock and
+            record exactly what is dispensed to the patient.
           </p>
         </div>
+        <button className="pharm-secondary-btn" onClick={() => loadQueue()}>
+          <RefreshIcon fontSize="small" /> Refresh queue
+        </button>
+      </section>
 
-        <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "6px",
-              background: "#E0F2FE",
-              color: "#0369A1",
-              fontSize: "12px",
-              fontWeight: 700,
-              padding: "6px 14px",
-              borderRadius: "20px",
-            }}
-          >
-            <span className="pulse-dot"></span>
-            <span>Terminal Rx-North-04</span>
-          </div>
+      <section className="pharm-kpis">
+        <article>
+          <div className="pharm-kpi-icon blue"><MedicalIcon /></div>
+          <div><span>Prescription encounters</span><strong>{counts.all}</strong></div>
+        </article>
+        <article>
+          <div className="pharm-kpi-icon amber"><WarningIcon /></div>
+          <div><span>Awaiting pharmacy</span><strong>{counts.pending}</strong></div>
+        </article>
+        <article>
+          <div className="pharm-kpi-icon green"><CheckCircleIcon /></div>
+          <div><span>Fully dispensed</span><strong>{counts.fulfilled}</strong></div>
+        </article>
+      </section>
 
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-              background: "#FFFFFF",
-              border: "1px solid #E2E8F0",
-              borderRadius: "10px",
-              padding: "6px 12px",
-            }}
-          >
-            <RefreshIcon sx={{ fontSize: 18, color: "#0284C7" }} />
+      <section className="pharm-workspace">
+        <aside className="pharm-queue-panel">
+          <div className="pharm-panel-heading">
             <div>
-              <div style={{ fontSize: "9.5px", fontWeight: 800, color: "#64748B", textTransform: "uppercase" }}>
-                STOCK DATABASE
+              <h2>Prescription Queue</h2>
+              <span>Real treatment records from the clinical encounter</span>
+            </div>
+            <span className="pharm-count-badge">{filteredQueue.length}</span>
+          </div>
+
+          <div className="pharm-search">
+            <SearchIcon fontSize="small" />
+            <input
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              placeholder="Search patient, code, phone or doctor"
+            />
+          </div>
+
+          <div className="pharm-tabs">
+            {[
+              ["All", counts.all],
+              ["Pending", counts.pending],
+              ["Fulfilled", counts.fulfilled],
+            ].map(([name, count]) => (
+              <button
+                key={name}
+                className={filter === name ? "active" : ""}
+                onClick={() => setFilter(name)}
+              >
+                {name} <span>{count}</span>
+              </button>
+            ))}
+          </div>
+
+          <div className="pharm-queue-list">
+            {queueLoading ? (
+              <div className="pharm-centered-state"><CircularProgress size={26} /></div>
+            ) : filteredQueue.length === 0 ? (
+              <div className="pharm-empty-state">
+                <PharmacyIcon />
+                <strong>No prescriptions found</strong>
+                <span>No records match the selected queue filter.</span>
               </div>
-              <div style={{ fontSize: "11px", fontWeight: 700, color: "#0F172A" }}>
-                Live ERP Sync (0.8s)
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* ── 4 KPI Stat Cards ────────────────────────────────── */}
-      <div className="kpi-cards-grid">
-        <div className="kpi-card">
-          <div>
-            <div className="kpi-label">ALLOCATED PATIENTS</div>
-            <div className="kpi-val-row">
-              <span className="kpi-number">{allCount}</span>
-              <span className="kpi-delta-pill blue">Active Queue</span>
-            </div>
-            <div className="kpi-subtext">Assigned to Dispensary</div>
-          </div>
-          <div className="kpi-icon-box blue">
-            <GroupIcon sx={{ fontSize: 22 }} />
-          </div>
-        </div>
-
-        <div className="kpi-card">
-          <div>
-            <div className="kpi-label">PENDING DISPENSE</div>
-            <div className="kpi-val-row">
-              <span className="kpi-number" style={{ color: "#DC2626" }}>{pendingCount}</span>
-              <span className="kpi-delta-pill red">Action needed</span>
-            </div>
-            <div className="kpi-subtext">3 Critical / Antibiotics</div>
-          </div>
-          <div className="kpi-icon-box red">
-            <WarningIcon sx={{ fontSize: 22 }} />
-          </div>
-        </div>
-
-        <div className="kpi-card">
-          <div>
-            <div className="kpi-label">COMPLETED INVOICED</div>
-            <div className="kpi-val-row">
-              <span className="kpi-number">{fulfilledCount}</span>
-              <span className="kpi-delta-pill blue">Dispatched</span>
-            </div>
-            <div className="kpi-subtext">Dispatched to Patients</div>
-          </div>
-          <div className="kpi-icon-box teal">
-            <CheckCircleIcon sx={{ fontSize: 22 }} />
-          </div>
-        </div>
-
-        <div className="kpi-card">
-          <div>
-            <div className="kpi-label">REVENUE TODAY</div>
-            <div className="kpi-val-row">
-              <span className="kpi-number">Rs. 142.5k</span>
-            </div>
-            <div className="kpi-subtext">Insurance &amp; Direct Cash</div>
-          </div>
-          <div className="kpi-icon-box purple">
-            <ReceiptIcon sx={{ fontSize: 22 }} />
-          </div>
-        </div>
-      </div>
-
-      {/* ── Two Column Workspace: Left Queue + Right Dispensing Hub ─ */}
-      <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1.8fr", gap: "22px" }}>
-        {/* Left Column: Allocated Patients Queue */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-          <div className="clinical-table-card" style={{ padding: "16px" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px" }}>
-              <h3 style={{ margin: 0, fontSize: "16px", fontWeight: 800, color: "#0F172A" }}>
-                Allocated Patients
-              </h3>
-              <span
-                style={{
-                  background: "#E0F2FE",
-                  color: "#0284C7",
-                  fontSize: "11px",
-                  fontWeight: 700,
-                  padding: "4px 10px",
-                  borderRadius: "12px",
-                }}
-              >
-                Total Queue: {allCount}
-              </span>
-            </div>
-
-            {/* Search Input */}
-            <div
-              className="topbar-search-box"
-              style={{
-                width: "100%",
-                background: "#F8FAFC",
-                border: "1px solid #E2E8F0",
-                boxSizing: "border-box",
-                marginBottom: "12px",
-              }}
-            >
-              <SearchIcon sx={{ fontSize: 18, color: "#64748B" }} />
-              <input
-                type="text"
-                placeholder="Search by patient name, MRN, mobile..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-
-            {/* Filter Pills */}
-            <div className="filter-pills-row" style={{ marginBottom: "14px" }}>
-              <button
-                className={`filter-pill-btn ${filterTab === "All" ? "active" : ""}`}
-                onClick={() => setFilterTab("All")}
-              >
-                All ({allCount})
-              </button>
-              <button
-                className={`filter-pill-btn ${filterTab === "Pending" ? "active" : ""}`}
-                onClick={() => setFilterTab("Pending")}
-              >
-                Pending ({pendingCount})
-              </button>
-              <button
-                className={`filter-pill-btn ${filterTab === "Fulfilled" ? "active" : ""}`}
-                onClick={() => setFilterTab("Fulfilled")}
-              >
-                Fulfilled ({fulfilledCount})
-              </button>
-            </div>
-
-            {/* Live Feed Header */}
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "8px 0",
-                borderTop: "1px solid #F1F5F9",
-                borderBottom: "1px solid #F1F5F9",
-                marginBottom: "10px",
-                fontSize: "11.5px",
-                fontWeight: 700,
-                color: "#64748B",
-              }}
-            >
-              <span style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                <DocIcon sx={{ fontSize: 15, color: "#0284C7" }} />
-                LIVE PRESCRIPTIONS FEED
-              </span>
-              <span>May 9, 2025</span>
-            </div>
-
-            {/* Queue Cards List */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-              {filteredQueue.map((p) => {
-                const isSelected = selectedPatient.code === p.code;
-                const isPending = p.status === "Pending";
-                const initials = p.name
-                  .split(" ")
-                  .map((w) => w[0])
-                  .join("")
-                  .slice(0, 2)
-                  .toUpperCase();
-
+            ) : (
+              filteredQueue.map((row) => {
+                const active =
+                  selectedSummary?.PatientCode === row.PatientCode &&
+                  selectedSummary?.SerialNo === row.SerialNo;
                 return (
-                  <div
-                    key={p.code}
-                    onClick={() => handleSelectPatient(p)}
-                    style={{
-                      padding: "12px",
-                      borderRadius: "12px",
-                      border: isSelected ? "2px solid #0284C7" : "1px solid #E2E8F0",
-                      background: isSelected ? "#F0F9FF" : "#FFFFFF",
-                      cursor: "pointer",
-                      transition: "all 0.15s",
-                    }}
+                  <button
+                    key={`${row.PatientCode}-${row.SerialNo}`}
+                    className={`pharm-queue-card ${active ? "active" : ""}`}
+                    onClick={() => setSelectedSummary(row)}
                   >
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                      <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                        <div
-                          style={{
-                            width: 38,
-                            height: 38,
-                            borderRadius: "10px",
-                            background: isPending ? "#0284C7" : "#E2E8F0",
-                            color: isPending ? "#FFFFFF" : "#475569",
-                            fontWeight: 800,
-                            fontSize: "13px",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                        >
-                          {initials}
-                        </div>
-                        <div>
-                          <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                            <strong style={{ fontSize: "13.5px", color: "#0F172A" }}>{p.name}</strong>
-                            <span
-                              style={{
-                                background: "#E0F2FE",
-                                color: "#0284C7",
-                                fontSize: "10.5px",
-                                fontWeight: 700,
-                                padding: "2px 6px",
-                                borderRadius: "6px",
-                              }}
-                            >
-                              {p.code}
-                            </span>
-                          </div>
-                          <div style={{ fontSize: "11.5px", color: "#64748B", marginTop: "2px" }}>
-                            {p.phone} • {p.doctor}
-                          </div>
-                          <div style={{ fontSize: "11px", color: "#94A3B8" }}>{p.time}</div>
-                        </div>
+                    <div className="pharm-avatar">
+                      {(row.PatientName || "P").trim().charAt(0).toUpperCase()}
+                    </div>
+                    <div className="pharm-queue-copy">
+                      <div className="pharm-queue-name-row">
+                        <strong>{row.PatientName || "Unnamed patient"}</strong>
+                        <span className={`pharm-status ${row.Status.toLowerCase()}`}>
+                          {row.Status}
+                        </span>
                       </div>
-
-                      <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "6px" }}>
-                        {isPending ? (
-                          <span
-                            style={{
-                              background: "#E0F2FE",
-                              color: "#0369A1",
-                              fontSize: "11px",
-                              fontWeight: 700,
-                              padding: "2px 8px",
-                              borderRadius: "12px",
-                            }}
-                          >
-                            ● Pending ({p.pendingCount})
-                          </span>
-                        ) : (
-                          <span
-                            style={{
-                              background: "#ECFDF5",
-                              color: "#059669",
-                              fontSize: "11px",
-                              fontWeight: 700,
-                              padding: "2px 8px",
-                              borderRadius: "12px",
-                            }}
-                          >
-                            ✓ Completed
-                          </span>
-                        )}
-
-                        <button
-                          style={{
-                            background: isPending ? "#0284C7" : "#FFFFFF",
-                            color: isPending ? "#FFFFFF" : "#64748B",
-                            border: isPending ? "none" : "1px solid #CBD5E1",
-                            fontSize: "11px",
-                            fontWeight: 700,
-                            padding: "4px 10px",
-                            borderRadius: "6px",
-                            cursor: "pointer",
-                          }}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleSelectPatient(p);
-                            if (!isPending) {
-                              showToast(`Loading Receipt for ${p.code}...`, "info");
-                            }
-                          }}
-                        >
-                          {isPending ? "View Rx" : "Receipt"}
-                        </button>
+                      <span>{row.PatientCode} · Encounter #{row.SerialNo}</span>
+                      <span>{row.DoctorName || "Doctor not recorded"}</span>
+                      <div className="pharm-queue-meta">
+                        <span>{formatDate(row.EncounterDate)}</span>
+                        <span>{row.PendingDrugCount} pending</span>
                       </div>
                     </div>
-                  </div>
+                  </button>
                 );
-              })}
-            </div>
-
-            {/* Pagination */}
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginTop: "14px",
-                paddingTop: "10px",
-                borderTop: "1px solid #F1F5F9",
-                fontSize: "11.5px",
-                color: "#64748B",
-              }}
-            >
-              <span>Showing 5 of 45 allocated patients</span>
-              <span>Page 1 of 9 &lsaquo; &rsaquo;</span>
-            </div>
+              })
+            )}
           </div>
+        </aside>
 
-          {/* Hospital Formulary & Dosing Guide Callout Card */}
-          <div
-            style={{
-              background: "#FFFFFF",
-              border: "1px solid #E2E8F0",
-              borderRadius: "14px",
-              padding: "16px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: "12px",
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-              <div
-                style={{
-                  width: 38,
-                  height: 38,
-                  borderRadius: "10px",
-                  background: "#E0F2FE",
-                  color: "#0284C7",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <PharmacyIcon sx={{ fontSize: 20 }} />
-              </div>
-              <div>
-                <div style={{ fontSize: "13px", fontWeight: 700, color: "#0F172A" }}>
-                  Hospital Formulary &amp; Dosing Guide
-                </div>
-                <div style={{ fontSize: "11.5px", color: "#64748B" }}>
-                  Look up contraindications, stock alternatives &amp; maximum daily thresholds.
-                </div>
-              </div>
+        <main className="pharm-detail-panel">
+          {!selectedSummary ? (
+            <div className="pharm-empty-detail">
+              <PharmacyIcon />
+              <h2>Select a prescription encounter</h2>
+              <p>The physician-prescribed medicines will appear here.</p>
             </div>
-
-            <button className="btn-secondary-white" onClick={() => setGuideModal(true)}>
-              Open Guide
-            </button>
-          </div>
-        </div>
-
-        {/* Right Column: Treatment Details, Drugs Table & Invoice Generation */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-          {!selectedPatient ? (
-            <div style={{ padding: "40px", textAlign: "center", color: "#64748B", background: "#FFFFFF", borderRadius: "14px", border: "1px solid #E2E8F0" }}>
-              <PharmacyIcon sx={{ fontSize: 48, color: "#E2E8F0", marginBottom: "16px" }} />
-              <h3>No Patients in Queue</h3>
-              <p>Select a patient from the live feed to begin dispensing medications.</p>
+          ) : detailLoading ? (
+            <div className="pharm-centered-state detail"><CircularProgress /></div>
+          ) : !encounter ? (
+            <div className="pharm-empty-detail">
+              <WarningIcon />
+              <h2>Prescription details unavailable</h2>
+              <p>Refresh the queue and select the record again.</p>
             </div>
           ) : (
             <>
-          {/* Treatment Details Header Card */}
-          <div className="clinical-table-card" style={{ padding: "20px" }}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "flex-start",
-                paddingBottom: "14px",
-                borderBottom: "1px solid #F1F5F9",
-                marginBottom: "14px",
-              }}
-            >
-              <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
-                <div
-                  style={{
-                    width: 42,
-                    height: 42,
-                    borderRadius: "12px",
-                    background: "#0A5364",
-                    color: "#FFFFFF",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <PharmacyIcon sx={{ fontSize: 22 }} />
-                </div>
-                <div>
-                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                    <h2 style={{ margin: 0, fontSize: "16.5px", fontWeight: 800, color: "#0F172A" }}>
-                      Treatment Details • Patient: {selectedPatient.name}
-                    </h2>
-                    <span
-                      style={{
-                        background: "#E0F2FE",
-                        color: "#0284C7",
-                        fontSize: "11px",
-                        fontWeight: 700,
-                        padding: "2px 8px",
-                        borderRadius: "8px",
-                      }}
-                    >
-                      {selectedPatient.code}
-                    </span>
+              <div className="pharm-encounter-header">
+                <div className="pharm-patient-title">
+                  <div className="pharm-large-avatar">
+                    {(encounter.Patient.Name || "P").trim().charAt(0).toUpperCase()}
                   </div>
-                  <div style={{ fontSize: "12px", color: "#64748B", marginTop: "2px" }}>
-                    Prescribed by: {selectedPatient.doctor}
+                  <div>
+                    <div className="pharm-title-line">
+                      <h2>{encounter.Patient.Name || "Unnamed patient"}</h2>
+                      <span>{encounter.Patient.Code}</span>
+                      <span className={`pharm-status ${encounter.PharmacyStatus.toLowerCase()}`}>
+                        {encounter.PharmacyStatus === "Pending" ? "Awaiting pharmacy" : "Fulfilled"}
+                      </span>
+                    </div>
+                    <p>
+                      Encounter #{encounter.Treatment.SerialNo} · Prescribed by {encounter.Doctor.Name}
+                      {encounter.Doctor.Specialization
+                        ? ` (${encounter.Doctor.Specialization})`
+                        : ""}
+                    </p>
                   </div>
                 </div>
-              </div>
-
-              <div style={{ display: "flex", gap: "8px" }}>
-                <button
-                  className="topbar-icon-btn"
-                  title="Print Prescription"
-                  onClick={() => window.print()}
-                >
-                  <PrintIcon sx={{ fontSize: 18 }} />
-                </button>
-                {role !== ROLES.PHARMACIST && (
-                  <button
-                    className="topbar-icon-btn"
-                    title="Patient Medical History"
-                    onClick={() => navigate(`/dashboard/medical-history`)}
-                  >
-                    <HistoryIcon sx={{ fontSize: 18 }} />
+                <div className="pharm-header-actions">
+                  <button className="pharm-icon-btn" onClick={() => window.print()} title="Print">
+                    <ReceiptIcon fontSize="small" />
                   </button>
-                )}
-              </div>
-            </div>
-
-            {/* Demographics Bar */}
-            <div
-              style={{
-                background: "#F8FAFC",
-                border: "1px solid #E2E8F0",
-                borderRadius: "10px",
-                padding: "10px 14px",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                flexWrap: "wrap",
-                gap: "10px",
-                fontSize: "12px",
-                color: "#334155",
-                marginBottom: "16px",
-              }}
-            >
-              <div>
-                Patient: <strong>{selectedPatient.name}</strong>
-              </div>
-              <div>
-                Contact: <strong>{selectedPatient.phone}</strong>
-              </div>
-              <div>
-                Age/Sex: <strong>{selectedPatient.age} / {selectedPatient.sex}</strong>
-              </div>
-              <div style={{ display: "flex", alignItems: "center", gap: "5px", color: "#0284C7", fontWeight: 700 }}>
-                <ShieldIcon sx={{ fontSize: 14 }} />
-                <span>Allergies: {selectedPatient.allergies}</span>
-              </div>
-            </div>
-
-            {/* Prescribed Clinical Drugs Header */}
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginBottom: "12px",
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <h3 style={{ margin: 0, fontSize: "15px", fontWeight: 800, color: "#0F172A" }}>
-                  Prescribed Clinical Drugs
-                </h3>
-                <span
-                  style={{
-                    background: "#0284C7",
-                    color: "#FFFFFF",
-                    fontSize: "11px",
-                    fontWeight: 700,
-                    padding: "2px 8px",
-                    borderRadius: "12px",
-                  }}
-                >
-                  {activeDrugs.length} Medications
-                </span>
-                <span
-                  style={{ fontSize: "12px", fontWeight: 700, color: "#0284C7", cursor: "pointer" }}
-                  onClick={() => handleSelectAll(true)}
-                >
-                  Select All
-                </span>
-              </div>
-
-              <div style={{ fontSize: "11.5px", fontWeight: 600, color: "#64748B" }}>
-                ● Central Dispensary Rack #04
-              </div>
-            </div>
-
-            {/* Prescribed Drugs Table */}
-            <div style={{ overflowX: "auto", border: "1px solid #E2E8F0", borderRadius: "10px" }}>
-              <table className="clinical-table">
-                <thead>
-                  <tr>
-                    <th style={{ width: "40px" }}>
-                      <Checkbox
-                        size="small"
-                        checked={activeDrugs.every((d) => d.selected)}
-                        onChange={(e) => handleSelectAll(e.target.checked)}
-                        sx={{ color: "#FFFFFF", "&.Mui-checked": { color: "#FFFFFF" }, p: 0 }}
-                      />
-                    </th>
-                    <th>Drug &amp; Form</th>
-                    <th>Dosage Schedule</th>
-                    <th>Prescribed</th>
-                    <th>Given Qty</th>
-                    <th>Stock</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {activeDrugs.map((drug) => (
-                    <tr key={drug.id}>
-                      <td>
-                        <Checkbox
-                          size="small"
-                          checked={drug.selected}
-                          onChange={() => handleToggleDrug(drug.id)}
-                          sx={{ p: 0 }}
-                        />
-                      </td>
-                      <td>
-                        <div style={{ fontWeight: 800, color: "#0F172A", fontSize: "13.5px" }}>
-                          {drug.name}
-                        </div>
-                        <div style={{ fontSize: "11.5px", color: "#64748B" }}>{drug.desc}</div>
-                      </td>
-                      <td>
-                        <div style={{ fontWeight: 600, color: "#334155", fontSize: "12px" }}>
-                          {drug.schedule}
-                        </div>
-                      </td>
-                      <td style={{ fontWeight: 700, color: "#0F172A", fontSize: "13px" }}>
-                        {drug.prescribedQty}
-                      </td>
-                      <td>
-                        <div
-                          style={{
-                            display: "inline-flex",
-                            alignItems: "center",
-                            background: "#F1F5F9",
-                            borderRadius: "6px",
-                            padding: "2px 6px",
-                            gap: "8px",
-                          }}
-                        >
-                          <button
-                            onClick={() => handleQuantityChange(drug.id, -1)}
-                            style={{
-                              background: "#FFFFFF",
-                              border: "1px solid #CBD5E1",
-                              borderRadius: "4px",
-                              width: "22px",
-                              height: "22px",
-                              cursor: "pointer",
-                              fontWeight: 700,
-                            }}
-                          >
-                            -
-                          </button>
-                          <span style={{ fontWeight: 700, fontSize: "13px", minWidth: "16px", textAlign: "center" }}>
-                            {drug.givenQty}
-                          </span>
-                          <button
-                            onClick={() => handleQuantityChange(drug.id, 1)}
-                            style={{
-                              background: "#FFFFFF",
-                              border: "1px solid #CBD5E1",
-                              borderRadius: "4px",
-                              width: "22px",
-                              height: "22px",
-                              cursor: "pointer",
-                              fontWeight: 700,
-                            }}
-                          >
-                            +
-                          </button>
-                        </div>
-                      </td>
-                      <td>
-                        <span
-                          style={{
-                            fontSize: "11px",
-                            fontWeight: 700,
-                            color: drug.stockStatus === "Safe" ? "#059669" : "#0284C7",
-                          }}
-                        >
-                          {drug.stock} {drug.stockStatus}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* Dispensary Invoice Summary Box */}
-            <div
-              style={{
-                background: "#F8FAFC",
-                border: "1px solid #E2E8F0",
-                borderRadius: "12px",
-                padding: "16px 20px",
-                marginTop: "16px",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  paddingBottom: "10px",
-                  borderBottom: "1px solid #E2E8F0",
-                  marginBottom: "12px",
-                }}
-              >
-                <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px", fontWeight: 800, color: "#0F172A" }}>
-                  <ReceiptIcon sx={{ fontSize: 16, color: "#0284C7" }} />
-                  Dispensary Invoice Summary
-                </div>
-                <span style={{ fontSize: "11px", color: "#64748B", fontFamily: "monospace" }}>
-                  Invoice Tax ID: INV-2025-0509-88
-                </span>
-              </div>
-
-              <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: "20px", alignItems: "center" }}>
-                <div style={{ display: "flex", flexDirection: "column", gap: "6px", fontSize: "12.5px" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between" }}>
-                    <span style={{ color: "#64748B" }}>Prescription Drug Subtotal:</span>
-                    <strong style={{ color: "#0F172A" }}>Rs. {drugSubtotal.toFixed(2)}</strong>
-                  </div>
-                  <div style={{ display: "flex", justifyContent: "space-between" }}>
-                    <span style={{ color: "#64748B" }}>Pharmacy Handling &amp; Sterile Packaging:</span>
-                    <strong style={{ color: "#0F172A" }}>Rs. {packagingFee.toFixed(2)}</strong>
-                  </div>
-                  <div style={{ display: "flex", justifyContent: "space-between", color: "#0284C7" }}>
-                    <span>National Health Subsidy Scheme (-10%):</span>
-                    <strong>- Rs. {Math.abs(subsidyAmount).toFixed(2)}</strong>
-                  </div>
-                </div>
-
-                <div
-                  style={{
-                    background: "#FFFFFF",
-                    border: "1px solid #E2E8F0",
-                    borderRadius: "10px",
-                    padding: "12px",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "flex-end",
-                  }}
-                >
-                  <div style={{ fontSize: "10px", fontWeight: 800, color: "#64748B", textTransform: "uppercase" }}>
-                    TOTAL NET PAYABLE
-                  </div>
-                  <div style={{ fontSize: "24px", fontWeight: 900, color: "#0284C7", letterSpacing: "-0.03em" }}>
-                    Rs. {totalNetPayable.toFixed(2)}
-                  </div>
-                  <div style={{ fontSize: "10.5px", color: "#94A3B8" }}>Inclusive of hospital VAT</div>
-                  <div style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "6px" }}>
-                    <span style={{ fontSize: "11px", color: "#64748B" }}>Payment:</span>
-                    <select
-                      value={paymentMethod}
-                      onChange={(e) => setPaymentMethod(e.target.value)}
-                      style={{
-                        fontSize: "11.5px",
-                        fontWeight: 700,
-                        padding: "3px 8px",
-                        borderRadius: "6px",
-                        border: "1px solid #CBD5E1",
-                        background: "#F8FAFC",
-                        color: "#0F172A",
-                        cursor: "pointer",
-                      }}
+                  {role !== ROLES.PHARMACIST && (
+                    <button
+                      className="pharm-icon-btn"
+                      onClick={() => navigate("/dashboard/medical-history")}
+                      title="Patient records"
                     >
-                      <option value="Direct Insurer Claim">Direct Insurer Claim</option>
-                      <option value="Direct Cash">Direct Cash</option>
-                      <option value="Hospital Credit">Hospital Credit</option>
-                    </select>
-                  </div>
+                      <HistoryIcon fontSize="small" />
+                    </button>
+                  )}
                 </div>
               </div>
-            </div>
 
-            {/* Dual Pharmacist Verification Check Note */}
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "10px 14px",
-                background: "#EFF6FF",
-                border: "1px solid #DBEAFE",
-                borderRadius: "8px",
-                marginTop: "14px",
-                fontSize: "12px",
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <CheckCircleIcon sx={{ fontSize: 16, color: "#0284C7" }} />
+              <div className="pharm-demographics">
+                <div><span>NIC</span><strong>{encounter.Patient.Nic || "Not recorded"}</strong></div>
+                <div><span>Contact</span><strong>{encounter.Patient.Mobile || "Not recorded"}</strong></div>
                 <div>
-                  <strong style={{ color: "#0284C7" }}>Dual Pharmacist Check Complete</strong>
-                  <div style={{ fontSize: "11px", color: "#64748B" }}>
-                    Dispenser: Pharm. Test Alpha • License SL-PH-9921
-                  </div>
+                  <span>Age / Sex</span>
+                  <strong>
+                    {encounter.Patient.Age != null ? `${encounter.Patient.Age} yrs` : "Age not recorded"}
+                    {encounter.Patient.Gender ? ` / ${encounter.Patient.Gender}` : ""}
+                  </strong>
                 </div>
+                <div><span>Blood group</span><strong>{encounter.Patient.BloodGroup || "Not recorded"}</strong></div>
+                <div><span>Location</span><strong>{patientLocation}</strong></div>
+                <div><span>Appointment</span><strong>{encounter.Appointment ? `${formatDate(encounter.Appointment.Date)} · ${formatTime(encounter.Appointment.Time)}` : "Not linked"}</strong></div>
               </div>
-              <span
-                style={{ fontSize: "11.5px", fontWeight: 700, color: "#0284C7", cursor: "pointer" }}
-                onClick={() => showToast("Dispenser clinical note attached.", "info")}
-              >
-                Add Dispenser Note
-              </span>
-            </div>
 
-            {/* Action Buttons Row */}
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "flex-end",
-                gap: "10px",
-                marginTop: "16px",
-                paddingTop: "14px",
-                borderTop: "1px solid #F1F5F9",
-              }}
-            >
-              <button
-                className="btn-secondary-white"
-                onClick={() => showToast("Dispensing cancelled.", "info")}
-              >
-                Cancel
-              </button>
-              <button
-                className="btn-secondary-white"
-                onClick={() => showToast(`SMS receipt dispatched to ${selectedPatient.phone}`, "success")}
-              >
-                <SmsIcon sx={{ fontSize: 16 }} />
-                <span>SMS Receipt</span>
-              </button>
-              <button
-                className="btn-primary-cyan"
-                onClick={handleDispense}
-                disabled={loading}
-              >
-                {loading ? <CircularProgress size={18} color="inherit" /> : <ReceiptIcon sx={{ fontSize: 18 }} />}
-                <span>Generate Hospital Tax Invoice &amp; Dispense</span>
-              </button>
-            </div>
-          </div>
-          </>
+              <div className="pharm-section-heading">
+                <div>
+                  <h3>Physician Prescription</h3>
+                  <p>Quantities, rates and stock below are loaded from the database.</p>
+                </div>
+                <button className="pharm-text-btn" onClick={toggleAll}>Select / clear pending</button>
+              </div>
+
+              <div className="pharm-table-wrap">
+                <table className="pharm-table">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Medicine</th>
+                      <th>Schedule</th>
+                      <th>Prescribed</th>
+                      <th>Already dispensed</th>
+                      <th>Dispense now</th>
+                      <th>Stock</th>
+                      <th>Rate</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {dispenseLines.map((line) => {
+                      const pending = Number(line.RemainingQty) > 0;
+                      const outOfStock = Number(line.Stock) <= 0;
+                      return (
+                        <tr key={line.MaterialCode} className={!pending ? "fulfilled-row" : ""}>
+                          <td>
+                            <input
+                              type="checkbox"
+                              checked={Boolean(line.Selected)}
+                              disabled={!pending || outOfStock}
+                              onChange={(event) =>
+                                updateLine(line.MaterialCode, {
+                                  Selected: event.target.checked,
+                                  DispenseNow: event.target.checked
+                                    ? Math.min(Number(line.RemainingQty), Number(line.Stock))
+                                    : 0,
+                                })
+                              }
+                            />
+                          </td>
+                          <td>
+                            <strong>{line.MedicineName || line.MaterialCode}</strong>
+                            <span>
+                              {[line.Specification, line.Unit, line.MaterialCode]
+                                .filter(Boolean)
+                                .join(" · ")}
+                            </span>
+                          </td>
+                          <td>{line.Schedule || "Not recorded"}</td>
+                          <td>{Number(line.PrescribedQty).toLocaleString()}</td>
+                          <td>{Number(line.DispensedQty).toLocaleString()}</td>
+                          <td>
+                            {pending ? (
+                              <div className="pharm-qty-control">
+                                <button onClick={() => changeQuantity(line, -1)} disabled={!line.Selected}>−</button>
+                                <input
+                                  type="number"
+                                  min="0"
+                                  step="1"
+                                  value={line.DispenseNow}
+                                  disabled={!line.Selected}
+                                  onChange={(event) => {
+                                    const max = Math.min(Number(line.RemainingQty), Number(line.Stock));
+                                    const value = Math.max(0, Math.min(max, Number(event.target.value || 0)));
+                                    updateLine(line.MaterialCode, { DispenseNow: value, Selected: value > 0 });
+                                  }}
+                                />
+                                <button onClick={() => changeQuantity(line, 1)} disabled={!line.Selected}>+</button>
+                              </div>
+                            ) : (
+                              <span className="pharm-fulfilled-label"><CheckCircleIcon fontSize="inherit" /> Complete</span>
+                            )}
+                          </td>
+                          <td>
+                            <strong className={outOfStock && pending ? "danger-text" : ""}>
+                              {Number(line.Stock).toLocaleString()}
+                            </strong>
+                            {outOfStock && pending && <span className="stock-note">Out of stock</span>}
+                          </td>
+                          <td>{money(line.Rate)}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="pharm-bottom-grid">
+                <section className="pharm-summary-card">
+                  <div className="pharm-card-title"><InventoryIcon fontSize="small" /><strong>Prescription Financial Summary</strong></div>
+                  <div className="pharm-summary-row"><span>Full prescribed medicine value</span><strong>{money(encounter.Summary.PrescriptionTotal)}</strong></div>
+                  <div className="pharm-summary-row"><span>Already dispensed value</span><strong>{money(encounter.Summary.DispensedValue)}</strong></div>
+                  <div className="pharm-summary-row"><span>Remaining prescription value</span><strong>{money(encounter.Summary.PendingValue)}</strong></div>
+                  <div className="pharm-summary-row highlight"><span>Selected for this dispense</span><strong>{money(selectedDispenseTotal)}</strong></div>
+                  <p>No handling fee, subsidy or tax is invented here; only values stored on the prescription are shown.</p>
+                </section>
+
+                <section className="pharm-action-card">
+                  <div>
+                    <span className="pharm-action-label">Ready to dispense</span>
+                    <strong>{selectedCount} medicine{selectedCount === 1 ? "" : "s"}</strong>
+                    <p>Inventory is deducted only after the database transaction succeeds.</p>
+                  </div>
+                  <button
+                    className="pharm-primary-btn"
+                    onClick={handleDispense}
+                    disabled={dispensing || selectedCount === 0}
+                  >
+                    {dispensing ? <CircularProgress size={18} color="inherit" /> : <PharmacyIcon fontSize="small" />}
+                    {dispensing ? "Dispensing..." : "Dispense selected medicines"}
+                  </button>
+                  <button
+                    className="pharm-secondary-btn full"
+                    onClick={openReceipt}
+                    disabled={!encounter}
+                  >
+                    <ReceiptIcon fontSize="small" /> Open dispensing summary
+                  </button>
+                </section>
+              </div>
+            </>
           )}
-        </div>
-      </div>
+        </main>
+      </section>
 
-      {/* Dosing Guide Modal */}
-      <Dialog
-        open={guideModal}
-        onClose={() => setGuideModal(false)}
-        maxWidth="md"
-        fullWidth
-        PaperProps={{ sx: { borderRadius: "16px" } }}
-      >
-        <DialogTitle sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <strong style={{ fontSize: "18px" }}>Hospital Formulary &amp; Dosing Guide</strong>
-          <IconButton onClick={() => setGuideModal(false)}>
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
-        <DialogContent dividers>
-          <p style={{ fontSize: "13.5px", color: "#334155" }}>
-            Real-time guidance compliant with the British National Formulary (BNF) and WHO Essential Medicines list.
-          </p>
-          <ul style={{ fontSize: "13px", color: "#475569", lineHeight: 1.8 }}>
-            <li><strong>Amoxycillin:</strong> Adults 250mg - 500mg every 8h. Max 4.5g daily. Contraindicated in penicillin hypersensitivity.</li>
-            <li><strong>Paracetamol:</strong> 500mg - 1000mg every 4-6h. Maximum 4000mg/24 hours. Hepatic risk above threshold.</li>
-            <li><strong>Atorvastatin:</strong> Initial 10mg-20mg once daily at bedtime. Monitor hepatic enzymes.</li>
-            <li><strong>Omeprazole:</strong> 20mg once daily before food. Re-evaluate therapy after 4 weeks.</li>
-          </ul>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setGuideModal(false)}>Close Guide</Button>
-        </DialogActions>
-      </Dialog>
-
-      {/* Snackbar feedback */}
       <Snackbar
-        open={snackbar.open}
-        autoHideDuration={4000}
-        onClose={() => setSnackbar({ ...snackbar, open: false })}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        open={toast.open}
+        autoHideDuration={5000}
+        onClose={() => setToast((current) => ({ ...current, open: false }))}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
       >
         <Alert
-          onClose={() => setSnackbar({ ...snackbar, open: false })}
-          severity={snackbar.severity}
-          sx={{ width: "100%", borderRadius: "10px" }}
+          severity={toast.severity}
+          onClose={() => setToast((current) => ({ ...current, open: false }))}
+          variant="filled"
+          sx={{ borderRadius: 2 }}
         >
-          {snackbar.message}
+          {toast.message}
         </Alert>
       </Snackbar>
     </div>

@@ -1,736 +1,719 @@
-// CareSync+ Clinical Treatment Encounter Entry & Prescription Writer
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
-  Box,
-  Button,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  Snackbar,
   Alert,
-  TextField,
-  MenuItem,
-  Select,
+  Autocomplete,
+  CircularProgress,
   FormControl,
   InputLabel,
-  Divider,
+  MenuItem,
+  Select,
+  Snackbar,
+  TextField,
 } from "@mui/material";
 import {
-  ArrowBack as BackIcon,
   Add as AddIcon,
-  Delete as DeleteIcon,
-  Save as SaveIcon,
-  MedicalServices as DoctorIcon,
-  LocalPharmacy as PharmacyIcon,
-  HealthAndSafety as HealthIcon,
-  Assignment as DossierIcon,
-  Shield as ShieldIcon,
+  ArrowBack as BackIcon,
+  CalendarMonth as CalendarIcon,
   CheckCircle as CheckIcon,
-  Close as CloseIcon,
-  Search as SearchIcon,
+  DeleteOutline as DeleteIcon,
+  LocalPharmacy as PharmacyIcon,
+  MedicalServices as DoctorIcon,
+  Person as PersonIcon,
+  ReceiptLong as ReceiptIcon,
+  Save as SaveIcon,
+  ShieldOutlined as ShieldIcon,
 } from "@mui/icons-material";
+import "../styles/clinicalEncounter.css";
+
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
+
+const DOSAGE_OPTIONS = [
+  "Once daily",
+  "Twice daily",
+  "Three times daily",
+  "Every 6 hours",
+  "Every 8 hours",
+  "Before meals",
+  "After meals",
+  "At bedtime",
+  "As needed (PRN)",
+];
+
+const ENCOUNTER_TYPES = [
+  "Inpatient Clinical Review",
+  "OPD Specialist Consultation",
+  "Emergency Clinical Care",
+  "Telehealth Follow-up",
+];
+
+const emptyPrescription = () => ({
+  materialCode: "",
+  takes: "Once daily",
+  quantity: 1,
+});
+
+const toDateInput = (value) => {
+  if (!value) return new Date().toISOString().slice(0, 10);
+  return String(value).split("T")[0];
+};
+
+const getAge = (birthday) => {
+  if (!birthday) return null;
+  const birth = new Date(birthday);
+  if (Number.isNaN(birth.getTime())) return null;
+  const today = new Date();
+  let age = today.getFullYear() - birth.getFullYear();
+  const monthDiff = today.getMonth() - birth.getMonth();
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) age -= 1;
+  return age >= 0 ? age : null;
+};
+
+const genderLabel = (value) => {
+  const v = String(value || "").trim().toLowerCase();
+  if (v === "m" || v === "male") return "Male";
+  if (v === "f" || v === "female") return "Female";
+  if (!v) return "Not recorded";
+  return value;
+};
+
+const doctorLabel = (doctor) => {
+  if (!doctor) return "";
+  const name = doctor.FullName || doctor.UserName || doctor.UserId || "Doctor";
+  return doctor.Specialization ? `${name} — ${doctor.Specialization}` : name;
+};
+
+const extractApiMessage = (error, fallback) => {
+  const data = error?.response?.data;
+  if (typeof data === "string") return data;
+  if (data?.message) return data.message;
+  if (data?.error) return data.error;
+  if (data?.detail) return data.detail;
+  return fallback;
+};
 
 export default function AddRecord() {
   const { patientId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-
-  const loggedInDoctor = localStorage.getItem("Name") || "Dr. Staff Physician";
-  const role = localStorage.getItem("Role") || "Admin";
-
-  const { serialNumber } = location.state || {};
+  const serialNumber = location.state?.serialNumber;
   const isEditMode = Boolean(serialNumber);
 
-  const [loading, setLoading] = useState(false);
-  const [patientDetails, setPatientDetails] = useState(null);
+  const role = localStorage.getItem("Role") || "";
+  const staffUserId = localStorage.getItem("id") || "";
+  const isDoctorLogin = ["doc", "doctor"].includes(role.toLowerCase());
+
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [pageError, setPageError] = useState("");
+  const [patient, setPatient] = useState(null);
+  const [doctors, setDoctors] = useState([]);
+  const [medicines, setMedicines] = useState([]);
+  const [appointment, setAppointment] = useState(null);
+  const [timeslot, setTimeslot] = useState(null);
   const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
 
-  // Autocomplete medicine catalog
-  const [availableMedicines, setAvailableMedicines] = useState([]);
-  const [searchResults, setSearchResults] = useState([]);
-  const [activePrescriptionIndex, setActivePrescriptionIndex] = useState(null);
-
-  // Form State
   const [formData, setFormData] = useState({
     MTD_PATIENT_CODE: patientId,
-    MTD_DATE: new Date().toISOString().split("T")[0],
-    MTD_DOCTOR: loggedInDoctor,
-    MTD_TYPE: "Inpatient Clinical Review",
-    MTD_CHANNEL_NO: "04",
+    MTD_DATE: new Date().toISOString().slice(0, 10),
+    DoctorUserId: "",
+    MTD_TYPE: "OPD Specialist Consultation",
+    MTD_CHANNEL_NO: "",
+    MTD_APPOINMENT_ID: null,
     MTD_COMPLAIN: "",
     MTD_DIAGNOSTICS: "",
     MTD_REMARKS: "",
-    MTD_AMOUNT: 3500.0,
+    MTD_AMOUNT: "",
     MTD_TREATMENT_STATUS: "C",
   });
 
-  const [prescriptions, setPrescriptions] = useState([
-    {
-      MDD_MATERIAL_CODE: "M001",
-      MDD_MATERIAL_NAME: "Amoxycillin 500mg",
-      MDD_TAKES: "Daily TDS (Every 8h)",
-      MDD_QUANTITY: 15,
-      MDD_RATE: 150.0,
-    },
-  ]);
+  const [prescriptions, setPrescriptions] = useState([emptyPrescription()]);
 
   const showToast = (message, severity = "success") => {
     setSnackbar({ open: true, message, severity });
   };
 
   useEffect(() => {
-    // Fetch patient demographics
-    const fetchPatient = async () => {
+    let cancelled = false;
+
+    const load = async () => {
+      setLoading(true);
+      setPageError("");
+
       try {
-        const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/Patient/${patientId}`);
-        setPatientDetails(res.data);
-      } catch (e) {
-        setPatientDetails({
-          MPD_PATIENT_CODE: patientId,
-          MPD_PATIENT_NAME: "Chenuka Kuruppu",
-          MPD_NIC: "200311611379",
-          MPD_MOBILE_NO: "0766706951",
-          MPD_ADDRESS: "Ward 4A • Bed #12, Central Wing",
-          age: 23,
-          sex: "Male",
-          blood: "O+",
-          allergies: "None Reported",
+        const contextRequest = axios.get(`${API_BASE}/ClinicalEncounter/context/${patientId}`, {
+          params: staffUserId ? { staffUserId } : {},
         });
-      }
-    };
 
-    // Fetch formulary medicines for autocomplete
-    const fetchFormulary = async () => {
-      try {
-        const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/Material`);
-        if (res.data && Array.isArray(res.data)) {
-          setAvailableMedicines(res.data);
-        }
-      } catch (e) {
-        setAvailableMedicines([
-          { MMC_MATERIAL_CODE: "M001", MMC_DESCRIPTION: "Amoxycillin 500mg", MMC_RATE: 150.0 },
-          { MMC_MATERIAL_CODE: "M002", MMC_DESCRIPTION: "Paracetamol 500mg", MMC_RATE: 20.0 },
-          { MMC_MATERIAL_CODE: "M003", MMC_DESCRIPTION: "Atorvastatin 20mg", MMC_RATE: 45.0 },
-          { MMC_MATERIAL_CODE: "M004", MMC_DESCRIPTION: "Omeprazole 20mg", MMC_RATE: 25.0 },
-          { MMC_MATERIAL_CODE: "M005", MMC_DESCRIPTION: "Amlodipine 5mg", MMC_RATE: 20.0 },
-          { MMC_MATERIAL_CODE: "M006", MMC_DESCRIPTION: "Metformin 500mg", MMC_RATE: 15.0 },
-        ]);
-      }
-    };
+        const recordRequest = isEditMode
+          ? axios.get(`${API_BASE}/ClinicalEncounter/${patientId}/${serialNumber}`)
+          : Promise.resolve(null);
 
-    fetchPatient();
-    fetchFormulary();
+        const [contextResponse, recordResponse] = await Promise.all([contextRequest, recordRequest]);
+        if (cancelled) return;
 
-    // If edit mode, load existing record
-    if (isEditMode) {
-      const loadExisting = async () => {
-        try {
-          const rec = await axios.get(
-            `${process.env.REACT_APP_API_BASE_URL}/Treatment/patient/record/${patientId}/${serialNumber}`
-          );
-          if (rec.data) {
-            setFormData({
-              MTD_PATIENT_CODE: patientId,
-              MTD_DATE: rec.data.MTD_DATE?.split("T")[0] || new Date().toISOString().split("T")[0],
-              MTD_DOCTOR: rec.data.MTD_DOCTOR || loggedInDoctor,
-              MTD_TYPE: rec.data.MTD_TYPE || "Inpatient Clinical Review",
-              MTD_CHANNEL_NO: rec.data.MTD_CHANNEL_NO || "04",
-              MTD_COMPLAIN: rec.data.MTD_COMPLAIN || "",
-              MTD_DIAGNOSTICS: rec.data.MTD_DIAGNOSTICS || "",
-              MTD_REMARKS: rec.data.MTD_REMARKS || "",
-              MTD_AMOUNT: rec.data.MTD_AMOUNT || 3500.0,
-              MTD_TREATMENT_STATUS: rec.data.MTD_TREATMENT_STATUS || "C",
+        const context = contextResponse.data;
+        setPatient(context.Patient || null);
+        setDoctors(Array.isArray(context.Doctors) ? context.Doctors : []);
+        setMedicines(Array.isArray(context.Medicines) ? context.Medicines : []);
+        setAppointment(context.Appointment || null);
+        setTimeslot(context.Timeslot || null);
+
+        if (recordResponse?.data) {
+          const record = recordResponse.data;
+          const treatment = record.Treatment || {};
+          const recordAppointment = record.Appointment || null;
+          const recordDoctor = record.Doctor || null;
+
+          setPatient(record.Patient || context.Patient || null);
+          setAppointment(recordAppointment);
+          setTimeslot(record.Timeslot || null);
+
+          const recordMedicines = (record.Drugs || []).map((drug) => ({
+            MaterialCode: drug.MDD_MATERIAL_CODE,
+            Description: drug.MaterialName,
+            Specification: drug.MaterialSpecification,
+            Unit: drug.Unit,
+            CurrentStock: drug.CurrentStock,
+            Rate: drug.MDD_RATE,
+            Status: drug.MaterialStatus,
+          }));
+
+          setMedicines((current) => {
+            const byCode = new Map(current.map((m) => [m.MaterialCode, m]));
+            recordMedicines.forEach((m) => {
+              if (m.MaterialCode && !byCode.has(m.MaterialCode)) byCode.set(m.MaterialCode, m);
             });
-            if (rec.data.Drugs && rec.data.Drugs.length > 0) {
-              setPrescriptions(
-                rec.data.Drugs.map((d) => ({
-                  MDD_MATERIAL_CODE: d.MDD_MATERIAL_CODE || "M001",
-                  MDD_MATERIAL_NAME: d.DrugName || d.MMC_DESCRIPTION || "Medicine",
-                  MDD_TAKES: d.MDD_TAKES || "Daily TDS",
-                  MDD_QUANTITY: d.MDD_QUANTITY || 10,
-                  MDD_RATE: d.MDD_RATE || 50.0,
-                }))
-              );
-            }
-          }
-        } catch (e) {
-          console.log("Using edit defaults");
-        }
-      };
-      loadExisting();
-    }
-  }, [patientId, serialNumber, isEditMode, loggedInDoctor]);
+            return Array.from(byCode.values());
+          });
 
-  const handleFormChange = (e) => {
-    const { name, value } = e.target;
+          setFormData({
+            MTD_PATIENT_CODE: patientId,
+            MTD_DATE: toDateInput(treatment.MTD_DATE),
+            DoctorUserId: recordDoctor?.UserId || context.SuggestedDoctorUserId || "",
+            MTD_TYPE: treatment.MTD_TYPE || context.SuggestedEncounterType || "OPD Specialist Consultation",
+            MTD_CHANNEL_NO: treatment.MTD_CHANNEL_NO ?? recordAppointment?.PatientNo ?? "",
+            MTD_APPOINMENT_ID: treatment.MTD_APPOINMENT_ID ?? recordAppointment?.AppointmentId ?? null,
+            MTD_COMPLAIN: treatment.MTD_COMPLAIN || "",
+            MTD_DIAGNOSTICS: treatment.MTD_DIAGNOSTICS || "",
+            MTD_REMARKS: treatment.MTD_REMARKS || "",
+            MTD_AMOUNT: treatment.MTD_AMOUNT ?? "",
+            MTD_TREATMENT_STATUS: treatment.MTD_TREATMENT_STATUS || "C",
+          });
+
+          const rx = Array.isArray(record.Drugs)
+            ? record.Drugs.map((drug) => ({
+                materialCode: drug.MDD_MATERIAL_CODE || "",
+                takes: drug.MDD_TAKES || "Once daily",
+                quantity: Number(drug.MDD_QUANTITY || 1),
+              }))
+            : [];
+          setPrescriptions(rx.length ? rx : [emptyPrescription()]);
+        } else {
+          setFormData((prev) => ({
+            ...prev,
+            MTD_DATE: toDateInput(context.Appointment?.AppointmentDate),
+            DoctorUserId: context.SuggestedDoctorUserId || "",
+            MTD_TYPE: context.SuggestedEncounterType || "OPD Specialist Consultation",
+            MTD_CHANNEL_NO: context.Appointment?.PatientNo ?? "",
+            MTD_APPOINMENT_ID: context.Appointment?.AppointmentId ?? null,
+          }));
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setPageError(extractApiMessage(error, "Unable to load the clinical encounter data."));
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
+
+    load();
+    return () => {
+      cancelled = true;
+    };
+  }, [patientId, serialNumber, isEditMode, staffUserId]);
+
+  const selectedDoctor = useMemo(
+    () => doctors.find((d) => d.UserId === formData.DoctorUserId) || null,
+    [doctors, formData.DoctorUserId]
+  );
+
+  const medicineByCode = useMemo(() => {
+    const map = new Map();
+    medicines.forEach((m) => map.set(m.MaterialCode, m));
+    return map;
+  }, [medicines]);
+
+  const totalDrugAmount = useMemo(
+    () =>
+      prescriptions.reduce((sum, rx) => {
+        const medicine = medicineByCode.get(rx.materialCode);
+        const rate = Number(medicine?.Rate || 0);
+        const quantity = Number(rx.quantity || 0);
+        return sum + rate * quantity;
+      }, 0),
+    [prescriptions, medicineByCode]
+  );
+
+  const consultationFee = Number(formData.MTD_AMOUNT || 0);
+  const encounterTotal = consultationFee + totalDrugAmount;
+  const age = getAge(patient?.MPD_BIRTHDAY);
+
+  const setField = (name, value) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handlePrescriptionChange = (index, field, value) => {
-    setPrescriptions((prev) => {
-      const copy = [...prev];
-      copy[index][field] = value;
-      return copy;
-    });
-  };
-
-  const handleAddPrescriptionRow = () => {
-    setPrescriptions((prev) => [
-      ...prev,
-      {
-        MDD_MATERIAL_CODE: "",
-        MDD_MATERIAL_NAME: "",
-        MDD_TAKES: "Daily TDS (Every 8h)",
-        MDD_QUANTITY: 10,
-        MDD_RATE: 0.0,
-      },
-    ]);
-  };
-
-  const handleRemovePrescriptionRow = (index) => {
-    if (prescriptions.length === 1) {
-      showToast("At least one prescription row is required.", "info");
-      return;
-    }
-    setPrescriptions((prev) => prev.filter((_, i) => i !== index));
-  };
-
-  const handleSearchMedicine = (index, query) => {
-    handlePrescriptionChange(index, "MDD_MATERIAL_NAME", query);
-    setActivePrescriptionIndex(index);
-    if (!query) {
-      setSearchResults([]);
-      return;
-    }
-    const filtered = availableMedicines.filter((m) =>
-      (m.MMC_DESCRIPTION || "").toLowerCase().includes(query.toLowerCase())
+  const updatePrescription = (index, field, value) => {
+    setPrescriptions((prev) =>
+      prev.map((row, rowIndex) => (rowIndex === index ? { ...row, [field]: value } : row))
     );
-    setSearchResults(filtered);
   };
 
-  const handleSelectMedicineSuggestion = (index, med) => {
+  const addPrescription = () => setPrescriptions((prev) => [...prev, emptyPrescription()]);
+
+  const removePrescription = (index) => {
     setPrescriptions((prev) => {
-      const copy = [...prev];
-      copy[index].MDD_MATERIAL_CODE = med.MMC_MATERIAL_CODE;
-      copy[index].MDD_MATERIAL_NAME = med.MMC_DESCRIPTION;
-      copy[index].MDD_RATE = med.MMC_RATE || 50.0;
-      return copy;
+      const next = prev.filter((_, i) => i !== index);
+      return next.length ? next : [emptyPrescription()];
     });
-    setSearchResults([]);
-    setActivePrescriptionIndex(null);
   };
 
-  const handleSubmitTreatment = async (e) => {
-    e.preventDefault();
-    if (!formData.MTD_COMPLAIN) {
-      showToast("Please enter the patient clinical complaint.", "error");
+  const validate = () => {
+    if (!formData.DoctorUserId) return "Select the attending physician.";
+    if (!formData.MTD_COMPLAIN.trim()) return "Enter the patient's presenting complaint.";
+    if (!formData.MTD_DIAGNOSTICS.trim()) return "Enter the diagnostic assessment / clinical findings.";
+    if (formData.MTD_AMOUNT === "" || Number(formData.MTD_AMOUNT) < 0) return "Enter a valid consultation fee.";
+
+    const chosen = prescriptions.filter((p) => p.materialCode);
+    if (chosen.some((p) => Number(p.quantity) <= 0)) return "Every prescribed medicine must have a quantity greater than zero.";
+
+    const uniqueCodes = new Set(chosen.map((p) => p.materialCode));
+    if (uniqueCodes.size !== chosen.length) return "The same medicine cannot be added more than once.";
+
+    const incomplete = prescriptions.some((p) => !p.materialCode && (Number(p.quantity) !== 1 || p.takes !== "Once daily"));
+    if (incomplete) return "Select a medicine for every prescription row or remove the unused row.";
+
+    return "";
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const validationMessage = validate();
+    if (validationMessage) {
+      showToast(validationMessage, "error");
       return;
     }
-
-    setLoading(true);
 
     const payload = {
-      ...formData,
-      MTD_CREATED_DATE: new Date().toISOString(),
-      prescriptions: prescriptions.map((p) => ({
-        MDD_MATERIAL_CODE: p.MDD_MATERIAL_CODE || "M001",
-        MDD_MATERIAL_NAME: p.MDD_MATERIAL_NAME,
-        MDD_TAKES: p.MDD_TAKES,
-        MDD_QUANTITY: Number(p.MDD_QUANTITY) || 1,
-        MMC_RATE: Number(p.MDD_RATE) || 0,
-      })),
+      MTD_PATIENT_CODE: patientId,
+      MTD_DATE: formData.MTD_DATE,
+      DoctorUserId: formData.DoctorUserId,
+      MTD_TYPE: formData.MTD_TYPE,
+      MTD_CHANNEL_NO: formData.MTD_CHANNEL_NO === "" ? null : Number(formData.MTD_CHANNEL_NO),
+      MTD_APPOINMENT_ID: formData.MTD_APPOINMENT_ID || null,
+      MTD_COMPLAIN: formData.MTD_COMPLAIN.trim(),
+      MTD_DIAGNOSTICS: formData.MTD_DIAGNOSTICS.trim(),
+      MTD_REMARKS: formData.MTD_REMARKS.trim() || null,
+      MTD_AMOUNT: Number(formData.MTD_AMOUNT || 0),
+      MTD_TREATMENT_STATUS: formData.MTD_TREATMENT_STATUS,
+      MTD_CREATED_BY: staffUserId || formData.DoctorUserId,
+      Prescriptions: prescriptions
+        .filter((p) => p.materialCode)
+        .map((p) => ({
+          MDD_MATERIAL_CODE: p.materialCode,
+          MDD_QUANTITY: Number(p.quantity),
+          MDD_TAKES: p.takes,
+        })),
     };
 
+    setSaving(true);
     try {
-      if (isEditMode) {
-        await axios.put(
-          `${process.env.REACT_APP_API_BASE_URL}/Treatment/${serialNumber}`,
-          payload
-        );
-        showToast("Clinical treatment updated successfully!", "success");
-      } else {
-        await axios.post(`${process.env.REACT_APP_API_BASE_URL}/Treatment`, payload);
-        showToast("Clinical treatment encounter registered successfully!", "success");
-      }
-      setTimeout(() => {
-        navigate(`/dashboard/view-record/${patientId}/${serialNumber || 1}`);
-      }, 1200);
-    } catch (err) {
-      showToast("Treatment encounter saved to clinical session vault!", "success");
-      setTimeout(() => {
-        navigate(`/dashboard/view-record/${patientId}/${serialNumber || 1}`);
-      }, 1200);
+      const response = isEditMode
+        ? await axios.put(`${API_BASE}/ClinicalEncounter/${patientId}/${serialNumber}`, payload)
+        : await axios.post(`${API_BASE}/ClinicalEncounter`, payload);
+
+      const savedSerial = response.data?.Treatment?.MTD_SERIAL_NO || serialNumber;
+      if (!savedSerial) throw new Error("The server did not return the saved encounter number.");
+
+      navigate(`/dashboard/view-record/${patientId}/${savedSerial}`, {
+        replace: true,
+        state: { justSaved: true },
+      });
+    } catch (error) {
+      showToast(extractApiMessage(error, "The treatment could not be saved. Please review the entered information."), "error");
     } finally {
-      setLoading(false);
+      setSaving(false);
     }
   };
 
-  const patientName = patientDetails?.MPD_PATIENT_NAME || "Chenuka Kuruppu";
-  const totalDrugAmount = prescriptions.reduce(
-    (sum, p) => sum + (Number(p.MDD_QUANTITY || 0) * Number(p.MDD_RATE || 0)),
-    0
-  );
-  const grandTotalAmount = Number(formData.MTD_AMOUNT || 0) + totalDrugAmount;
+  if (loading) {
+    return (
+      <div className="ce-loading-state">
+        <CircularProgress size={34} />
+        <span>Loading patient, appointment and formulary data…</span>
+      </div>
+    );
+  }
+
+  if (pageError) {
+    return (
+      <div className="ce-page">
+        <div className="ce-error-panel">
+          <strong>Clinical encounter could not be opened.</strong>
+          <span>{pageError}</span>
+          <button className="ce-btn ce-btn-secondary" onClick={() => navigate(-1)}>
+            <BackIcon fontSize="small" /> Back
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="hospital-admin-page-container">
-      {/* ── Top Header and Navigation Row ───────────────────── */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "18px", flexWrap: "wrap", gap: "10px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <button className="btn-secondary-white" onClick={() => navigate(-1)}>
-            <BackIcon sx={{ fontSize: 16 }} />
-            <span>Cancel</span>
+    <div className="ce-page">
+      <div className="ce-pagebar">
+        <div className="ce-pagebar-left">
+          <button className="ce-btn ce-btn-secondary" onClick={() => navigate(-1)}>
+            <BackIcon fontSize="small" /> Cancel
           </button>
-          <span style={{ fontSize: "13px", color: "#64748B" }}>
-            Patient Records &rsaquo; <strong>{isEditMode ? "Edit Clinical Treatment" : "New Treatment Entry"}</strong>
-          </span>
-        </div>
-
-        <div style={{ display: "flex", gap: "10px" }}>
-          <button
-            type="submit"
-            form="treatmentForm"
-            className="btn-primary-cyan"
-            disabled={loading}
-          >
-            {loading ? <CircularProgress size={18} color="inherit" /> : <SaveIcon sx={{ fontSize: 18 }} />}
-            <span>{isEditMode ? "Update Clinical Record" : "Submit Clinical Treatment"}</span>
-          </button>
-        </div>
-      </div>
-
-      {/* ── Patient Demographic Summary Banner ───────────────── */}
-      <div className="clinical-table-card" style={{ padding: "18px 22px", marginBottom: "20px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-            <div
-              style={{
-                width: 46,
-                height: 46,
-                borderRadius: "12px",
-                background: "#0A5364",
-                color: "#FFFFFF",
-                fontWeight: 900,
-                fontSize: "18px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              {patientName.charAt(0).toUpperCase()}
-            </div>
-            <div>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <h2 style={{ margin: 0, fontSize: "17px", fontWeight: 800, color: "#0F172A" }}>
-                  {patientName}
-                </h2>
-                <span
-                  style={{
-                    background: "#E0F2FE",
-                    color: "#0284C7",
-                    fontSize: "11px",
-                    fontWeight: 800,
-                    padding: "2px 8px",
-                    borderRadius: "6px",
-                  }}
-                >
-                  {patientId}
-                </span>
-                <span
-                  style={{
-                    background: "#EFF6FF",
-                    color: "#2563EB",
-                    fontSize: "11px",
-                    fontWeight: 700,
-                    padding: "2px 8px",
-                    borderRadius: "6px",
-                  }}
-                >
-                  NIC: {patientDetails?.MPD_NIC || "200311611379"}
-                </span>
-              </div>
-              <div style={{ fontSize: "12px", color: "#64748B", marginTop: "2px" }}>
-                Phone: <strong>{patientDetails?.MPD_MOBILE_NO || "0766706951"}</strong> • Location: <strong>{patientDetails?.MPD_ADDRESS || "Ward 4A • Bed #12"}</strong> • Age/Sex: <strong>23Y / Male (Blood: O+)</strong>
-              </div>
-            </div>
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "6px",
-              background: "#E0F2FE",
-              color: "#0284C7",
-              fontSize: "12px",
-              fontWeight: 700,
-              padding: "5px 12px",
-              borderRadius: "14px",
-            }}
-          >
-            <ShieldIcon sx={{ fontSize: 14 }} />
-            <span>Allergies: {patientDetails?.allergies || "None Reported"}</span>
+          <div>
+            <div className="ce-eyebrow">Patient Records / {isEditMode ? "Edit Encounter" : "New Encounter"}</div>
+            <h1>{isEditMode ? "Update Clinical Treatment" : "Clinical Treatment Entry"}</h1>
           </div>
         </div>
+        <button className="ce-btn ce-btn-primary" type="submit" form="clinicalEncounterForm" disabled={saving}>
+          {saving ? <CircularProgress size={17} color="inherit" /> : <SaveIcon fontSize="small" />}
+          {isEditMode ? "Save Changes" : "Submit Treatment"}
+        </button>
       </div>
 
-      {/* ── Main Treatment Form Container ─────────────────────── */}
-      <form id="treatmentForm" onSubmit={handleSubmitTreatment}>
-        <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1.8fr", gap: "22px" }}>
-          {/* Left Column: Complaint & Diagnostic Findings */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
-            {/* Clinical Encounter Parameters */}
-            <div className="clinical-table-card" style={{ padding: "20px" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "16px" }}>
-                <DossierIcon sx={{ fontSize: 18, color: "#0A6E7C" }} />
-                <h3 style={{ margin: 0, fontSize: "15px", fontWeight: 800, color: "#0F172A" }}>
-                  Clinical Encounter Parameters
-                </h3>
-              </div>
+      <section className="ce-patient-banner">
+        <div className="ce-avatar">{(patient?.MPD_PATIENT_NAME || "P").charAt(0).toUpperCase()}</div>
+        <div className="ce-patient-main">
+          <div className="ce-patient-title-row">
+            <h2>{patient?.MPD_PATIENT_NAME || "Patient"}</h2>
+            <span className="ce-chip ce-chip-blue">{patient?.MPD_PATIENT_CODE || patientId}</span>
+            <span className="ce-chip">{patient?.MPD_PATIENT_TYPE || "Patient type not recorded"}</span>
+          </div>
+          <div className="ce-patient-meta-grid">
+            <span><strong>NIC</strong>{patient?.MPD_NIC_NO || "Not recorded"}</span>
+            <span><strong>Phone</strong>{patient?.MPD_MOBILE_NO || "Not recorded"}</span>
+            <span><strong>Age / Sex</strong>{age !== null ? `${age} yrs` : "Age not recorded"} / {genderLabel(patient?.MPD_GENDER)}</span>
+            <span><strong>Blood Group</strong>{patient?.MPD_BLOOD_GROUP || "Not recorded"}</span>
+            <span><strong>Location</strong>{[patient?.MPD_ADDRESS, patient?.MPD_CITY].filter(Boolean).join(", ") || "Not recorded"}</span>
+          </div>
+        </div>
+        <div className="ce-clinical-note">
+          <ShieldIcon fontSize="small" />
+          <div>
+            <strong>Clinical note</strong>
+            <span>{patient?.MPD_PATIENT_REMARKS || "No patient-level alert or remark recorded."}</span>
+          </div>
+        </div>
+      </section>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-                  <TextField
-                    label="Consultation Date"
-                    type="date"
-                    name="MTD_DATE"
-                    value={formData.MTD_DATE}
-                    onChange={handleFormChange}
-                    required
-                    size="small"
-                  />
-                  <TextField
-                    label="Channel / Appointment #"
-                    name="MTD_CHANNEL_NO"
-                    value={formData.MTD_CHANNEL_NO}
-                    onChange={handleFormChange}
-                    size="small"
-                    placeholder="e.g. 04"
-                  />
+      <form id="clinicalEncounterForm" onSubmit={handleSubmit}>
+        <div className="ce-layout">
+          <div className="ce-column">
+            <section className="ce-card">
+              <div className="ce-card-heading">
+                <CalendarIcon fontSize="small" />
+                <div>
+                  <h3>Clinical Encounter Parameters</h3>
+                  <p>Linked to real appointment and staff records where available.</p>
                 </div>
+              </div>
 
+              {appointment ? (
+                <div className="ce-linked-appointment">
+                  <CheckIcon fontSize="small" />
+                  <div>
+                    <strong>Linked appointment #{appointment.AppointmentId}</strong>
+                    <span>
+                      {toDateInput(appointment.AppointmentDate)}
+                      {appointment.AllocatedTime ? ` • ${String(appointment.AllocatedTime).slice(0, 5)}` : ""}
+                      {timeslot?.ClinicRoom ? ` • ${timeslot.ClinicRoom}` : ""}
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <Alert severity="info" sx={{ mb: 2 }}>
+                  No unlinked appointment was found for this patient. Enter the encounter as a direct clinical review.
+                </Alert>
+              )}
+
+              <div className="ce-form-grid two">
                 <TextField
-                  label="Attending Physician"
-                  name="MTD_DOCTOR"
-                  value={formData.MTD_DOCTOR}
-                  onChange={handleFormChange}
-                  required
+                  label="Consultation Date"
+                  type="date"
+                  value={formData.MTD_DATE}
+                  onChange={(e) => setField("MTD_DATE", e.target.value)}
+                  InputLabelProps={{ shrink: true }}
                   size="small"
+                  disabled={Boolean(appointment)}
+                  required
                 />
-
-                <FormControl fullWidth size="small">
-                  <InputLabel>Encounter Category</InputLabel>
-                  <Select
-                    name="MTD_TYPE"
-                    value={formData.MTD_TYPE}
-                    label="Encounter Category"
-                    onChange={handleFormChange}
-                  >
-                    <MenuItem value="Inpatient Clinical Review">Inpatient Clinical Review</MenuItem>
-                    <MenuItem value="OPD Specialist Consultation">OPD Specialist Consultation</MenuItem>
-                    <MenuItem value="Emergency Triage & Resuscitation">Emergency Triage &amp; Resuscitation</MenuItem>
-                    <MenuItem value="Telehealth Remote Follow-up">Telehealth Remote Follow-up</MenuItem>
-                  </Select>
-                </FormControl>
-              </div>
-            </div>
-
-            {/* Subjective Complaints & Observations */}
-            <div className="clinical-table-card" style={{ padding: "20px" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "16px" }}>
-                <HealthIcon sx={{ fontSize: 18, color: "#0284C7" }} />
-                <h3 style={{ margin: 0, fontSize: "15px", fontWeight: 800, color: "#0F172A" }}>
-                  Clinical Symptoms &amp; Diagnosis
-                </h3>
+                <TextField
+                  label="Channel / Queue #"
+                  type="number"
+                  value={formData.MTD_CHANNEL_NO}
+                  onChange={(e) => setField("MTD_CHANNEL_NO", e.target.value)}
+                  size="small"
+                  disabled={Boolean(appointment)}
+                  placeholder="Not assigned"
+                />
               </div>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-                <div>
-                  <label style={{ fontSize: "12px", fontWeight: 700, color: "#334155", display: "block", marginBottom: "4px" }}>
-                    Patient Presenting Complaints *
-                  </label>
-                  <TextField
-                    fullWidth
-                    multiline
-                    rows={3}
-                    name="MTD_COMPLAIN"
-                    value={formData.MTD_COMPLAIN}
-                    onChange={handleFormChange}
-                    required
-                    placeholder="Document subjective symptoms, onset, severity, and patient description..."
-                    sx={{ "& .MuiOutlinedInput-root": { borderRadius: "10px", fontSize: "13px" } }}
-                  />
-                </div>
+              <FormControl fullWidth size="small">
+                <InputLabel>Attending Physician</InputLabel>
+                <Select
+                  value={formData.DoctorUserId}
+                  label="Attending Physician"
+                  onChange={(e) => setField("DoctorUserId", e.target.value)}
+                  disabled={Boolean(appointment && formData.DoctorUserId) || isDoctorLogin}
+                >
+                  {doctors.map((doctor) => (
+                    <MenuItem key={doctor.UserId} value={doctor.UserId}>
+                      {doctorLabel(doctor)}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
 
-                <div>
-                  <label style={{ fontSize: "12px", fontWeight: 700, color: "#334155", display: "block", marginBottom: "4px" }}>
-                    Diagnostic Assessment &amp; Clinical Findings *
-                  </label>
-                  <TextField
-                    fullWidth
-                    multiline
-                    rows={3}
-                    name="MTD_DIAGNOSTICS"
-                    value={formData.MTD_DIAGNOSTICS}
-                    onChange={handleFormChange}
-                    placeholder="Document vital signs, physical exam findings, ECG/lab observations, and tentative ICD-10 diagnosis..."
-                    sx={{ "& .MuiOutlinedInput-root": { borderRadius: "10px", fontSize: "13px" } }}
-                  />
+              {selectedDoctor && (
+                <div className="ce-inline-profile">
+                  <DoctorIcon fontSize="small" />
+                  <span>
+                    <strong>{selectedDoctor.FullName || selectedDoctor.UserName}</strong>
+                    {selectedDoctor.Specialization ? ` • ${selectedDoctor.Specialization}` : " • Specialization not recorded"}
+                  </span>
                 </div>
+              )}
 
+              <FormControl fullWidth size="small">
+                <InputLabel>Encounter Category</InputLabel>
+                <Select
+                  value={formData.MTD_TYPE}
+                  label="Encounter Category"
+                  onChange={(e) => setField("MTD_TYPE", e.target.value)}
+                >
+                  {ENCOUNTER_TYPES.map((type) => (
+                    <MenuItem key={type} value={type}>{type}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </section>
+
+            <section className="ce-card">
+              <div className="ce-card-heading">
+                <PersonIcon fontSize="small" />
                 <div>
-                  <label style={{ fontSize: "12px", fontWeight: 700, color: "#334155", display: "block", marginBottom: "4px" }}>
-                    Physician Remarks &amp; Discharge Orders
-                  </label>
-                  <TextField
-                    fullWidth
-                    multiline
-                    rows={2}
-                    name="MTD_REMARKS"
-                    value={formData.MTD_REMARKS}
-                    onChange={handleFormChange}
-                    placeholder="Directives for ward nurses, lifestyle guidance, or follow-up schedule..."
-                    sx={{ "& .MuiOutlinedInput-root": { borderRadius: "10px", fontSize: "13px" } }}
-                  />
+                  <h3>Clinical Assessment</h3>
+                  <p>Record the complaint, findings and physician plan for this encounter.</p>
                 </div>
               </div>
-            </div>
+
+              <TextField
+                label="Patient Presenting Complaints"
+                multiline
+                rows={4}
+                value={formData.MTD_COMPLAIN}
+                onChange={(e) => setField("MTD_COMPLAIN", e.target.value)}
+                placeholder="Symptoms, onset, severity, relevant history…"
+                required
+                fullWidth
+              />
+              <TextField
+                label="Diagnostic Assessment & Clinical Findings"
+                multiline
+                rows={4}
+                value={formData.MTD_DIAGNOSTICS}
+                onChange={(e) => setField("MTD_DIAGNOSTICS", e.target.value)}
+                placeholder="Exam findings, investigations, working diagnosis and clinical observations…"
+                required
+                fullWidth
+              />
+              <TextField
+                label="Physician Remarks & Follow-up Orders"
+                multiline
+                rows={3}
+                value={formData.MTD_REMARKS}
+                onChange={(e) => setField("MTD_REMARKS", e.target.value)}
+                placeholder="Follow-up instructions, nursing directions, lifestyle advice or discharge plan…"
+                fullWidth
+              />
+            </section>
           </div>
 
-          {/* Right Column: Pharmacological Orders & Financial Settlement */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
-            {/* Prescriptions Table */}
-            <div className="clinical-table-card" style={{ padding: "20px" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <PharmacyIcon sx={{ fontSize: 18, color: "#0A6E7C" }} />
-                  <h3 style={{ margin: 0, fontSize: "15px", fontWeight: 800, color: "#0F172A" }}>
-                    Pharmacological Dispensing Orders
-                  </h3>
+          <div className="ce-column">
+            <section className="ce-card">
+              <div className="ce-card-heading ce-card-heading-split">
+                <div className="ce-card-heading-main">
+                  <PharmacyIcon fontSize="small" />
+                  <div>
+                    <h3>Pharmacological Dispensing Orders</h3>
+                    <p>Medicines below are loaded from the active hospital inventory.</p>
+                  </div>
                 </div>
-
-                <button
-                  type="button"
-                  className="btn-secondary-white"
-                  onClick={handleAddPrescriptionRow}
-                  style={{ padding: "5px 12px", fontSize: "12px" }}
-                >
-                  <AddIcon sx={{ fontSize: 16 }} />
-                  <span>Add Medicine</span>
+                <button type="button" className="ce-btn ce-btn-secondary compact" onClick={addPrescription}>
+                  <AddIcon fontSize="small" /> Add Medicine
                 </button>
               </div>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                {prescriptions.map((rx, idx) => (
-                  <div
-                    key={idx}
-                    style={{
-                      background: "#F8FAFC",
-                      border: "1px solid #E2E8F0",
-                      borderRadius: "10px",
-                      padding: "12px",
-                      position: "relative",
-                    }}
-                  >
-                    <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1.2fr 0.6fr 40px", gap: "10px", alignItems: "center" }}>
-                      {/* Medicine Search Input with Autocomplete Dropdown */}
-                      <div style={{ position: "relative" }}>
-                        <TextField
-                          label="Medicine Compound"
-                          size="small"
-                          fullWidth
-                          value={rx.MDD_MATERIAL_NAME}
-                          onChange={(e) => handleSearchMedicine(idx, e.target.value)}
-                          placeholder="Type drug name..."
-                          required
+              {medicines.length === 0 && (
+                <Alert severity="warning" sx={{ mb: 2 }}>
+                  No active medicines are available in the inventory catalogue.
+                </Alert>
+              )}
+
+              <div className="ce-rx-list">
+                {prescriptions.map((rx, index) => {
+                  const selected = medicineByCode.get(rx.materialCode) || null;
+                  const stock = Number(selected?.CurrentStock || 0);
+                  const rate = Number(selected?.Rate || 0);
+                  const lineTotal = rate * Number(rx.quantity || 0);
+
+                  return (
+                    <div className="ce-rx-row" key={`${rx.materialCode}-${index}`}>
+                      <div className="ce-rx-fields">
+                        <Autocomplete
+                          options={medicines}
+                          value={selected}
+                          onChange={(_, value) => updatePrescription(index, "materialCode", value?.MaterialCode || "")}
+                          isOptionEqualToValue={(option, value) => option.MaterialCode === value.MaterialCode}
+                          getOptionLabel={(option) =>
+                            [option.Description, option.Specification].filter(Boolean).join(" • ") || option.MaterialCode
+                          }
+                          renderOption={(props, option) => (
+                            <li {...props} key={option.MaterialCode}>
+                              <div className="ce-medicine-option">
+                                <div>
+                                  <strong>{option.Description || option.MaterialCode}</strong>
+                                  <span>{[option.Specification, option.Unit, option.MaterialCode].filter(Boolean).join(" • ")}</span>
+                                </div>
+                                <div className="ce-medicine-option-right">
+                                  <strong>Rs. {Number(option.Rate || 0).toFixed(2)}</strong>
+                                  <span className={Number(option.CurrentStock || 0) > 0 ? "stock-ok" : "stock-empty"}>
+                                    Stock: {Number(option.CurrentStock || 0)}
+                                  </span>
+                                </div>
+                              </div>
+                            </li>
+                          )}
+                          renderInput={(params) => (
+                            <TextField {...params} label="Medicine from Inventory" size="small" />
+                          )}
                         />
 
-                        {activePrescriptionIndex === idx && searchResults.length > 0 && (
-                          <div
-                            style={{
-                              position: "absolute",
-                              top: "100%",
-                              left: 0,
-                              right: 0,
-                              background: "#FFFFFF",
-                              border: "1px solid #CBD5E1",
-                              borderRadius: "8px",
-                              boxShadow: "0 6px 18px rgba(0,0,0,0.12)",
-                              zIndex: 10,
-                              maxHeight: "180px",
-                              overflowY: "auto",
-                              marginTop: "4px",
-                            }}
+                        <FormControl size="small" fullWidth>
+                          <InputLabel>Dosage Schedule</InputLabel>
+                          <Select
+                            value={rx.takes}
+                            label="Dosage Schedule"
+                            onChange={(e) => updatePrescription(index, "takes", e.target.value)}
                           >
-                            {searchResults.map((med) => (
-                              <div
-                                key={med.MMC_MATERIAL_CODE}
-                                onClick={() => handleSelectMedicineSuggestion(idx, med)}
-                                style={{
-                                  padding: "8px 12px",
-                                  fontSize: "12.5px",
-                                  fontWeight: 600,
-                                  color: "#0F172A",
-                                  cursor: "pointer",
-                                  borderBottom: "1px solid #F1F5F9",
-                                  display: "flex",
-                                  justifyContent: "space-between",
-                                }}
-                                onMouseEnter={(e) => (e.currentTarget.style.background = "#F0F9FF")}
-                                onMouseLeave={(e) => (e.currentTarget.style.background = "#FFFFFF")}
-                              >
-                                <span>{med.MMC_DESCRIPTION}</span>
-                                <span style={{ color: "#0284C7", fontWeight: 700 }}>
-                                  Rs. {(med.MMC_RATE || 50).toFixed(2)}
-                                </span>
-                              </div>
+                            {DOSAGE_OPTIONS.map((option) => (
+                              <MenuItem key={option} value={option}>{option}</MenuItem>
                             ))}
-                          </div>
-                        )}
+                          </Select>
+                        </FormControl>
+
+                        <TextField
+                          label="Qty"
+                          type="number"
+                          size="small"
+                          value={rx.quantity}
+                          onChange={(e) => updatePrescription(index, "quantity", e.target.value)}
+                          inputProps={{ min: 1, step: 1 }}
+                        />
+
+                        <button
+                          type="button"
+                          className="ce-icon-danger"
+                          onClick={() => removePrescription(index)}
+                          title="Remove medicine"
+                        >
+                          <DeleteIcon fontSize="small" />
+                        </button>
                       </div>
 
-                      {/* Dosage Schedule Selector */}
-                      <FormControl fullWidth size="small">
-                        <InputLabel>Dosage Schedule</InputLabel>
-                        <Select
-                          value={rx.MDD_TAKES}
-                          label="Dosage Schedule"
-                          onChange={(e) => handlePrescriptionChange(idx, "MDD_TAKES", e.target.value)}
-                        >
-                          <option value="Daily TDS (Every 8h)">Daily TDS (Every 8h)</option>
-                          <MenuItem value="Daily TDS (Every 8h)">Daily TDS (Every 8h)</MenuItem>
-                          <MenuItem value="BD Post-Meal (PRN)">BD Post-Meal (PRN)</MenuItem>
-                          <MenuItem value="OD Before Breakfast">OD Before Breakfast</MenuItem>
-                          <MenuItem value="OD Once at Bedtime">OD Once at Bedtime</MenuItem>
-                          <MenuItem value="As Needed (SOS)">As Needed (SOS)</MenuItem>
-                        </Select>
-                      </FormControl>
-
-                      {/* Quantity */}
-                      <TextField
-                        label="Qty"
-                        type="number"
-                        size="small"
-                        value={rx.MDD_QUANTITY}
-                        onChange={(e) => handlePrescriptionChange(idx, "MDD_QUANTITY", e.target.value)}
-                        required
-                        inputProps={{ min: 1 }}
-                      />
-
-                      {/* Delete Row Button */}
-                      <IconButton
-                        size="small"
-                        onClick={() => handleRemovePrescriptionRow(idx)}
-                        sx={{ color: "#EF4444" }}
-                        title="Remove Drug"
-                      >
-                        <DeleteIcon sx={{ fontSize: 18 }} />
-                      </IconButton>
+                      {selected && (
+                        <div className="ce-rx-meta">
+                          <span><strong>Code</strong>{selected.MaterialCode}</span>
+                          <span><strong>Form</strong>{selected.Unit || "Not recorded"}</span>
+                          <span><strong>Available</strong><em className={stock > 0 ? "ok" : "warning"}>{stock}</em></span>
+                          <span><strong>Unit Rate</strong>Rs. {rate.toFixed(2)}</span>
+                          <span><strong>Line Total</strong>Rs. {lineTotal.toFixed(2)}</span>
+                        </div>
+                      )}
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
-            </div>
+            </section>
 
-            {/* Financial Settlement & Status */}
-            <div className="clinical-table-card" style={{ padding: "20px" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "16px" }}>
-                <CheckIcon sx={{ fontSize: 18, color: "#059669" }} />
-                <h3 style={{ margin: 0, fontSize: "15px", fontWeight: 800, color: "#0F172A" }}>
-                  Encounter Settlement &amp; Status
-                </h3>
+            <section className="ce-card">
+              <div className="ce-card-heading">
+                <ReceiptIcon fontSize="small" />
+                <div>
+                  <h3>Encounter Settlement & Status</h3>
+                  <p>Financial values are calculated from the selected inventory rates.</p>
+                </div>
               </div>
 
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "14px" }}>
+              <div className="ce-form-grid two">
                 <FormControl fullWidth size="small">
-                  <InputLabel>Encounter Status</InputLabel>
+                  <InputLabel>Clinical Status</InputLabel>
                   <Select
-                    name="MTD_TREATMENT_STATUS"
                     value={formData.MTD_TREATMENT_STATUS}
-                    label="Encounter Status"
-                    onChange={handleFormChange}
+                    label="Clinical Status"
+                    onChange={(e) => setField("MTD_TREATMENT_STATUS", e.target.value)}
                   >
-                    <MenuItem value="C">Completed (Proceed to Billing)</MenuItem>
-                    <MenuItem value="P">Preparation Completed</MenuItem>
+                    <MenuItem value="C">Clinical encounter completed</MenuItem>
+                    <MenuItem value="P">Clinical preparation / follow-up pending</MenuItem>
                   </Select>
                 </FormControl>
-
                 <TextField
                   label="Consultation Fee (Rs.)"
                   type="number"
-                  name="MTD_AMOUNT"
                   value={formData.MTD_AMOUNT}
-                  onChange={handleFormChange}
-                  required
+                  onChange={(e) => setField("MTD_AMOUNT", e.target.value)}
+                  inputProps={{ min: 0, step: "0.01" }}
                   size="small"
+                  required
                 />
               </div>
 
-              <div
-                style={{
-                  background: "#F8FAFC",
-                  border: "1px solid #E2E8F0",
-                  borderRadius: "10px",
-                  padding: "14px",
-                  fontSize: "12.5px",
-                }}
-              >
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "4px" }}>
-                  <span style={{ color: "#64748B" }}>Facility &amp; Specialist Fee:</span>
-                  <strong style={{ color: "#0F172A" }}>Rs. {Number(formData.MTD_AMOUNT || 0).toFixed(2)}</strong>
-                </div>
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "4px" }}>
-                  <span style={{ color: "#64748B" }}>Pharmacy Medication Total ({prescriptions.length} items):</span>
-                  <strong style={{ color: "#0284C7" }}>Rs. {totalDrugAmount.toFixed(2)}</strong>
-                </div>
-                <Divider sx={{ my: 0.8 }} />
-                <div style={{ display: "flex", justifyContent: "space-between", fontSize: "14px" }}>
-                  <strong style={{ color: "#0F172A" }}>Estimated Encounter Total:</strong>
-                  <strong style={{ color: "#0A6E7C" }}>Rs. {grandTotalAmount.toFixed(2)}</strong>
-                </div>
-                <div style={{ fontSize: "11px", color: "#64748B", marginTop: "8px" }}>
-                  Prescriptions automatically dispatch to the Central Dispensary carousel upon saving.
-                </div>
+              <div className="ce-financial-summary">
+                <div><span>Consultation / facility fee</span><strong>Rs. {consultationFee.toFixed(2)}</strong></div>
+                <div><span>Prescription value ({prescriptions.filter((p) => p.materialCode).length} items)</span><strong>Rs. {totalDrugAmount.toFixed(2)}</strong></div>
+                <div className="total"><span>Estimated encounter total</span><strong>Rs. {encounterTotal.toFixed(2)}</strong></div>
               </div>
 
-              <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px", marginTop: "16px" }}>
-                <button
-                  type="button"
-                  className="btn-secondary-white"
-                  onClick={() => navigate(-1)}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="btn-primary-cyan"
-                  disabled={loading}
-                >
-                  {loading ? <CircularProgress size={18} color="inherit" /> : <SaveIcon sx={{ fontSize: 18 }} />}
-                  <span>{isEditMode ? "Update Clinical Record" : "Save & Complete Encounter"}</span>
+              <div className="ce-form-actions">
+                <button type="button" className="ce-btn ce-btn-secondary" onClick={() => navigate(-1)}>Cancel</button>
+                <button type="submit" className="ce-btn ce-btn-primary" disabled={saving}>
+                  {saving ? <CircularProgress size={17} color="inherit" /> : <SaveIcon fontSize="small" />}
+                  {isEditMode ? "Update Encounter" : "Save Clinical Encounter"}
                 </button>
               </div>
-            </div>
+            </section>
           </div>
         </div>
       </form>
 
-      {/* Snackbar feedback */}
       <Snackbar
         open={snackbar.open}
-        autoHideDuration={4000}
-        onClose={() => setSnackbar({ ...snackbar, open: false })}
+        autoHideDuration={5500}
+        onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
         <Alert
-          onClose={() => setSnackbar({ ...snackbar, open: false })}
           severity={snackbar.severity}
-          sx={{ width: "100%", borderRadius: "10px" }}
+          onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
+          sx={{ width: "100%" }}
         >
           {snackbar.message}
         </Alert>

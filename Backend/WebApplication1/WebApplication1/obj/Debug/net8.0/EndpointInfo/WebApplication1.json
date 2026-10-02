@@ -5,6 +5,18 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/AppoinmentLogin/health": {
+      "get": {
+        "tags": [
+          "AppoinmentLogin"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/AppoinmentLogin/CheckUserExists": {
       "post": {
         "tags": [
@@ -160,7 +172,7 @@
         }
       }
     },
-    "/api/AppoinmentLogin/Login": {
+    "/api/AppoinmentLogin/LoginWithOtp": {
       "post": {
         "tags": [
           "AppoinmentLogin"
@@ -546,6 +558,239 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/AppointmentBooking/book": {
+      "post": {
+        "tags": [
+          "AppointmentBooking"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookAppointmentRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookAppointmentRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookAppointmentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/AppointmentBooking/{id}": {
+      "get": {
+        "tags": [
+          "AppointmentBooking"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ClinicalEncounter/context/{patientId}": {
+      "get": {
+        "tags": [
+          "ClinicalEncounter"
+        ],
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "staffUserId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ClinicalEncounter/{patientId}/{serialNo}": {
+      "get": {
+        "tags": [
+          "ClinicalEncounter"
+        ],
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serialNo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ClinicalEncounter"
+        ],
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serialNo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClinicalEncounterRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClinicalEncounterRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClinicalEncounterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ClinicalEncounter": {
+      "post": {
+        "tags": [
+          "ClinicalEncounter"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClinicalEncounterRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClinicalEncounterRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClinicalEncounterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/DoctorDirectory": {
+      "get": {
+        "tags": [
+          "DoctorDirectory"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "specialization",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/DoctorDirectory/specializations": {
+      "get": {
+        "tags": [
+          "DoctorDirectory"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
           }
         }
       }
@@ -1726,6 +1971,99 @@
         }
       }
     },
+    "/api/Pharmacy/queue": {
+      "get": {
+        "tags": [
+          "Pharmacy"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Pharmacy/encounter/{patientCode}/{serialNo}": {
+      "get": {
+        "tags": [
+          "Pharmacy"
+        ],
+        "parameters": [
+          {
+            "name": "patientCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serialNo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Pharmacy/dispense/{patientCode}/{serialNo}": {
+      "post": {
+        "tags": [
+          "Pharmacy"
+        ],
+        "parameters": [
+          {
+            "name": "patientCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serialNo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PharmacyDispenseRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PharmacyDispenseRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PharmacyDispenseRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/RegisterUser": {
       "post": {
         "tags": [
@@ -1902,6 +2240,44 @@
         }
       }
     },
+    "/api/Timeslot/active-timeslots": {
+      "get": {
+        "tags": [
+          "Timeslot"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_TIMESLOT"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_TIMESLOT"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MED_TIMESLOT"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Timeslot/Doctor/{doctorName}": {
       "get": {
         "tags": [
@@ -1964,44 +2340,6 @@
               "type": "string"
             }
           }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/MED_TIMESLOT"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/MED_TIMESLOT"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/MED_TIMESLOT"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Timeslot/active-timeslots": {
-      "get": {
-        "tags": [
-          "Timeslot"
         ],
         "responses": {
           "200": {
@@ -2113,6 +2451,20 @@
             "schema": {
               "type": "integer",
               "format": "int32"
+            }
+          },
+          {
+            "name": "adminUserId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "adminUserName",
+            "in": "query",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -2371,25 +2723,19 @@
               "text/plain": {
                 "schema": {
                   "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/MED_TREATMENT_DETAILS"
-                  }
+                  "items": { }
                 }
               },
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/MED_TREATMENT_DETAILS"
-                  }
+                  "items": { }
                 }
               },
               "text/json": {
                 "schema": {
                   "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/MED_TREATMENT_DETAILS"
-                  }
+                  "items": { }
                 }
               }
             }
@@ -3544,6 +3890,127 @@
         },
         "additionalProperties": false
       },
+      "BookAppointmentRequest": {
+        "type": "object",
+        "properties": {
+          "PatientCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "SlotId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClinicalEncounterRequest": {
+        "required": [
+          "DoctorUserId",
+          "MTD_PATIENT_CODE"
+        ],
+        "type": "object",
+        "properties": {
+          "MTD_PATIENT_CODE": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "MTD_DATE": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "DoctorUserId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "MTD_TYPE": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "MTD_CHANNEL_NO": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "MTD_COMPLAIN": {
+            "maxLength": 2000,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "MTD_DIAGNOSTICS": {
+            "maxLength": 2000,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "MTD_REMARKS": {
+            "maxLength": 4000,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "MTD_AMOUNT": {
+            "maximum": 9999999999999999,
+            "minimum": 0,
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "MTD_TREATMENT_STATUS": {
+            "maxLength": 1,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "MTD_APPOINMENT_ID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "MTD_CREATED_BY": {
+            "maxLength": 10,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "Prescriptions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClinicalPrescriptionRequest"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClinicalPrescriptionRequest": {
+        "required": [
+          "MDD_MATERIAL_CODE"
+        ],
+        "type": "object",
+        "properties": {
+          "MDD_MATERIAL_CODE": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "MDD_QUANTITY": {
+            "maximum": 99999999,
+            "minimum": 0.01,
+            "type": "number",
+            "format": "double"
+          },
+          "MDD_TAKES": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "CreateTimeslotRequest": {
         "type": "object",
         "properties": {
@@ -3562,6 +4029,14 @@
             "format": "int32"
           },
           "DoctorUserId": {
+            "type": "string",
+            "nullable": true
+          },
+          "AdminUserId": {
+            "type": "string",
+            "nullable": true
+          },
+          "AdminUserName": {
             "type": "string",
             "nullable": true
           },
@@ -3737,6 +4212,14 @@
             "type": "boolean"
           },
           "MAD_CONFIRMATION_SENT_DATE": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "MAD_REMINDER_EMAIL_SENT": {
+            "type": "boolean"
+          },
+          "MAD_REMINDER_EMAIL_SENT_DATE": {
             "type": "string",
             "format": "date-time",
             "nullable": true
@@ -4108,8 +4591,6 @@
             "nullable": true
           },
           "MT_DOCTOR": {
-            "maxLength": 200,
-            "minLength": 0,
             "type": "string",
             "nullable": true
           },
@@ -4117,33 +4598,31 @@
             "$ref": "#/components/schemas/TimeSpan"
           },
           "MT_USER_ID": {
-            "maxLength": 7,
-            "minLength": 0,
             "type": "string",
             "nullable": true
           },
           "MT_TIMESLOT_STATUS": {
-            "maxLength": 1,
-            "minLength": 0,
             "type": "string",
             "nullable": true
           },
           "MT_DELETE_STATUS": {
-            "maxLength": 1,
-            "minLength": 0,
             "type": "string",
             "nullable": true
           },
           "MT_CLINIC_ROOM": {
-            "maxLength": 100,
-            "minLength": 0,
             "type": "string",
             "nullable": true
           },
           "MT_DELIVERY_CHANNEL": {
-            "maxLength": 20,
-            "minLength": 0,
             "type": "string",
+            "nullable": true
+          },
+          "MT_REMINDER_EMAIL_SENT": {
+            "type": "boolean"
+          },
+          "MT_REMINDER_EMAIL_SENT_DATE": {
+            "type": "string",
+            "format": "date-time",
             "nullable": true
           }
         },
@@ -4482,6 +4961,44 @@
             "type": "string",
             "format": "date-time",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PharmacyDispenseLineRequest": {
+        "required": [
+          "MaterialCode"
+        ],
+        "type": "object",
+        "properties": {
+          "MaterialCode": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "Quantity": {
+            "maximum": 999999999,
+            "minimum": 0.01,
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PharmacyDispenseRequest": {
+        "required": [
+          "Lines"
+        ],
+        "type": "object",
+        "properties": {
+          "DispenserUserId": {
+            "type": "string",
+            "nullable": true
+          },
+          "Lines": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PharmacyDispenseLineRequest"
+            }
           }
         },
         "additionalProperties": false

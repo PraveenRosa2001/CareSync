@@ -1,525 +1,224 @@
-/* patientappoinment.css */
-.mobile-display {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f0f0f0; /* Light gray background for the mobile display */
-  padding: 30px; /* Space around the mobile device */
+.cs-booking-page {
+  --booking-navy: #0f172a;
+  --booking-muted: #64748b;
+  --booking-line: #e2e8f0;
+  --booking-blue: #0b74c8;
+  --booking-teal: #0f766e;
+  min-height: 100vh;
+  padding: 24px;
+  background:
+    radial-gradient(circle at top right, rgba(14, 165, 233, .07), transparent 32%),
+    #f7f9fc;
+  color: var(--booking-navy);
 }
 
-
-.screen4 .button-group {
-  display: flex;
-  gap: 10px; /* Adjust the gap as needed */
-}
-.screen4
-.btn-confirm,
-.btn-back {
-  padding: 8px 16px;
-}
-
-.appoinments-lists{
-
-
-  margin-bottom: 10px;
-}
-
-
-
-.appoinment-screen-container {
+.cs-booking-shell {
+  max-width: 1180px;
   margin: 0 auto;
-  padding: 20px;
-  background: transparent;
-  border-radius: 8px;
-  height: auto;
-  overflow: scroll;
-  overflow-x: hidden;
-  
-  /* max-width: 345px; */
 }
 
-/* Style for the scrollbar */
-.appoinment-screen-container::-webkit-scrollbar {
-  width: 6px;  /* Set the width of the scrollbar */
-}
-
-.appoinment-screen-container::-webkit-scrollbar-track {
-  background: transparent;  /* Set the track background */
-}
-
-.appoinment-screen-container::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.2); /* Set the thumb color */
-  border-radius: 10px; /* Rounded corners for the thumb */
-}
-
-
-
-
-/* Media query for mobile screens */
-@media (max-width: 600px) {
-  .appoinment-screen-container {
-    padding: 15px; /* Reduced padding for smaller screens */
-    max-width: 100%; /* Allow the container to take full width */
-  }
-}
-
-
-
-
-.mobile-frame {
-  width: 340px; 
-  height: 500px; 
-  
-  border-radius: 36px;
-  
-  margin:0 auto;
-  /* padding: 40px; */
-}
-
-
-/* Media query for screens below 400px */
-@media (max-width: 400px) {
-  .mobile-frame {
-    width: 100%; /* Take full width */
-    height: auto; /* Dynamic height */
-    margin: 10px;
-    border-radius: 16px;
-  }
-
-  .appoinment-screen-container {
-    padding: 10px; /* Reduce padding for better spacing */
-    max-width: 100%; /* Ensure it fits parent container */
-    height: auto; /* Allow content height */
-    overflow-y: auto; /* Enable vertical scrolling */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
-    scrollbar-width: thin; /* Slim scrollbar */
-  }
-
-  /* Styled scrollbar for smaller screens */
-  .appoinment-screen-container::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  .appoinment-screen-container::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-  }
-}
-
-/* Base styles to ensure responsiveness */
-.appoinment-screen-container {
-  overflow-y: auto;
-  overflow-x: hidden;
-  height: auto; /* Dynamic content height */
-}
-
-.appoinment-screen-container::-webkit-scrollbar {
-  width: 6px; /* Consistent scrollbar width */
-}
-
-.appoinment-screen-container::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.appoinment-screen-container::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-}
-
-
-@media (max-width: 400px) {
-  .screen3 {
-      margin: 20px auto;
-      max-width: 300px;
-  }
-}
-
-
-@media (max-width: 480px) {
-  .screen3 {
-      max-width: 300px;
-  }
-}
-
-
-/* @media (max-width: 480px) {
-  .mobile-frame {
-    width: 95%;
-    padding: 15px;
-  }
-} */
-
-
-.screen4 button{
-
-
-  padding: 5px 10px;
-  border: none;
-  border-radius: 4px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-
-
-}
-
-
-.screen0,
-.screen1,
-.screen2,
-
-.screen4 {
-  max-width: 600px;
-  margin: 20px auto; /* Centers the screen */  
-
-}
-
-
-
-/* Login Screen */
-.login-screen {
+.cs-booking-topbar {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.login-screen h1 {
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.login-screen label {
-  margin: 10px 0 5px;
-}
-
-.login-screen input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.login-screen button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-}
-
-.login-screen button:hover {
-  background-color: #0056b3;
-}
-
-/* Common screen styles */
-.screen1, .screen2, .screen3, .screen4, .screen5,.login-screen {
-  display: none; /* Hide all screens by default */
-}
-.login-screen.active,
-.screen1.active,
-.screen2.active,
-.screen3.active,
-.screen4.active,
-.screen5.active {
-  display: block; /* Show the active screen */
-}
-
-/* Screen 1 */
-.screen1 h1 {
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.screen1 input[type="search"] {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.screen1 select{
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-
-}
-
-
-
-
-.doctor-suggestions {
-  list-style-type: none;
-  padding: 0;
-}
-
-.doctor-suggestions li {
-  padding: 10px;
-  border: 1px solid #ccc;
-  margin-top: 5px;
-  cursor: pointer;
-  background-color: #fff;
-}
-
-.doctor-suggestions li:hover {
-  background-color: #e9ecef;
-}
-
-
-.screen1 p{
-
-  color: #dc3545;
-}
-
-/* Screen 2 */
-.screen2 {
-  margin-top: 20px;
-}
-
-.screen2 p {
-  margin: 10px 0;
-}
-
-/* Screen 3 */
-.screen3 {
-  margin-top: 20px;
-}
-
-.screen3 ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.screen3 li {
-  padding: 15px;
-    
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  margin: 5px 0;
-}
-
-
-.screen3 button {
-  padding: 5px 10px;
-  border: none;
-  border-radius: 4px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-  margin-bottom: 15px;
-}
-
-.screen3 button:hover {
-  background-color: #0056b3;
-}
-
-/* Screen 4 */
-.screen4 {
-  margin-top: 20px;
-}
-
-.screen4 input {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-/* Screen 5 */
-.screen5 {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.screen5 button{
-
-  padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-}
-
-
-
-.screen5 button:hover{
-
-
-  background-color: #0056b3;
-}
-
-/* Button styling */
-.btn-search-appointment {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 4px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-}
-
-.btn-search-appointment:hover {
-  background-color: #0056b3;
-}
-/* Screen 2: Display Doctors */
-.screen2 {
-  padding: 20px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.screen2 ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.screen2 li {
-  /* display: flex; */
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  margin-bottom: 10px;
-  background-color: #fff;
-}
-.doctor-list {
-  list-style-type: none;
-  padding: 0;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
-.doctor-item {
+.cs-back-button.MuiButton-root {
+  text-transform: none;
+  font-weight: 700;
+  color: #0369a1;
+  background: #fff;
+  border: 1px solid var(--booking-line);
+  border-radius: 10px;
+  padding: 8px 14px;
+}
+
+.cs-patient-context { display: flex; align-items: center; gap: 8px; color: var(--booking-muted); font-size: 12px; }
+.cs-patient-context > span { font-weight: 700; color: var(--booking-navy); }
+
+.cs-booking-stepper {
+  max-width: 720px;
+  margin: 4px auto 28px;
+}
+.cs-booking-stepper .MuiStepLabel-label { font-size: 12px; font-weight: 700 !important; }
+.cs-booking-stepper .MuiStepIcon-root.Mui-active,
+.cs-booking-stepper .MuiStepIcon-root.Mui-completed { color: #0b74c8; }
+
+.cs-doctor-section, .cs-slot-section, .cs-booking-success {
+  background: #fff;
+  border: 1px solid var(--booking-line);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 12px 38px rgba(15, 23, 42, .055);
+}
+
+.cs-booking-heading, .cs-slot-heading {
   display: flex;
-  justify-content: space-between; /* Spreads the content between the left and right */
-  align-items: center; /* Vertically centers the icon and text */
-  padding: 10px;
-  border-bottom: 1px solid #ddd; /* Adds a separator between the items */
-}
-
-.doctor-details {
-  display: flex;
-  flex-direction: column; /* Stacks name and specialization vertically */
-}
-
-.channel-icon {
-  font-size: 1.5rem; /* Adjust icon size */
-  color: #007bff; /* Blue color for the icon */
-  margin-left: auto; /* Align the icon to the right */
-}
-
-.screen2 li p {
-  margin: 0;
-  font-weight: 500;
-}
-
-.screen2 button {
-  padding: 8px 16px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.screen2 button:hover {
-  background-color: #0056b3;
-}
-
-.screen2 p {
-  color: #666;
-  font-size: 14px;
-  margin-bottom: 15px;
-}
-
-.screen2 h1 {
-  font-size: 24px;
-  color: #333;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
   margin-bottom: 20px;
-  text-align: center;
 }
 
-.screen2 .back-button {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 10px 20px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
+.cs-booking-eyebrow {
+  color: #0284c7;
+  font-size: 10px;
+  letter-spacing: .14em;
+  font-weight: 900;
+  margin-bottom: 5px;
+}
+.cs-booking-heading h1, .cs-slot-heading h1, .cs-booking-success h1 { margin: 0; font-size: clamp(24px, 3.3vw, 34px); letter-spacing: -.035em; }
+.cs-booking-heading p, .cs-slot-heading p, .cs-booking-success > p { margin: 6px 0 0; color: var(--booking-muted); font-size: 13px; line-height: 1.6; }
+
+.cs-safe-booking-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 320px;
+  padding: 11px 13px;
+  border-radius: 12px;
+  background: #f0fdfa;
+  border: 1px solid #ccfbf1;
+  color: #0f766e;
+  font-size: 11px;
+  line-height: 1.45;
+  font-weight: 700;
+}
+.cs-safe-booking-note svg { font-size: 18px; flex: 0 0 auto; }
+
+.cs-doctor-toolbar { display: grid; grid-template-columns: minmax(0, 1fr) 230px; gap: 10px; margin-bottom: 20px; }
+.cs-search-icon { color: #94a3b8; margin-right: 8px; }
+
+.cs-doctor-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.cs-doctor-card {
+  display: grid;
+  gap: 16px;
+  padding: 18px;
+  min-height: 185px;
+  border: 1px solid var(--booking-line);
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fff 0%, #fbfdff 100%);
+  transition: .2s ease;
+}
+.cs-doctor-card:hover { transform: translateY(-3px); border-color: #bae6fd; box-shadow: 0 12px 28px rgba(2,132,199,.09); }
+.cs-doctor-card-head { display: flex; gap: 12px; align-items: center; }
+.cs-doctor-avatar.MuiAvatar-root { width: 48px; height: 48px; background: linear-gradient(135deg, #0284c7, #0f766e); font-weight: 800; }
+.cs-doctor-card h3 { margin: 0; font-size: 16px; }
+.cs-doctor-card-head span { display: inline-block; color: var(--booking-muted); font-size: 12px; margin-top: 3px; }
+.cs-doctor-status { display: flex; align-items: center; gap: 7px; font-size: 11px; color: #047857; }
+.cs-doctor-status > span { width: 7px; height: 7px; border-radius: 50%; background: #10b981; box-shadow: 0 0 0 4px #d1fae5; }
+.cs-doctor-card .MuiButton-root { margin-top: auto; text-transform: none; border-radius: 9px; font-weight: 800; }
+
+.cs-selected-doctor-bar {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  border: 1px solid #bae6fd;
+  background: #f0f9ff;
+  border-radius: 14px;
+}
+.cs-selected-doctor-bar > div span { color: #0284c7; font-size: 10px; text-transform: uppercase; letter-spacing: .06em; font-weight: 800; }
+.cs-selected-doctor-bar h2 { margin: 2px 0 0; font-size: 17px; }
+.cs-selected-doctor-bar p { margin: 2px 0 0; color: var(--booking-muted); font-size: 11px; }
+.cs-selected-doctor-bar .MuiButton-root { text-transform: none; font-weight: 700; }
+
+.cs-date-groups { display: grid; gap: 18px; }
+.cs-date-group { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 14px; align-items: start; }
+.cs-date-label { display: flex; align-items: flex-start; gap: 8px; padding: 10px 0; color: #0284c7; }
+.cs-date-label svg { font-size: 18px; }
+.cs-date-label div { display: grid; }
+.cs-date-label strong { color: var(--booking-navy); font-size: 12px; line-height: 1.4; }
+.cs-date-label span { color: #94a3b8; font-size: 10px; margin-top: 3px; }
+.cs-patient-slot-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+
+.cs-patient-slot-card {
+  padding: 15px;
+  border: 1px solid var(--booking-line);
+  border-left: 4px solid #22c55e;
+  border-radius: 13px;
+  background: #fff;
+  display: grid;
+  gap: 11px;
+}
+.cs-patient-slot-card.closed { border-left-color: #cbd5e1; background: #fafafa; }
+.cs-slot-time-row { display: flex; align-items: center; gap: 8px; }
+.cs-slot-time-row svg { color: #f59e0b; font-size: 19px; }
+.cs-slot-time-row strong { font-size: 14px; }
+.cs-slot-detail-row { display: flex; flex-wrap: wrap; gap: 8px 14px; color: var(--booking-muted); font-size: 10.5px; }
+.cs-slot-detail-row span { display: inline-flex; align-items: center; gap: 4px; }
+.cs-slot-detail-row svg { font-size: 14px; color: #0284c7; }
+.cs-slot-availability > div:first-child { display: flex; justify-content: space-between; color: var(--booking-muted); font-size: 10px; }
+.cs-slot-availability strong { color: var(--booking-navy); }
+.cs-patient-progress { height: 5px; background: #e2e8f0; border-radius: 99px; margin-top: 5px; overflow: hidden; }
+.cs-patient-progress span { display: block; height: 100%; background: linear-gradient(90deg, #22c55e, #0f766e); border-radius: inherit; }
+.cs-patient-slot-card .MuiButton-root { text-transform: none; font-weight: 800; border-radius: 9px; box-shadow: none; background: linear-gradient(135deg, #16a34a, #0f766e); }
+
+.cs-booking-loading, .cs-booking-empty { min-height: 250px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px; text-align: center; color: var(--booking-muted); }
+.cs-booking-empty svg { font-size: 46px; color: #94a3b8; }
+.cs-booking-empty h3 { margin: 2px 0 0; color: var(--booking-navy); }
+.cs-booking-empty p { margin: 0; font-size: 12px; }
+
+.cs-confirm-title { font-weight: 800 !important; }
+.cs-confirm-dialog { display: grid; gap: 18px; padding-top: 8px; }
+.cs-confirm-doctor { display: flex; gap: 12px; align-items: center; }
+.cs-confirm-doctor .MuiAvatar-root { background: #0e7490; }
+.cs-confirm-doctor div { display: grid; }
+.cs-confirm-doctor span, .cs-confirm-details small { color: #94a3b8; font-size: 10px; text-transform: uppercase; font-weight: 800; letter-spacing: .05em; }
+.cs-confirm-doctor strong { font-size: 15px; }
+.cs-confirm-doctor small { color: var(--booking-muted); margin-top: 2px; }
+.cs-confirm-details { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.cs-confirm-details > div { display: flex; gap: 9px; align-items: flex-start; padding: 12px; border-radius: 11px; background: #f8fafc; border: 1px solid var(--booking-line); }
+.cs-confirm-details svg { color: #0284c7; font-size: 18px; }
+.cs-confirm-details span { display: grid; }
+.cs-confirm-details strong { font-size: 12px; margin-top: 2px; }
+.cs-confirm-actions { padding: 12px 24px 20px !important; }
+.cs-confirm-actions .MuiButton-root { text-transform: none; font-weight: 800; border-radius: 9px; }
+
+.cs-booking-success { text-align: center; max-width: 760px; margin: 0 auto; }
+.cs-success-icon { width: 70px; height: 70px; display: grid; place-items: center; margin: 0 auto 14px; border-radius: 22px; background: #ecfdf5; color: #059669; }
+.cs-success-icon svg { font-size: 42px; }
+.cs-confirmation-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; margin: 24px 0; text-align: left; }
+.cs-confirmation-grid > div { display: grid; gap: 3px; padding: 13px; border: 1px solid var(--booking-line); border-radius: 11px; background: #f8fafc; }
+.cs-confirmation-grid span { color: #94a3b8; text-transform: uppercase; font-size: 9px; font-weight: 800; }
+.cs-confirmation-grid strong { font-size: 12px; }
+.cs-email-confirmation { display: flex; justify-content: center; align-items: center; gap: 8px; background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; border-radius: 12px; padding: 12px; font-size: 11px; }
+.cs-success-actions { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+.cs-success-actions .MuiButton-root { text-transform: none; font-weight: 800; border-radius: 9px; }
+
+.cs-session-card { max-width: 520px; margin: 12vh auto 0; background: #fff; border: 1px solid var(--booking-line); border-radius: 20px; padding: 34px; text-align: center; box-shadow: 0 12px 36px rgba(15,23,42,.06); }
+.cs-session-card > svg { font-size: 46px; color: #0284c7; }
+.cs-session-card h2 { margin-bottom: 6px; }
+.cs-session-card p { color: var(--booking-muted); font-size: 13px; line-height: 1.55; }
+.cs-session-card .MuiButton-root { text-transform: none; margin-top: 10px; }
+
+@media (max-width: 900px) {
+  .cs-doctor-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cs-date-group { grid-template-columns: 1fr; gap: 4px; }
+  .cs-date-label { padding-bottom: 0; }
+  .cs-confirmation-grid { grid-template-columns: 1fr 1fr; }
 }
 
-.screen2 .back-button:hover {
-  background-color: #0056b3;
-}
-.screen3 .bookings-filled {
-  font-size: 16px;
-  font-weight: bold;
-  color: #dc3545; /* Red color to indicate filled bookings */
-  background-color: #f8d7da; /* Light red background for visibility */
-  padding: 10px;
-  border-radius: 4px;
-  text-align: center;
-  margin-top: 10px;
-}
-
-
-
-/* Mobile frame and patient appointment screen styles for max-width: 400px */
-/* Mobile frame and appointment screen responsive styles */
-@media (max-width: 400px) {
-  .mobile-frame {
-    width: 100%; /* Ensure it takes full width */
-    height: auto; /* Adjust height dynamically */
-    margin: 10px;
-    border-radius: 16px;
-  }
-
-  .appoinment-screen-container {
-    padding: 10px; /* Reduced padding for smaller screens */
-    max-width: 100%; /* Ensure it fits the parent container */
-    height: 100%; /* Ensure it uses the full height */
-    overflow-y: auto; /* Enable vertical scrolling */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
-    scrollbar-width: thin; /* Keep scrollbar visible but slim */
-  }
-
-  .appoinment-screen-container::-webkit-scrollbar {
-    width: 6px; /* Set a fixed width for the scrollbar */
-  }
-
-  .appoinment-screen-container::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.2); /* Styled scrollbar thumb */
-    border-radius: 10px; /* Rounded corners for the scrollbar */
-  }
+@media (max-width: 650px) {
+  .cs-booking-page { padding: 12px; }
+  .cs-doctor-section, .cs-slot-section, .cs-booking-success { padding: 16px; border-radius: 16px; }
+  .cs-booking-heading, .cs-slot-heading { flex-direction: column; }
+  .cs-safe-booking-note { max-width: none; width: 100%; box-sizing: border-box; }
+  .cs-doctor-toolbar { grid-template-columns: 1fr; }
+  .cs-specialty-filter { width: 100%; }
+  .cs-doctor-grid, .cs-patient-slot-grid { grid-template-columns: 1fr; }
+  .cs-selected-doctor-bar { grid-template-columns: auto 1fr; }
+  .cs-selected-doctor-bar > .MuiButton-root { grid-column: 1 / -1; justify-self: start; }
+  .cs-confirm-details { grid-template-columns: 1fr; }
+  .cs-booking-stepper .MuiStepLabel-label { font-size: 10px; }
 }
 
-/* Base styles to prevent scrollbar disappearance */
-.appoinment-screen-container {
-  overflow-y: auto; /* Always enable vertical scrolling */
-  overflow-x: hidden; /* Prevent horizontal scrolling */
-  height: auto; /* Allow content to determine height */
+@media (max-width: 430px) {
+  .cs-patient-context > span { display: none; }
+  .cs-confirmation-grid { grid-template-columns: 1fr; }
+  .cs-success-actions { flex-direction: column; }
 }
-
-/* Maintain scrollbar visibility and functionality across all screen sizes */
-.appoinment-screen-container::-webkit-scrollbar {
-  width: 6px; /* Set a consistent scrollbar width */
-}
-
-.appoinment-screen-container::-webkit-scrollbar-track {
-  background: transparent; /* Transparent track */
-}
-
-.appoinment-screen-container::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.2); /* Styled thumb */
-  border-radius: 10px; /* Rounded scrollbar corners */
-}
-
-

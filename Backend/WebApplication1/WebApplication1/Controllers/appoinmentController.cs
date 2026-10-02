@@ -6,7 +6,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 using System;
+using System.Data;
 using WebApplication1.Services;
 
 
@@ -18,13 +20,16 @@ namespace webapplication3.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly ILogger<AppointmentController> _logger;
-        private readonly IEmailService _emailService;
+        private readonly IConfiguration _configuration;
 
-        public AppointmentController(ApplicationDbContext context, ILogger<AppointmentController> logger, IEmailService emailService)
+        public AppointmentController(
+            ApplicationDbContext context,
+            ILogger<AppointmentController> logger,
+            IConfiguration configuration)
         {
             _context = context;
             _logger = logger;
-            _emailService = emailService;
+            _configuration = configuration;
         }
 
         [HttpPost]
@@ -245,7 +250,8 @@ namespace webapplication3.Controllers
 
             try
             {
-                await _emailService.SendNotificationEmailAsync(
+                var emailService = new CareSyncEmailService(_configuration);
+                await emailService.SendNotificationEmailAsync(
                     appointment.MAD_EMAIL,
                     appointment.MAD_FULL_NAME,
                     "Your Medicare appointment confirmation",
@@ -328,7 +334,8 @@ namespace webapplication3.Controllers
 
             return Ok(appoinments);
         }
-
+        // Patient portal appointment history.
+        // This mirrors the original working API and projects only the fields the UI uses.
         [HttpGet("getappointment/patientcode")]
         public async Task<ActionResult<IEnumerable<object>>> DetailsById(string patientcode)
         {
@@ -337,52 +344,94 @@ namespace webapplication3.Controllers
                 return BadRequest("Patient code cannot be null or empty.");
             }
 
-            var appointments = await _context.MED_APPOINMENT_DETAILS
-                               .Where(a => a.MAD_PATIENT_CODE == patientcode)
-                               .Select(a => new
-                               {
-                                   a.MAD_APPOINMENT_ID,
-                                   a.MAD_DOCTOR,
-                                   a.MAD_APPOINMENT_DATE,
-                                   a.MAD_START_TIME,
-                                   a.MAD_END_TIME,
-                                   a.MAD_ALLOCATED_TIME,
-                                   TreatmentStatus = _context.MED_TREATMENT_DETAILS.Any(t => t.MTD_APPOINMENT_ID == a.MAD_APPOINMENT_ID) ? "Completed" : "Pending"
-                               })
-                               .ToListAsync();
-
-            if (appointments == null || !appointments.Any())
+            try
             {
-                return NotFound("No appointments found for the given patient code.");
-            }
+                var appointments = await _context.MED_APPOINMENT_DETAILS
+                    .AsNoTracking()
+                    .Where(a => a.MAD_PATIENT_CODE == patientcode)
+                    .OrderByDescending(a => a.MAD_APPOINMENT_DATE)
+                    .ThenByDescending(a => a.MAD_ALLOCATED_TIME)
+                    .Select(a => new
+                    {
+                        a.MAD_APPOINMENT_ID,
+                        a.MAD_DOCTOR,
+                        a.MAD_APPOINMENT_DATE,
+                        a.MAD_START_TIME,
+                        a.MAD_END_TIME,
+                        a.MAD_ALLOCATED_TIME,
+                        TreatmentStatus = _context.MED_TREATMENT_DETAILS
+                            .Any(t => t.MTD_APPOINMENT_ID == a.MAD_APPOINMENT_ID)
+                            ? "Completed"
+                            : "Pending"
+                    })
+                    .ToListAsync();
 
-            return Ok(appointments);
+                if (appointments.Count == 0)
+                {
+                    return NotFound("No appointments found for the given patient code.");
+                }
+
+                return Ok(appointments);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex,
+                    "Failed to load appointment history for patient {PatientCode}.", patientcode);
+                return StatusCode(500, new
+                {
+                    message = "Unable to load the patient's appointment history."
+                });
+            }
         }
 
         [HttpGet("getappointment/email")]
         public async Task<ActionResult<IEnumerable<object>>> getappointmentemail(string email)
         {
-            var appointments = await _context.MED_APPOINMENT_DETAILS
-                .Where(a => a.MAD_EMAIL == email)
-                .Select(a => new
-                {
-                    a.MAD_APPOINMENT_ID,
-                    a.MAD_DOCTOR,
-                    a.MAD_APPOINMENT_DATE,
-                    a.MAD_START_TIME,
-                    a.MAD_END_TIME,
-                    a.MAD_ALLOCATED_TIME,
-                    TreatmentStatus = _context.MED_TREATMENT_DETAILS.Any(t => t.MTD_APPOINMENT_ID == a.MAD_APPOINMENT_ID) ? "Completed" : "Pending"
-                })
-                .ToListAsync();
-
-            if (appointments == null || !appointments.Any())
+            if (string.IsNullOrWhiteSpace(email))
             {
-                return NotFound("No appointments found");
+                return BadRequest("Email cannot be null or empty.");
             }
 
-            return Ok(appointments);
+            try
+            {
+                var appointments = await _context.MED_APPOINMENT_DETAILS
+                    .AsNoTracking()
+                    .Where(a => a.MAD_EMAIL == email)
+                    .OrderByDescending(a => a.MAD_APPOINMENT_DATE)
+                    .ThenByDescending(a => a.MAD_ALLOCATED_TIME)
+                    .Select(a => new
+                    {
+                        a.MAD_APPOINMENT_ID,
+                        a.MAD_DOCTOR,
+                        a.MAD_APPOINMENT_DATE,
+                        a.MAD_START_TIME,
+                        a.MAD_END_TIME,
+                        a.MAD_ALLOCATED_TIME,
+                        TreatmentStatus = _context.MED_TREATMENT_DETAILS
+                            .Any(t => t.MTD_APPOINMENT_ID == a.MAD_APPOINMENT_ID)
+                            ? "Completed"
+                            : "Pending"
+                    })
+                    .ToListAsync();
+
+                if (appointments.Count == 0)
+                {
+                    return NotFound("No appointments found.");
+                }
+
+                return Ok(appointments);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex,
+                    "Failed to load appointment history for email {Email}.", email);
+                return StatusCode(500, new
+                {
+                    message = "Unable to load appointment history."
+                });
+            }
         }
+
 
     }
 }

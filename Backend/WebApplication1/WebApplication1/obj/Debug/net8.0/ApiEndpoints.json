@@ -17,8 +17,18 @@
   },
   {
     "ContainingType": "webapplication3.Controllers.AppoinmentLoginController",
-    "Method": "Login",
-    "RelativePath": "api/AppoinmentLogin/Login",
+    "Method": "Health",
+    "RelativePath": "api/AppoinmentLogin/health",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "webapplication3.Controllers.AppoinmentLoginController",
+    "Method": "LoginWithOtp",
+    "RelativePath": "api/AppoinmentLogin/LoginWithOtp",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -33,7 +43,7 @@
   },
   {
     "ContainingType": "webapplication3.Controllers.AppoinmentLoginController",
-    "Method": "loginpatient",
+    "Method": "LoginPatient",
     "RelativePath": "api/AppoinmentLogin/patient-login-api",
     "HttpMethod": "POST",
     "IsController": true,
@@ -318,6 +328,153 @@
     "ContainingType": "webapplication3.Controllers.AppointmentController",
     "Method": "GetTomorrowsAppointments",
     "RelativePath": "api/Appointment/tomorrows-appointments",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.AppointmentBookingController",
+    "Method": "GetBooking",
+    "RelativePath": "api/AppointmentBooking/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.AppointmentBookingController",
+    "Method": "Book",
+    "RelativePath": "api/AppointmentBooking/book",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "WebApplication1.Controllers.AppointmentBookingController\u002BBookAppointmentRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ClinicalEncounterController",
+    "Method": "CreateEncounter",
+    "RelativePath": "api/ClinicalEncounter",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "WebApplication1.DTOs.ClinicalEncounterRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ClinicalEncounterController",
+    "Method": "GetEncounter",
+    "RelativePath": "api/ClinicalEncounter/{patientId}/{serialNo}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "serialNo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ClinicalEncounterController",
+    "Method": "UpdateEncounter",
+    "RelativePath": "api/ClinicalEncounter/{patientId}/{serialNo}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "serialNo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "WebApplication1.DTOs.ClinicalEncounterRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ClinicalEncounterController",
+    "Method": "GetEncounterContext",
+    "RelativePath": "api/ClinicalEncounter/context/{patientId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "staffUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.DoctorDirectoryController",
+    "Method": "GetDoctors",
+    "RelativePath": "api/DoctorDirectory",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "q",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "specialization",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.DoctorDirectoryController",
+    "Method": "GetSpecializations",
+    "RelativePath": "api/DoctorDirectory/specializations",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -1051,6 +1208,63 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "WebApplication1.Controllers.PharmacyController",
+    "Method": "Dispense",
+    "RelativePath": "api/Pharmacy/dispense/{patientCode}/{serialNo}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientCode",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "serialNo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "WebApplication1.DTOs.PharmacyDispenseRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.PharmacyController",
+    "Method": "GetEncounter",
+    "RelativePath": "api/Pharmacy/encounter/{patientCode}/{serialNo}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientCode",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "serialNo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.PharmacyController",
+    "Method": "GetQueue",
+    "RelativePath": "api/Pharmacy/queue",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "webapplication3.Controllers.RegisterUserController",
     "Method": "RegisterUser",
     "RelativePath": "api/RegisterUser",
@@ -1290,6 +1504,16 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "adminUserId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "adminUserName",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -1482,7 +1706,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebApplication1.Models.MED_TREATMENT_DETAILS, WebApplication1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
